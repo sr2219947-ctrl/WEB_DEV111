@@ -1,0 +1,37 @@
+<!---Recreate the following form with suitable elements and input types-->
+<!--1.) text input fname and lname 
+    2.) dropdown menus gender 
+    3.)checkboxes
+    4.)buttons
+-->
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <h3>Registration form </h3>
+        <form action="/action">
+            <div>
+                <input type="text" placeholder="first name" name="fname"/>
+                <input type="text" placeholder="last name" name="lname" />
+                </div>
+                <div>
+                    <label for="gender"> please select your Gender:</label>
+                    <select name="gender" id="gender">
+                        <option value="f">Female</option>
+                        <option value="m">Male</option>
+                        <option value="o">Others</option>
+                    </select>
+                </div>
+                <div>
+                    Do you agree to all terms of srvice?
+                    <input type="checkbox" id="tos_agree" name="tos_agree" />
+                    <label for="tos_agree">Yes, I agree</label>
+                </div>
+                <button>Register</button>
+        </form>
+    </body>
+    </html>

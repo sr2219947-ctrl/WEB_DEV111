@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/server">
+        <input type="checkbox" id="age" name="age"/>
+        <label for="age">I am over 18</label>
+        <div>
+            <input type="radio" name="fruit" id="apple" value="apple" />
+            <label for="apple">apple</label>
+            <input type="radio" name="fruit" id="banana" value="banana"/>
+            <label for="banana">banana</label>
+            <input type="radio"  name="fruit" id="mango" value="mango"/>
+            <label for="mango">mango</label>
+        </div>
+        <div>
+            Choose you favorite colors:
+            <input type="checkbox" id=""red" name="colors" value="red" />
+            <label for="red">red</label>
+            <input type="checkbox" id="green" name="colors" value="green"/>
+            <label for="green">green</label>
+            <input type="checkbox" id="blue" name="colors" value="blue" />
+            <label for="blue">blue</label>
+        </div>
+        <div>
+            Choose your profession:
+            <select name="profession" id="profession">
+                <option>Select your option</option>
+                <option value="stu">Student</option>
+                <option value="emp">Employee</option>
+            </select>
+        </div>
+        <label for="vol">Select your volume:</label>
+        <input type="range" id="vol" min="0" max="100" name="vol" step="10" value="70" />
+
+        <label for="feedback">please provide your valuable feedback:</label>
+        <textarea id="feedback" name="feedback" rows="4" cols="50" placeholder="write your feedback here "></textarea>
+        <button type="submit">submit</button>
+    </form>
+</body>
+</html>
+<!-- by default text area is equal to 2 rows and 20 columns -->
+<!--difference between checkbox and radio buttons 
+    that checkbox allows multiple selections while radio buttons allow only one selection radio can only allow multiple selections of the same group or if we assign same category to two radio buttons-->
