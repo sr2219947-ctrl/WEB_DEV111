@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Registration Form</h1>
+    <form action="/action">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter your name" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Enter your email" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" placeholder="Enter your password" required><br><br>
+        
+        <label for="gender">Gender:</label>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label>
+        <label for="other">Other</label>
+        <input type="radio" id="other" name="gender" value="other"><br><br>
+
+        <label for="skills">Skills:</la bel>
+        <input type="checkbox" id="html" name="skills" value="html">
+        <label for="html">HTML</label>
+        <input type="checkbox" id="css" name="skills" value="css">
+        <label for="css">CSS</label>
+        <input type="checkbox" id="js" name="skills" value="js">
+        <label for="js">JavaScript</label>
+        <br><br>
+
+        <label for="City">City:</label>
+        <select id="City" name="City">
+            <option value="delhi">Delhi</option>
+            <option value="Karnal">Karnal</option>
+            <option value="bangalore">Bangalore</option>
+            <option value="kolkata">Kolkata</option>
+        </select>
+        <br><br>
+
+        <label for="Feedback">Feedback:</label>
+        <textarea id="Feedback" name="Feedback" placeholder="Enter your feedback"></textarea>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

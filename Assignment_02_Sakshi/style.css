@@ -1,0 +1,30 @@
+
+body{
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+#main-heading{
+    color: darkblue;
+    text-align: center;
+}
+
+.highlight{
+    color: rgb(23, 0, 128);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+img{
+    border: 3px solid black;
+}
+
+div{
+    background-color: lightgray;
+    padding: 10px;
+}
+
+footer{
+    text-align: center;
+}
