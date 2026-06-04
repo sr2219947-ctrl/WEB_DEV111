@@ -4,3 +4,121 @@
 h3{
     color:brown;
 }
+#login{
+    background-color: white;
+}
+#signup{
+    background-color: brown;
+    color:white;
+}
+.upvote{
+    background-color: aqua;
+    color:black
+}
+
+/* descendant selector */
+.post a{
+    color:purple;
+}
+
+.p a{
+    color:blue;
+}
+/* nav ul li a descendant selector  */
+nav  a {    
+    color:hotpink;
+}
+p+h3{
+    text-decoration: underline;
+}
+
+.upvote+button{
+    background-color: cornflowerblue;
+}
+
+/* direct child selector */
+div>input{
+    background-color: darksalmon;
+}
+input[type="text"]{
+    color:red;
+}
+input[type="password"]{
+    color:blue;
+}
+
+/* #myid p{
+    color:green;
+} */
+div[id="myid"] p{
+    color:green;
+}
+
+button:hover{
+    background-color:black;
+    color:white;
+}
+
+/*this hover thing is not applied to a login and sign up because of css speciicity */
+h3:hover{
+    text-decoration:overline;
+}
+
+button:active{
+    background-color: greenyellow;
+    color:black;
+}
+
+/* so the color of button login and signup foreground color changes but not background color but that id specify to it in start .*/
+p:active{
+    font-weight: bold;
+    color:green;
+ }
+
+ /* input[type="radio"]:checked +label{
+    color:red;
+    font-weight:bold;
+ }
+ applies the same style to both radio buttons when checked.
+
+To make Yes = Green and No = Red, target them by their IDs: */
+
+#yes:checked+label{
+    color:green;
+    font-weight: bold;
+}
+
+#no:checked+label{
+    color:red;
+    font-weight:bold;
+}
+
+/* .post:nth-of-type(2){
+    background-color: blanchedalmond;
+} */
+ div:nth-of-type(n){
+    background-color: blanchedalmond;
+}
+
+/* every even  2nd div color changes  and 3n changes the color of odd every 3rd nth or div third  */
+h1::first-letter{
+    color:green;
+}
+
+p::first-line{
+    color:red;
+}
+p::selection{
+    background-color: rgba(255, 255, 0, 0.683);
+}
+/* h3{
+    background-color: chartreuse;
+}
+h3{
+    background-color: blue;
+} */
+
+/* preference given to last changes
+if second file say style2.css attach in index.html file then in that 2nd file we vhnage specfifc 
+property than the prefernce given to seocnd file style2.css style will be chnaged accords of second file*/
+

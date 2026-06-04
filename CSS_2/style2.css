@@ -1,0 +1,28 @@
+/* div{
+    background-color: khaki;
+} */
+/* so p ul and li inherited the property of div automatically this property called div */
+/* p{
+    background-color: cadetblue;
+} */
+
+
+div{
+    background-color: hotpink;
+}
+
+form{
+    background-color: aqua;
+}
+
+input{
+    background-color: inherit;
+}
+button{
+    background-color: inherit;
+}
+/* there is label inside form so property change so that label also change 
+but input  color doesn't change becuase input do not inherited the property. */
+
+/* so we use inherit property  to chnage the color of button and label
+coloors , colorspace, canve for color specificity for any website  */
