@@ -1,0 +1,23 @@
+h1{
+    text-align:center;
+    text-decoration : underline;
+    text-decoration-color: maroon;
+    border:solid;
+    font-size:60px;
+}
+h2{
+    font-weight:800;
+    text-decoration:double blue underline;
+}
+/* h3{
+    text-decoration:wavy hotpink line-through;
+    letter-spacing: 10px;
+} */
+ @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+a{
+    text-decoration: none;
+    font-family: 'poppins',sans-serif;
+}
+p{
+    line-height:1.5;
+}
