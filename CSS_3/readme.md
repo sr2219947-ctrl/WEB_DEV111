@@ -1,53 +1,309 @@
-# Box Model in CSS 
-1._) height
-2.) width
-3.) border
-4.) margin
-5.) padding
-border
-margin space between two boxes 
-content -.height , width, padding between content and  border
+# CSS Box Model, Margin & Display Properties Notes
 
+## CSS Box Model
 
-2.) Border --> border-width
-  border-style
-  border-color
+Every HTML element is treated as a box.
 
-shorthad property of border border: 2px solid black 
+The box model consists of:
 
-3.) border Sides 
-to control the individual slide of the box 
+1. Content
+2. Padding
+3. Border
+4. Margin
+
+```
++-----------------------+
+|       Margin          |
+|  +-----------------+  |
+|  |     Border      |  |
+|  | +-------------+ |  |
+|  | |   Padding   | |  |
+|  | | +---------+ | |  |
+|  | | | Content | | |  |
+|  | | +---------+ | |  |
+|  | +-------------+ |  |
+|  +-----------------+  |
++-----------------------+
+```
+
+### Content
+The actual content of the element.
+
+Properties:
+- `width`
+- `height`
+
+Example:
+
+```css
+div{
+    width: 300px;
+    height: 150px;
+}
+```
+
+---
+
+## Border
+
+A border surrounds the padding and content.
+
+### Border Properties
+
+```css
+border-width: 2px;
+border-style: solid;
+border-color: black;
+```
+
+### Shorthand Property
+
+```css
+border: 2px solid black;
+```
+
+---
+
+## Border Sides
+
+Control individual sides of the border.
+
+```css
 border-left
 border-right
-border-top 
-border-bottom 
+border-top
+border-bottom
+```
 
+Example:
 
-border-left-color : green ; it changed the left border 
-border-left-style : dashed ;// 
+```css
+border-left-color: green;
+border-left-style: dashed;
+```
 
-border-radius : 15px; 
+### Rounded Corners
 
+```css
+border-radius: 15px;
+```
 
-4.) padding
-padding-left 
-padding-right
-padding-top
-padding-bottom
+---
 
+## Padding
+
+Padding is the space between content and border.
+
+### Individual Sides
+
+```css
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 20px;
+padding-bottom: 20px;
+```
+
+Example:
+
+```css
 div{
-    padding-left:50px;
+    padding-left: 50px;
 }
+```
 
-for all sides 
+### Shorthand Forms
+
+#### All Sides
+
+```css
 padding: 50px;
-paddding : 1px 2px  // top bottom and right left 
-padding : top | left and right | bottom 
-          1px 2px 3px 
+```
 
-padding top | right|bottom |left 
-paddig : 1px 2px 3px 4px 
+#### Top-Bottom | Left-Right
 
+```css
+padding: 10px 20px;
+```
 
-5.) Margin 
+#### Top | Left-Right | Bottom
 
+```css
+padding: 10px 20px 30px;
+```
+
+#### Top | Right | Bottom | Left
+
+```css
+padding: 10px 20px 30px 40px;
+```
+
+---
+
+## Margin
+
+Margin is the space outside the border.
+
+It creates distance between elements (boxes).
+
+### Individual Sides
+
+```css
+margin-left: 20px;
+margin-right: 20px;
+margin-top: 10px;
+margin-bottom: 10px;
+```
+
+### Shorthand Forms
+
+#### All Sides
+
+```css
+margin: 20px;
+```
+
+#### Top-Bottom | Left-Right
+
+```css
+margin: 10px 20px;
+```
+
+#### Top | Left-Right | Bottom
+
+```css
+margin: 10px 20px 30px;
+```
+
+#### Top | Right | Bottom | Left
+
+```css
+margin: 10px 20px 30px 40px;
+```
+
+### Centering an Element
+
+```css
+div{
+    width: 300px;
+    margin: auto;
+}
+```
+
+---
+
+# Display Properties
+
+The `display` property controls how an element appears on the page.
+
+## 1. Block Elements
+
+Take the full width available.
+
+Examples:
+- `<div>`
+- `<p>`
+- `<h1>` to `<h6>`
+
+```css
+display: block;
+```
+
+Characteristics:
+- Starts on a new line.
+- Takes full width.
+
+---
+
+## 2. Inline Elements
+
+Take only the width needed by their content.
+
+Examples:
+- `<span>`
+- `<a>`
+- `<strong>`
+
+```css
+display: inline;
+```
+
+Characteristics:
+- Does not start on a new line.
+- Width and height cannot be set.
+
+---
+
+## 3. Inline-Block
+
+Behaves like inline but allows width and height.
+
+```css
+display: inline-block;
+```
+
+Example:
+
+```css
+span{
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+}
+```
+
+---
+
+## 4. None
+
+Hides the element completely.
+
+```css
+display: none;
+```
+
+Example:
+
+```css
+div{
+    display: none;
+}
+```
+
+The element is removed from the page layout.
+
+---
+
+# Quick Revision
+
+## Box Model Order
+
+```
+Content → Padding → Border → Margin
+```
+
+## Border Shorthand
+
+```css
+border: 2px solid black;
+```
+
+## Padding Shorthand
+
+```css
+padding: top right bottom left;
+```
+
+## Margin Shorthand
+
+```css
+margin: top right bottom left;
+```
+
+## Display Types
+
+| Display | New Line | Width/Height Allowed |
+|----------|-----------|---------------------|
+| block | Yes | Yes |
+| inline | No | No |
+| inline-block | No | Yes |
+| none | Hidden | No |
