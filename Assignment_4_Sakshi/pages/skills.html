@@ -1,45 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skills</title>
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills — Sakshi Rana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../pages-style.css" />
 </head>
 <body>
 
-<header>
-    <h1>My Skills</h1>
-</header>
+  <header>
+    <h1>Sakshi <span>Rana</span></h1>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="skills.html" class="active">Skills</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-<section class="page-section">
+  <main class="card-page">
 
-    <div class="skill-box">
-        <h3>HTML5</h3>
-        <p>Building semantic and accessible web pages.</p>
+    <div class="eyebrow"></div>
+    <h2>My <span>Skills</span></h2>
+
+    <p class="skills-intro">
+      I've been building on the web since my first semester — starting with
+      HTML structure, then adding styling, interactivity, and gradually moving
+      toward full-stack concepts. Here's where I stand today.
+    </p>
+
+    <!-- CORE SKILLS WITH BARS -->
+    <p class="skills-section-title">Core Proficiency</p>
+
+    <div class="skill-list">
+
+      <div class="skill-row reveal">
+        <span class="name">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="">
+          HTML5
+        </span>
+        <div class="bar-track"><div class="bar-fill" style="--w:95%"></div></div>
+        <span class="pct">95%</span>
+      </div>
+
+      <div class="skill-row reveal">
+        <span class="name">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="">
+          CSS3
+        </span>
+        <div class="bar-track"><div class="bar-fill" style="--w:90%"></div></div>
+        <span class="pct">90%</span>
+      </div>
+
+      <div class="skill-row reveal">
+        <span class="name">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="">
+          JavaScript
+        </span>
+        <div class="bar-track"><div class="bar-fill" style="--w:72%"></div></div>
+        <span class="pct">72%</span>
+      </div>
+
+      <div class="skill-row reveal">
+        <span class="name">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="">
+          C++
+        </span>
+        <div class="bar-track"><div class="bar-fill" style="--w:65%"></div></div>
+        <span class="pct">65%</span>
+      </div>
+
+      <div class="skill-row reveal">
+        <span class="name">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="">
+          Python
+        </span>
+        <div class="bar-track"><div class="bar-fill" style="--w:60%"></div></div>
+        <span class="pct">60%</span>
+      </div>
+
+      <div class="skill-row reveal">
+        <span class="name">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="">
+          Node.js
+        </span>
+        <div class="bar-track"><div class="bar-fill" style="--w:55%"></div></div>
+        <span class="pct">55%</span>
+      </div>
+
     </div>
 
-    <div class="skill-box">
-        <h3>CSS3</h3>
-        <p>Creating responsive layouts using Flexbox and Grid.</p>
+    <!-- TOOLS & CONCEPTS CHIPS -->
+    <p class="skills-section-title">Tools &amp; Concepts</p>
+    <div class="tools-grid">
+      <div class="tool-chip reveal">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="">
+        Git &amp; GitHub
+      </div>
+      <div class="tool-chip reveal">
+        <span class="dot" style="background:#f97316"></span>
+        Responsive Design
+      </div>
+      <div class="tool-chip reveal">
+        <span class="dot" style="background:#6c47ff"></span>
+        CSS Flexbox &amp; Grid
+      </div>
+      <div class="tool-chip reveal">
+        <span class="dot" style="background:#10b981"></span>
+        DOM Manipulation
+      </div>
+      <div class="tool-chip reveal">
+        <span class="dot" style="background:#3b82f6"></span>
+        REST APIs
+      </div>
+      <div class="tool-chip reveal">
+        <span class="dot" style="background:#ef4444"></span>
+        CSS Animations
+      </div>
+      <div class="tool-chip reveal">
+        <span class="dot" style="background:#8b5cf6"></span>
+        Glassmorphism UI
+      </div>
+      <div class="tool-chip reveal">
+        <span class="dot" style="background:#f59e0b"></span>
+        VS Code
+      </div>
     </div>
 
-    <div class="skill-box">
-        <h3>JavaScript</h3>
-        <p>Adding interactivity and dynamic functionality.</p>
-    </div>
+    <a href="../index.html" class="back-btn">← Back to Home</a>
 
-    <div class="skill-box">
-        <h3>Git & GitHub</h3>
-        <p>Version control and project collaboration.</p>
-    </div>
+  </main>
 
-    <a href="../index.html" class="btn">Back to Home</a>
+  <p class="page-footer">© 2026 Sakshi Rana · All rights reserved</p>
 
-</section>
+  <script>
+    // Reveal animation
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.05 });
+    reveals.forEach(el => io.observe(el));
 
+    // Animate skill bars after they appear
+    document.querySelectorAll('.bar-fill').forEach(bar => {
+      const rowObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            setTimeout(() => e.target.classList.add('animated'), 200);
+            rowObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      rowObserver.observe(bar);
+    });
+  </script>
 </body>
 </html>

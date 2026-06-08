@@ -1,41 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me</title>
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Sakshi Rana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../pages-style.css" />
 </head>
 <body>
-<header>
-    <h1>Sakshi Rana</h1>
-</header>
 
-<section class="page-section">
-    <h2>About Me</h2>
+  <header>
+    <h1>Sakshi <span>Rana</span></h1>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="skills.html">Skills</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-    <p>
-        Hello! I'm Sakshi Rana, a passionate Full Stack Developer who enjoys
-        creating modern, responsive, and user-friendly websites.
-    </p>
+  <main class="card-page">
 
-    <p>
-        I have experience working with HTML, CSS, JavaScript, and modern
-        web development tools. I love solving problems, learning new
-        technologies, and building projects that improve user experiences.
-    </p>
+    <div class="eyebrow"></div>
+    <h2>About <span>Me</span></h2>
 
-    <p>
-        My goal is to become a professional software developer and
-        contribute to innovative projects that make a positive impact.
-    </p>
+    <div class="about-layout">
 
-    <a href="../index.html" class="btn">Back to Home</a>
-</section>
+      <!-- LEFT — bio text -->
+      <div class="about-text">
+        <p>
+          Hi! I'm <strong>Sakshi Rana</strong>, an MCA student and aspiring
+          Full Stack Developer who loves crafting modern, responsive, and
+          purposeful web experiences. I believe in learning by building —
+          every project teaches me something new.
+        </p>
+        <p>
+          My foundations are in HTML, CSS, and JavaScript, and I'm actively
+          expanding into Node.js, Python, and backend development. I enjoy
+          turning ideas into real, working products that people can interact
+          with — whether it's a sleek UI or a useful tool.
+        </p>
+        <p>
+          My goal is to become a well-rounded Full Stack Developer and
+          contribute to innovative projects that make a positive impact.
+        </p>
 
+        <div class="pill-row">
+          <span class="pill">🎓 MCA Student</span>
+          <span class="pill">💻 Full Stack</span>
+          <span class="pill">🌐 Open Source</span>
+          <span class="pill">🚀 Problem Solver</span>
+          <span class="pill">📚 Lifelong Learner</span>
+        </div>
+      </div>
+
+      <!-- RIGHT — achievements -->
+      <div class="about-right">
+        <p class="skills-section-title">Highlights</p>
+        <div class="achievement-grid">
+
+          <div class="ach-card reveal">
+            <span class="ach-icon">🎓</span>
+            <h4>MCA</h4>
+            <p>Master of Computer Applications — currently pursuing</p>
+          </div>
+
+          <div class="ach-card reveal">
+            <span class="ach-icon">📘</span>
+            <h4>BSc (Csc)</h4>
+            <p>Computer Science — strong academic foundation</p>
+          </div>
+
+          <div class="ach-card reveal">
+            <span class="ach-icon">🏗️</span>
+            <h4>7+ Projects</h4>
+            <p>Real-world projects built & deployed from scratch</p>
+          </div>
+
+          <div class="ach-card reveal">
+            <span class="ach-icon">⭐</span>
+            <h4>GitHub</h4>
+            <p>All work published publicly on GitHub</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Currently learning strip -->
+    <div class="learning-strip reveal">
+      <span class="label">Currently Learning</span>
+      <div class="tags">
+        <span class="ltag">⚙️ Node.js</span>
+        <span class="ltag">🐍 Python</span>
+        <span class="ltag">🗄️ REST APIs</span>
+        <span class="ltag">📱 Responsive Design</span>
+        <span class="ltag">🧩 Component Architecture</span>
+      </div>
+    </div>
+
+    <a href="../index.html" class="back-btn">← Back to Home</a>
+
+  </main>
+
+  <p class="page-footer">© 2026 Sakshi Rana · All rights reserved</p>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => io.observe(el));
+  </script>
 </body>
 </html>

@@ -11,10 +11,10 @@
 </head>
 <body>
     <header>
-        <h1>Sakshi Rana</h1>
+      <h1>Sakshi <span>Rana</span></h1>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="pages/about.html">About</a></li>
                 <li><a href="pages/skills.html">Skills</a></li>
                 <li><a href="pages/projects.html">Projects</a></li>
@@ -47,6 +47,7 @@
     </a>
 </div>
     </section>
+
 <!-- About section -->
     <section class="about">
         <h2>About Me 🤖🧑‍💻</h2>
@@ -57,43 +58,116 @@
     Web Developer • Problem Solver • Lifelong Learner 🚀
 </p>
 
+    <!-- Achievement highlights -->
+        <div class="about-highlights">
+            <div class="highlight-card">
+                <span class="highlight-icon">🎓</span>
+                <h4>MCA</h4>
+                <p>Master of Computer Applications — currently pursuing</p>
+            </div>
+            <div class="highlight-card">
+                <span class="highlight-icon">💻</span>
+                <h4>BSc (Csc)</h4>
+                <p>Bachelor's in Computer Science — strong foundations</p>
+            </div>
+            <div class="highlight-card">
+                <span class="highlight-icon">🏗️</span>
+                <h4>3+ Projects</h4>
+                <p>Real-world projects built from scratch and deployed</p>
+            </div>
+            <div class="highlight-card">
+                <span class="highlight-icon">🌐</span>
+                <h4>Open Source</h4>
+                <p>All work published publicly on GitHub</p>
+            </div>
+        </div>
+
+        <!-- What I'm learning / currently doing -->
+        <div class="about-currently">
+            <h3>Currently Learning</h3>
+            <div class="learning-tags">
+                <span class="learn-tag">⚙️ Node.js & Backend</span>
+                <span class="learn-tag">🐍 Python Scripting</span>
+                <span class="learn-tag">🗄️ Databases & APIs</span>
+                <span class="learn-tag">📱 Responsive Design</span>
+            </div>
+        </div>
     </section>
 
-   <section class="skills">
-    <h2>My Skills</h2>
+    <!-- Skills section -->
+    <section class="skills">
+        <h2>My Skills</h2>
 
-    <div class="skill-container">
+        <div class="skill-container">
 
-        <div class="card html">
-            <h3>HTML5</h3>
-            <div class="progress">
-                <div class="progress-bar" style="width:95%"></div>
+            <div class="card html">
+                <h3>HTML5</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="width:95%"></div>
+                </div>
+                <span>95%</span>
             </div>
-            <span>95%</span>
-        </div>
 
-        <div class="card css">
-            <h3>CSS3</h3>
-            <div class="progress">
-                <div class="progress-bar" style="width:90%"></div>
+            <div class="card css">
+                <h3>CSS3</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="width:90%"></div>
+                </div>
+                <span>90%</span>
             </div>
-            <span>90%</span>
-        </div>
 
-        <div class="card js">
-            <h3>JavaScript</h3>
-            <div class="progress">
-                <div class="progress-bar" style="width:70%"></div>
+            <div class="card js">
+                <h3>JavaScript</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="width:70%"></div>
+                </div>
+                <span>70%</span>
             </div>
-            <span>70%</span>
-        </div>
 
-    </div>
-</section>
+            <div class="card cpp">
+                <h3>C++</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="width:65%"></div>
+                </div>
+                <span>65%</span>
+            </div>
+
+            <div class="card nodejs">
+                <h3>Node.js</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="width:55%"></div>
+                </div>
+                <span>55%</span>
+            </div>
+
+            <div class="card python">
+                <h3>Python</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="width:60%"></div>
+                </div>
+                <span>60%</span>
+            </div>
+
+        </div>
+    </section>
  <!-- projects section -->
     <section class="projects">
         <h2>Projects</h2>
        <div class="project-container">
+
+         <div class="project-card">
+                <img src="images/zomato.png" alt="Zomato Clone">
+                <h3>Zomato Clone</h3>
+                <p>Food delivery UI with filtering, menu layout and responsive design built from scratch.</p>
+                <a href="https://sr2219947-ctrl.github.io/java-script/zomato/Project_zom" target="_blank" class="project-btn">View Project</a>
+            </div>
+
+            <div class="project-card">
+                <img src="images/portfolio.png" alt="Portfolio">
+                <h3>Portfolio Website</h3>
+                <p>My personal portfolio built with HTML, CSS & JavaScript showcasing all projects and skills.</p>
+                <a href="#" target="_blank" class="project-btn">View Project</a>
+            </div>
 
             <div class="project-card">
                 <img src="images/timer.png" alt="">
