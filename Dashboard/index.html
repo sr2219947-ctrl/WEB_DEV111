@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Grid Layout Example</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <header class="header">
+    <h2>Dashboard</h2>
+    <div class="header-right">
+      <input type="text" placeholder="Search...">
+      <div class="avatar">S</div>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <h1>🚀 Admin Panel</h1>
+    <h2>Menu</h2>
+    <ul>
+      <li class="active">📊 Dashboard</li>
+      <li>👥 Users</li>
+      <li>📁 Projects</li>
+      <li>✅ Tasks</li>
+      <li>📈 Reports</li>
+      <li>⚙️ Settings</li>
+    </ul>
+  </aside>
+
+  <main class="main">
+    <h1>Dashboard Overview</h1>
+
+    <div class="cards">
+      <div class="card">
+        <h2>120</h2>
+        <p>Total Users</p>
+      </div>
+      <div class="card">
+        <h2>45</h2>
+        <p>Projects</p>
+      </div>
+      <div class="card">
+        <h2>85</h2>
+        <p>Tasks</p>
+      </div>
+      <div class="card">
+        <h2>30</h2>
+        <p>Completed</p>
+      </div>
+    </div>
+
+    <div class="charts">
+      <div class="chart-box">
+        <h3>Sales Chart</h3>
+        <div class="bar-row">
+          <span class="bar-label">Jan</span>
+          <div class="bar-track"><div class="bar-fill" style="width:70%; background:#3b82f6;"></div></div>
+          <span class="bar-val">70%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Feb</span>
+          <div class="bar-track"><div class="bar-fill" style="width:55%; background:#3b82f6;"></div></div>
+          <span class="bar-val">55%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Mar</span>
+          <div class="bar-track"><div class="bar-fill" style="width:85%; background:#3b82f6;"></div></div>
+          <span class="bar-val">85%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Apr</span>
+          <div class="bar-track"><div class="bar-fill" style="width:40%; background:#3b82f6;"></div></div>
+          <span class="bar-val">40%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">May</span>
+          <div class="bar-track"><div class="bar-fill" style="width:92%; background:#3b82f6;"></div></div>
+          <span class="bar-val">92%</span>
+        </div>
+      </div>
+
+      <div class="chart-box">
+        <h3>User Growth</h3>
+        <div class="bar-row">
+          <span class="bar-label">Jan</span>
+          <div class="bar-track"><div class="bar-fill" style="width:30%; background:#22c55e;"></div></div>
+          <span class="bar-val">30%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Feb</span>
+          <div class="bar-track"><div class="bar-fill" style="width:50%; background:#22c55e;"></div></div>
+          <span class="bar-val">50%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Mar</span>
+          <div class="bar-track"><div class="bar-fill" style="width:65%; background:#22c55e;"></div></div>
+          <span class="bar-val">65%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Apr</span>
+          <div class="bar-track"><div class="bar-fill" style="width:78%; background:#22c55e;"></div></div>
+          <span class="bar-val">78%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">May</span>
+          <div class="bar-track"><div class="bar-fill" style="width:90%; background:#22c55e;"></div></div>
+          <span class="bar-val">90%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activities -->
+    <div class="activity">
+      <h2>Recent Activities</h2>
+      <ul>
+        <li><span class="dot" style="background:#3b82f6;"></span> New User Registered</li>
+        <li><span class="dot" style="background:#22c55e;"></span> Project Added</li>
+        <li><span class="dot" style="background:#f59e0b;"></span> Task Completed</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="footer">
+    © 2026 CSS Grid Layout Example
+  </footer>
+
+</div>
+</body>
+</html>
