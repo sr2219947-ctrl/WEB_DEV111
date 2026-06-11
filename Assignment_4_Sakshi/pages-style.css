@@ -35,6 +35,46 @@ body {
   overflow-x: hidden;
 }
 
+body.about-page {
+  background:
+    radial-gradient(circle at 14% 18%, rgba(255, 214, 168, 0.28), transparent 22%),
+    radial-gradient(circle at 82% 14%, rgba(168, 139, 255, 0.24), transparent 24%),
+    radial-gradient(circle at 18% 84%, rgba(255, 255, 255, 0.12), transparent 20%),
+    linear-gradient(135deg, #211a4f 0%, #5132b7 46%, #7c56d9 100%);
+}
+
+body.skills-page {
+  background:
+    radial-gradient(circle at 18% 20%, rgba(126, 226, 255, 0.28), transparent 22%),
+    radial-gradient(circle at 82% 16%, rgba(161, 123, 255, 0.24), transparent 24%),
+    radial-gradient(circle at 20% 84%, rgba(255, 255, 255, 0.12), transparent 20%),
+    linear-gradient(135deg, #12234b 0%, #294f93 48%, #536fd3 100%);
+}
+
+body.projects-page {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255, 191, 138, 0.28), transparent 22%),
+    radial-gradient(circle at 80% 18%, rgba(255, 107, 145, 0.22), transparent 24%),
+    radial-gradient(circle at 20% 82%, rgba(255, 255, 255, 0.11), transparent 20%),
+    linear-gradient(135deg, #2d1732 0%, #6a2d59 46%, #bf5f58 100%);
+}
+
+body.contact-page {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(164, 245, 208, 0.25), transparent 22%),
+    radial-gradient(circle at 80% 18%, rgba(92, 204, 255, 0.24), transparent 24%),
+    radial-gradient(circle at 18% 82%, rgba(255, 255, 255, 0.1), transparent 20%),
+    linear-gradient(135deg, #10273b 0%, #14506a 46%, #2d7f86 100%);
+}
+
+body.about-page {
+  background:
+    radial-gradient(circle at 14% 18%, rgba(255, 214, 168, 0.28), transparent 22%),
+    radial-gradient(circle at 82% 14%, rgba(168, 139, 255, 0.24), transparent 24%),
+    radial-gradient(circle at 18% 84%, rgba(255, 255, 255, 0.12), transparent 20%),
+    linear-gradient(135deg, #211a4f 0%, #5132b7 46%, #7c56d9 100%);
+}
+
 /* ── Decorative background blobs ── */
 body::before, body::after {
   content: '';
@@ -52,6 +92,37 @@ body::after {
   width: 400px; height: 400px;
   background: radial-gradient(circle, rgba(168,139,255,0.18) 0%, transparent 70%);
   bottom: 0; left: -120px;
+}
+
+body.about-page::before,
+body.skills-page::before,
+body.projects-page::before,
+body.contact-page::before {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
+}
+
+body.about-page::after {
+  background: radial-gradient(circle, rgba(255, 214, 168, 0.28) 0%, transparent 70%);
+}
+
+body.skills-page::after {
+  background: radial-gradient(circle, rgba(126, 226, 255, 0.24) 0%, transparent 70%);
+}
+
+body.projects-page::after {
+  background: radial-gradient(circle, rgba(255, 191, 138, 0.22) 0%, transparent 70%);
+}
+
+body.contact-page::after {
+  background: radial-gradient(circle, rgba(164, 245, 208, 0.22) 0%, transparent 70%);
+}
+
+body.about-page::before {
+  background: radial-gradient(circle, rgba(255, 214, 168, 0.28) 0%, transparent 70%);
+}
+
+body.about-page::after {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.14) 0%, transparent 70%);
 }
 
 /* ════════════════════════════
@@ -97,9 +168,29 @@ header nav a {
   transition: all 0.25s ease;
 }
 
+header nav a:nth-child(2) {
+  background: rgba(255, 179, 138, 0.18);
+  color: #ffd9c5;
+}
+
+header nav a:nth-child(3) {
+  background: rgba(154, 215, 255, 0.16);
+  color: #d5eeff;
+}
+
+header nav a:nth-child(4) {
+  background: rgba(199, 177, 255, 0.16);
+  color: #ebe3ff;
+}
+
+header nav a:nth-child(5) {
+  background: rgba(158, 240, 208, 0.16);
+  color: #ddfff0;
+}
+
 header nav a:hover,
 header nav a.active {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.24);
   color: #fff;
 }
 

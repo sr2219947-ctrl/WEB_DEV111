@@ -1,0 +1,11 @@
+div{
+    height:200px;
+    width:200px;
+    background-color: rgba(0, 157, 255, 0.76) ;
+}
+
+#opacity{
+  background-color: blue;  
+  opacity:0.5;
+} 
+/* opacity affects all the div inside element also but alpha that specific property in which is it applied to  */

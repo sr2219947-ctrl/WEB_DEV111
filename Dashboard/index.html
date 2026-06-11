@@ -9,52 +9,85 @@
 <body>
 <div class="container">
 
+  <!-- Header -->
   <header class="header">
-    <h2>Dashboard</h2>
+    <div class="logo">
+      <div class="logo-icon">🚀</div>
+      <h2>AdminPanel</h2>
+    </div>
     <div class="header-right">
-      <input type="text" placeholder="Search...">
-      <div class="avatar">S</div>
+      <div class="search-wrap">
+        <span>🔍</span>
+        <input type="text" placeholder="Search anything...">
+      </div>
+      <div class="notif">🔔<div class="notif-dot"></div></div>
+      <div class="avatar-wrap">
+        <div class="avatar">SK</div>
+        <span>Sakshi</span>
+      </div>
     </div>
   </header>
 
+  <!-- Sidebar -->
   <aside class="sidebar">
-    <h1>🚀 Admin Panel</h1>
-    <h2>Menu</h2>
+    <div class="sidebar-brand">Main Menu</div>
     <ul>
-      <li class="active">📊 Dashboard</li>
-      <li>👥 Users</li>
-      <li>📁 Projects</li>
-      <li>✅ Tasks</li>
-      <li>📈 Reports</li>
-      <li>⚙️ Settings</li>
+      <li class="active"><span class="icon">📊</span> Dashboard</li>
+      <li><span class="icon">👥</span> Users</li>
+      <li><span class="icon">📁</span> Projects</li>
+      <li><span class="icon">✅</span> Tasks</li>
+      <li><span class="icon">📈</span> Reports</li>
     </ul>
+
+    <div class="nav-section">System</div>
+    <ul>
+      <li><span class="icon">⚙️</span> Settings</li>
+      <li><span class="icon">🔒</span> Security</li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="user-row">
+        <div class="user-av">SK</div>
+        <div class="user-info">
+          <p>Sakshi</p>
+          <span>Admin</span>
+        </div>
+      </div>
+    </div>
   </aside>
 
+  <!-- Main Content -->
   <main class="main">
-    <h1>Dashboard Overview</h1>
+    <div class="page-title">Dashboard Overview</div>
 
+    <!-- Stat Cards -->
     <div class="cards">
       <div class="card">
-        <h2>120</h2>
-        <p>Total Users</p>
+        <div class="card-label">Total Users</div>
+        <div class="card-value">120</div>
+        <span class="card-badge badge-up">▲ 12% this month</span>
       </div>
       <div class="card">
-        <h2>45</h2>
-        <p>Projects</p>
+        <div class="card-label">Projects</div>
+        <div class="card-value">45</div>
+        <span class="card-badge badge-up">▲ 5 new</span>
       </div>
       <div class="card">
-        <h2>85</h2>
-        <p>Tasks</p>
+        <div class="card-label">Tasks</div>
+        <div class="card-value">85</div>
+        <span class="card-badge badge-down">▼ 3 pending</span>
       </div>
       <div class="card">
-        <h2>30</h2>
-        <p>Completed</p>
+        <div class="card-label">Completed</div>
+        <div class="card-value">30</div>
+        <span class="card-badge badge-up">▲ 35% rate</span>
       </div>
     </div>
 
-    <div class="charts">
+    <!-- Charts -->
+    <div class="mid-row">
       <div class="chart-box">
-        <h3>Sales Chart</h3>
+        <h3>Sales Chart <span>Jan – May</span></h3>
         <div class="bar-row">
           <span class="bar-label">Jan</span>
           <div class="bar-track"><div class="bar-fill" style="width:70%; background:#3b82f6;"></div></div>
@@ -83,7 +116,7 @@
       </div>
 
       <div class="chart-box">
-        <h3>User Growth</h3>
+        <h3>User Growth <span>Jan – May</span></h3>
         <div class="bar-row">
           <span class="bar-label">Jan</span>
           <div class="bar-track"><div class="bar-fill" style="width:30%; background:#22c55e;"></div></div>
@@ -112,19 +145,94 @@
       </div>
     </div>
 
-    <!-- Recent Activities -->
-    <div class="activity">
-      <h2>Recent Activities</h2>
-      <ul>
-        <li><span class="dot" style="background:#3b82f6;"></span> New User Registered</li>
-        <li><span class="dot" style="background:#22c55e;"></span> Project Added</li>
-        <li><span class="dot" style="background:#f59e0b;"></span> Task Completed</li>
-      </ul>
+    <!-- Bottom Row: Table + Activity -->
+    <div class="bottom-row">
+
+      <div class="table-box">
+        <h3>Recent Projects</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>Member</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Portfolio Site</td>
+              <td>Sakshi</td>
+              <td><span class="status-pill pill-done">Done</span></td>
+            </tr>
+            <tr>
+              <td>AcePrep App</td>
+              <td>Sakshi</td>
+              <td><span class="status-pill pill-prog">In Progress</span></td>
+            </tr>
+            <tr>
+              <td>Zomato Clone</td>
+              <td>Raj</td>
+              <td><span class="status-pill pill-done">Done</span></td>
+            </tr>
+            <tr>
+              <td>Blog Platform</td>
+              <td>Priya</td>
+              <td><span class="status-pill pill-pend">Pending</span></td>
+            </tr>
+            <tr>
+              <td>Admin Dashboard</td>
+              <td>Sakshi</td>
+              <td><span class="status-pill pill-prog">In Progress</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="activity-box">
+        <h3>Recent Activities</h3>
+        <div class="act-item">
+          <div class="act-dot" style="background:#3b82f6;"></div>
+          <div>
+            <div class="act-text">New user registered</div>
+            <div class="act-time">2 mins ago</div>
+          </div>
+        </div>
+        <div class="act-item">
+          <div class="act-dot" style="background:#22c55e;"></div>
+          <div>
+            <div class="act-text">Project "AcePrep" updated</div>
+            <div class="act-time">15 mins ago</div>
+          </div>
+        </div>
+        <div class="act-item">
+          <div class="act-dot" style="background:#f59e0b;"></div>
+          <div>
+            <div class="act-text">Task marked as completed</div>
+            <div class="act-time">1 hour ago</div>
+          </div>
+        </div>
+        <div class="act-item">
+          <div class="act-dot" style="background:#ef4444;"></div>
+          <div>
+            <div class="act-text">Report generated for May</div>
+            <div class="act-time">3 hours ago</div>
+          </div>
+        </div>
+        <div class="act-item">
+          <div class="act-dot" style="background:#8b5cf6;"></div>
+          <div>
+            <div class="act-text">New project added by Raj</div>
+            <div class="act-time">Yesterday</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 
+  <!-- Footer -->
   <footer class="footer">
-    © 2026 CSS Grid Layout Example
+    © 2026 CSS Grid Layout Example &nbsp;&middot;&nbsp; Admin Panel v2.0
   </footer>
 
 </div>

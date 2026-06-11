@@ -1,0 +1,36 @@
+section{
+    margin-top:100px;
+}
+div{
+    width:200px;
+    height:50px;
+    text-align:center;
+    background-color: rgba(0, 229, 255, 0.499);
+    border:2px solid black;
+    margin:10px auto;
+}
+div:nth-of-type(2n){
+    background-color: beige;
+}
+div:nth-of-type(3n){
+    background-color: coral;
+}
+
+/* transform */
+
+#one{
+    transform:rotate(180deg);
+}
+/* tranform property is applied to inner element also  */
+#two{
+    transform:scaleY(0.5);
+}
+#three{
+    transform:translateX(100px)
+}
+#four{
+    transform:skew(30deg);
+}
+#five{
+    transform: rotate(30deg) translateX(150px);
+}
