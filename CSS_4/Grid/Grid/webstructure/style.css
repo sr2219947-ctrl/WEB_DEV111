@@ -1,0 +1,29 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+body{
+height:100vw;
+width:100vh;
+background-color: brown;
+}
+.container{
+    height:80vh;
+    width:80vh;
+    background-color: gray;
+    display:grid;
+    grid-template-columns:  repeat(8,1fr) ;
+    grid-template-rows:repeat(8,1fr) ;
+}
+
+.white{
+    /* height:100px;
+    width:100px; */
+    background-color: white;
+}
+.black{
+    /* height:100px;
+    width:100px; */
+    background-color:black;
+}

@@ -459,7 +459,7 @@ tbody tr:hover td { background: #f8fafc; }
    ============================================== */
 @media (max-width: 576px) {
 
-    /* Stack layout vertically, remove sidebar from grid */
+   
     .container {
         grid-template-columns: 1fr;
         grid-template-rows: 56px 1fr 60px;
