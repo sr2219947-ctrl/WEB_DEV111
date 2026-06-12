@@ -28,7 +28,7 @@
     </div>
   </header>
 
-  <!-- Sidebar -->
+  <!-- Sidebar (hidden on mobile, replaced by bottom nav) -->
   <aside class="sidebar">
     <div class="sidebar-brand">Main Menu</div>
     <ul>
@@ -38,13 +38,11 @@
       <li><span class="icon">✅</span> Tasks</li>
       <li><span class="icon">📈</span> Reports</li>
     </ul>
-
     <div class="nav-section">System</div>
     <ul>
       <li><span class="icon">⚙️</span> Settings</li>
       <li><span class="icon">🔒</span> Security</li>
     </ul>
-
     <div class="sidebar-footer">
       <div class="user-row">
         <div class="user-av">SK</div>
@@ -145,45 +143,20 @@
       </div>
     </div>
 
-    <!-- Bottom Row: Table + Activity -->
+    <!-- Bottom Row -->
     <div class="bottom-row">
-
       <div class="table-box">
         <h3>Recent Projects</h3>
         <table>
           <thead>
-            <tr>
-              <th>Project</th>
-              <th>Member</th>
-              <th>Status</th>
-            </tr>
+            <tr><th>Project</th><th>Member</th><th>Status</th></tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Portfolio Site</td>
-              <td>Sakshi</td>
-              <td><span class="status-pill pill-done">Done</span></td>
-            </tr>
-            <tr>
-              <td>AcePrep App</td>
-              <td>Sakshi</td>
-              <td><span class="status-pill pill-prog">In Progress</span></td>
-            </tr>
-            <tr>
-              <td>Zomato Clone</td>
-              <td>Raj</td>
-              <td><span class="status-pill pill-done">Done</span></td>
-            </tr>
-            <tr>
-              <td>Blog Platform</td>
-              <td>Priya</td>
-              <td><span class="status-pill pill-pend">Pending</span></td>
-            </tr>
-            <tr>
-              <td>Admin Dashboard</td>
-              <td>Sakshi</td>
-              <td><span class="status-pill pill-prog">In Progress</span></td>
-            </tr>
+            <tr><td>Portfolio Site</td><td>Sakshi</td><td><span class="status-pill pill-done">Done</span></td></tr>
+            <tr><td>AcePrep App</td><td>Sakshi</td><td><span class="status-pill pill-prog">In Progress</span></td></tr>
+            <tr><td>Zomato Clone</td><td>Raj</td><td><span class="status-pill pill-done">Done</span></td></tr>
+            <tr><td>Blog Platform</td><td>Priya</td><td><span class="status-pill pill-pend">Pending</span></td></tr>
+            <tr><td>Admin Dashboard</td><td>Sakshi</td><td><span class="status-pill pill-prog">In Progress</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -192,47 +165,38 @@
         <h3>Recent Activities</h3>
         <div class="act-item">
           <div class="act-dot" style="background:#3b82f6;"></div>
-          <div>
-            <div class="act-text">New user registered</div>
-            <div class="act-time">2 mins ago</div>
-          </div>
+          <div><div class="act-text">New user registered</div><div class="act-time">2 mins ago</div></div>
         </div>
         <div class="act-item">
           <div class="act-dot" style="background:#22c55e;"></div>
-          <div>
-            <div class="act-text">Project "AcePrep" updated</div>
-            <div class="act-time">15 mins ago</div>
-          </div>
+          <div><div class="act-text">Project "AcePrep" updated</div><div class="act-time">15 mins ago</div></div>
         </div>
         <div class="act-item">
           <div class="act-dot" style="background:#f59e0b;"></div>
-          <div>
-            <div class="act-text">Task marked as completed</div>
-            <div class="act-time">1 hour ago</div>
-          </div>
+          <div><div class="act-text">Task marked as completed</div><div class="act-time">1 hour ago</div></div>
         </div>
         <div class="act-item">
           <div class="act-dot" style="background:#ef4444;"></div>
-          <div>
-            <div class="act-text">Report generated for May</div>
-            <div class="act-time">3 hours ago</div>
-          </div>
+          <div><div class="act-text">Report generated for May</div><div class="act-time">3 hours ago</div></div>
         </div>
         <div class="act-item">
           <div class="act-dot" style="background:#8b5cf6;"></div>
-          <div>
-            <div class="act-text">New project added by Raj</div>
-            <div class="act-time">Yesterday</div>
-          </div>
+          <div><div class="act-text">New project added by Raj</div><div class="act-time">Yesterday</div></div>
         </div>
       </div>
-
     </div>
   </main>
 
-  <!-- Footer -->
+  <!-- Footer (desktop text + mobile bottom nav) -->
   <footer class="footer">
-    © 2026 CSS Grid Layout Example &nbsp;&middot;&nbsp; Admin Panel v2.0
+    <span class="desktop-footer">© 2026 CSS Grid Layout Example &nbsp;&middot;&nbsp; Admin Panel v2.0</span>
+    <nav class="mobile-nav">
+      <a href="#" class="active"><span class="nav-icon">📊</span>Home</a>
+      <a href="#"><span class="nav-icon">👥</span>Users</a>
+      <a href="#"><span class="nav-icon">📁</span>Projects</a>
+      <a href="#"><span class="nav-icon">✅</span>Tasks</a>
+      <a href="#"><span class="nav-icon">⚙️</span>Settings</a>
+    </nav>
   </footer>
 
 </div>
