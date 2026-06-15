@@ -1,0 +1,464 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Verse</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <i class="fa-brands fa-css3-alt"></i>
+            <span>CSS Verse</span>
+        </div>
+
+        <div class="nav-actions">
+            <span class="nav-chip">CSS Playground</span>
+
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#categories">Properties</a></li>
+                <li><a href="#playground">Effects</a></li>
+                <li><a href="#buttons">Buttons</a></li>
+                <li><a href="#footer">Resources</a></li>
+            </ul>
+        </div>
+
+    </nav>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-left">
+
+            <span class="hero-badge">
+                Learn • Explore • Master
+            </span>
+
+            <h1>
+                Learn CSS Beautifully.
+                <br>
+                Master Modern Styling.
+            </h1>
+
+            <p>
+                <strong>CSS Verse</strong> —
+                Your Universe of Modern CSS.
+                Learn concepts visually through
+                cards, notes and interactive examples.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-btn">
+                    Explore Properties
+                </button>
+
+                <button class="secondary-btn">
+                    View Examples
+                </button>
+
+            </div>
+
+            <div class="stats">
+
+                <div class="stat-card">
+                    <h2>50+</h2>
+                    <p>CSS Concepts</p>
+                </div>
+
+                <div class="stat-card">
+                    <h2>20+</h2>
+                    <p>Live Examples</p>
+                </div>
+
+                <div class="stat-card">
+                    <h2>100%</h2>
+                    <p>Practical</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- HERO RIGHT -->
+
+        <div class="hero-right">
+
+            <div class="floating-card card1">
+                <i class="fa-solid fa-palette"></i>
+                <h3>Variables</h3>
+                <p>Reusable themes</p>
+            </div>
+
+            <div class="floating-card card2">
+                <i class="fa-solid fa-layer-group"></i>
+                <h3>Grid Layout</h3>
+                <p>Responsive layouts</p>
+            </div>
+
+            <div class="floating-card card3">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <h3>Animations</h3>
+                <p>Smooth effects</p>
+            </div>
+
+            <div class="main-circle">
+                <i class="fa-brands fa-css3-alt"></i>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SEARCH ================= -->
+
+    <section class="search-section">
+
+        <div class="search-panel">
+
+            <div class="search-input-wrap">
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                id="property-search"
+                type="search"
+                placeholder="Search CSS property, topic or keyword..."
+                aria-label="Search CSS properties">
+
+                <button
+                id="clear-search"
+                type="button">
+
+                    Clear
+
+                </button>
+            </div>
+
+            <p class="search-hint">Type to instantly filter the cards below.</p>
+            <p id="search-count" class="search-count" aria-live="polite">Showing all 6 cards</p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PROPERTY CARDS ================= -->
+
+    <section class="categories" id="categories">
+
+        <div class="section-heading">
+
+            <h2 class="section-title">
+                Explore CSS Concepts
+            </h2>
+
+            <p>
+                Click any card to explore
+                notes and examples.
+            </p>
+
+        </div>
+
+        <div class="card-container">
+
+            <div
+            class="property-card"
+            data-search="css variables custom properties themes colors"
+            onclick="showNotes('variables')">
+
+                <i class="fa-solid fa-palette"></i>
+
+                <h3>CSS Variables</h3>
+
+                <p>
+                    Reusable styling system
+                    for colors and themes.
+                </p>
+                <button class="learn-btn">
+                 Learn More
+            </button>
+            </div>
+
+            <div
+            class="property-card"
+            data-search="grid layout responsive two dimensional templates"
+            onclick="showNotes('grid')">
+
+                <i class="fa-solid fa-table-cells-large"></i>
+
+                <h3>Grid Layout</h3>
+
+                <p>
+                    Create responsive layouts
+                    beautifully.
+                </p>
+                  <button class="learn-btn">
+                 Learn More
+            </button>
+            </div>
+
+            <div
+            class="property-card"
+            data-search="flexbox rows columns align justify center"
+            onclick="showNotes('flexbox')">
+
+                <i class="fa-solid fa-box"></i>
+
+                <h3>Flexbox</h3>
+
+                <p>
+                    Align items in rows
+                    and columns.
+                </p>
+              <button class="learn-btn">
+                 Learn More
+            </button>
+            </div>
+
+            <div
+            class="property-card"
+            data-search="animation keyframes motion easing transition"
+            onclick="showNotes('animation')">
+
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                <h3>Animation</h3>
+
+                <p>
+                    Add smooth movement
+                    to websites.
+                </p>
+              <button class="learn-btn">
+                 Learn More
+            </button>
+            </div>
+
+            <div
+            class="property-card"
+            data-search="transform rotate scale translate skew"
+            onclick="showNotes('transform')">
+
+                <i class="fa-solid fa-rotate"></i>
+
+                <h3>Transform</h3>
+
+                <p>
+                    Rotate, scale
+                    and move elements.
+                </p>
+                 <button class="learn-btn">
+                 Learn More
+            </button>
+            </div>
+
+            <div
+            class="property-card"
+            data-search="selectors class id element attribute pseudo"
+            onclick="showNotes('selectors')">
+
+                <i class="fa-solid fa-crosshairs"></i>
+
+                <h3>Selectors</h3>
+
+                <p>
+                    Target HTML elements
+                    using CSS.
+                </p>
+               <button class="learn-btn">
+                 Learn More
+            </button>
+            </div>
+
+        </div>
+
+        <div class="no-results" id="no-results" hidden>
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <p>No cards match your search. Try a different keyword.</p>
+        </div>
+
+    </section>
+
+
+    <!-- ================= NOTES ================= -->
+
+    <section class="notes-section">
+
+        <div id="notes-box">
+
+            <h2>
+                Click a Card to Explore
+            </h2>
+
+            <p>
+                Select any topic above
+                to view notes.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= EFFECTS ================= -->
+
+    <section class="playground" id="playground">
+
+        <h2 class="section-title">
+            Interactive CSS Effects
+        </h2>
+
+        <div class="effect-container">
+
+            <!-- Transform -->
+
+            <div class="effect-card">
+
+                <h3>Transform</h3>
+
+                <div class="demo-box transform-demo">
+                    Hover Me
+                </div>
+
+            </div>
+
+
+            <!-- Transition -->
+
+            <div class="effect-card">
+
+                <h3>Transition</h3>
+
+                <div class="demo-box transition-demo">
+                    Hover Me
+                </div>
+
+            </div>
+
+
+            <!-- Animation -->
+
+            <div class="effect-card">
+
+                <h3>Animation</h3>
+
+                <div class="demo-box animation-demo">
+                    Animate
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= BUTTONS ================= -->
+
+    <section
+    class="button-library"
+    id="buttons">
+
+        <h2 class="section-title">
+            Button Library
+        </h2>
+
+        <div class="button-box">
+
+            <button class="btn primary">
+                Primary
+            </button>
+
+            <button class="btn outline">
+                Outline
+            </button>
+
+            <button class="btn glow">
+                Glow
+            </button>
+
+            <button
+            class="btn disabled"
+            disabled>
+
+                Disabled
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FORM ================= -->
+
+    <section class="form-section">
+
+        <h2 class="section-title">
+            Pseudo Class Demo
+        </h2>
+
+        <form class="form-box">
+
+            <input
+            type="text"
+            placeholder="Enter Name">
+
+            <input
+            type="email"
+            placeholder="Enter Email">
+
+            <label>
+                <input type="checkbox">
+                Accept Terms
+            </label>
+
+            <button>
+                Submit
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer id="footer">
+
+        <h2>CSS Verse</h2>
+
+        <p>
+            Your Universe of Modern CSS
+        </p>
+
+        <p>
+            Learn • Explore • Master
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
