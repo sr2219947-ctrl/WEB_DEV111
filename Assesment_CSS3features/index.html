@@ -1,464 +1,513 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSS Verse</title>
-
     <link rel="stylesheet" href="style.css">
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-
 <body>
 
-    <!-- ================= NAVBAR ================= -->
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
 
-    <nav class="navbar">
-
-        <div class="logo">
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar" id="navbar">
+    <div class="logo">
+        <div class="logo-icon">
             <i class="fa-brands fa-css3-alt"></i>
-            <span>CSS Verse</span>
+        </div>
+        <span>CSS <span class="logo-accent">Verse</span></span>
+    </div>
+
+    <div class="nav-actions">
+        <span class="nav-chip"><i class="fa-solid fa-circle-play"></i> Playground</span>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#categories">Properties</a></li>
+            <li><a href="#playground">Effects</a></li>
+            <li><a href="#buttons">Buttons</a></li>
+            <li><a href="#footer">Resources</a></li>
+        </ul>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+
+    <div class="hero-left reveal">
+        <span class="hero-badge">
+            <i class="fa-solid fa-sparkles"></i>
+            Learn · Explore · Master
+        </span>
+
+        <h1>
+            Learn CSS<br>
+            <span class="gradient-text">Beautifully.</span>
+        </h1>
+
+        <p>
+            <strong>CSS Verse</strong> — your universe of modern CSS.
+            Explore concepts visually through interactive cards,
+            live demos, and curated notes.
+        </p>
+
+        <div class="hero-buttons">
+            <button class="primary-btn">
+                <i class="fa-solid fa-compass"></i>
+                Explore Properties
+            </button>
+            <button class="secondary-btn">
+                <i class="fa-solid fa-play"></i>
+                View Examples
+            </button>
         </div>
 
-        <div class="nav-actions">
-            <span class="nav-chip">CSS Playground</span>
-
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#categories">Properties</a></li>
-                <li><a href="#playground">Effects</a></li>
-                <li><a href="#buttons">Buttons</a></li>
-                <li><a href="#footer">Resources</a></li>
-            </ul>
+        <div class="stats">
+            <div class="stat-card">
+                <h2>50+</h2>
+                <p>CSS Concepts</p>
+            </div>
+            <div class="stat-card">
+                <h2>20+</h2>
+                <p>Live Examples</p>
+            </div>
+            <div class="stat-card">
+                <h2>100%</h2>
+                <p>Practical</p>
+            </div>
         </div>
+    </div>
 
-    </nav>
-
-
-    <!-- ================= HERO ================= -->
-
-    <section class="hero" id="home">
-
-        <div class="hero-left">
-
-            <span class="hero-badge">
-                Learn • Explore • Master
-            </span>
-
-            <h1>
-                Learn CSS Beautifully.
-                <br>
-                Master Modern Styling.
-            </h1>
-
-            <p>
-                <strong>CSS Verse</strong> —
-                Your Universe of Modern CSS.
-                Learn concepts visually through
-                cards, notes and interactive examples.
-            </p>
-
-            <div class="hero-buttons">
-
-                <button class="primary-btn">
-                    Explore Properties
-                </button>
-
-                <button class="secondary-btn">
-                    View Examples
-                </button>
-
-            </div>
-
-            <div class="stats">
-
-                <div class="stat-card">
-                    <h2>50+</h2>
-                    <p>CSS Concepts</p>
-                </div>
-
-                <div class="stat-card">
-                    <h2>20+</h2>
-                    <p>Live Examples</p>
-                </div>
-
-                <div class="stat-card">
-                    <h2>100%</h2>
-                    <p>Practical</p>
-                </div>
-
-            </div>
-
+    <!-- HERO RIGHT -->
+    <div class="hero-right">
+        <div class="floating-card card1">
+            <div class="fc-icon"><i class="fa-solid fa-palette"></i></div>
+            <h3>Variables</h3>
+            <p>Reusable themes</p>
         </div>
-
-
-        <!-- HERO RIGHT -->
-
-        <div class="hero-right">
-
-            <div class="floating-card card1">
-                <i class="fa-solid fa-palette"></i>
-                <h3>Variables</h3>
-                <p>Reusable themes</p>
-            </div>
-
-            <div class="floating-card card2">
-                <i class="fa-solid fa-layer-group"></i>
-                <h3>Grid Layout</h3>
-                <p>Responsive layouts</p>
-            </div>
-
-            <div class="floating-card card3">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
-                <h3>Animations</h3>
-                <p>Smooth effects</p>
-            </div>
-
-            <div class="main-circle">
-                <i class="fa-brands fa-css3-alt"></i>
-            </div>
-
+        <div class="floating-card card2">
+            <div class="fc-icon"><i class="fa-solid fa-layer-group"></i></div>
+            <h3>Grid Layout</h3>
+            <p>Responsive layouts</p>
         </div>
+        <div class="floating-card card3">
+            <div class="fc-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <h3>Animations</h3>
+            <p>Smooth effects</p>
+        </div>
+        <div class="main-circle">
+            <i class="fa-brands fa-css3-alt"></i>
+            <div class="circle-ring ring1"></div>
+            <div class="circle-ring ring2"></div>
+        </div>
+    </div>
 
-    </section>
+</section>
 
 
-    <!-- ================= SEARCH ================= -->
-
-    <section class="search-section">
-
-        <div class="search-panel">
-
-            <div class="search-input-wrap">
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input
-                id="property-search"
-                type="search"
+<!-- ================= SEARCH ================= -->
+<section class="search-section">
+    <div class="search-panel">
+        <div class="search-input-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input id="property-search" type="search"
                 placeholder="Search CSS property, topic or keyword..."
                 aria-label="Search CSS properties">
-
-                <button
-                id="clear-search"
-                type="button">
-
-                    Clear
-
-                </button>
-            </div>
-
-            <p class="search-hint">Type to instantly filter the cards below.</p>
-            <p id="search-count" class="search-count" aria-live="polite">Showing all 6 cards</p>
-
+            <button id="clear-search" type="button">Clear</button>
         </div>
+        <p class="search-hint">Type to instantly filter the cards below.</p>
+        <p id="search-count" class="search-count" aria-live="polite">Showing all 6 cards</p>
+    </div>
+</section>
 
-    </section>
 
+<!-- ================= PROPERTY CARDS ================= -->
+<section class="categories" id="categories">
+    <div class="section-heading reveal">
+        <span class="section-eyebrow">CSS Fundamentals</span>
+        <h2 class="section-title">Explore CSS Concepts</h2>
+        <p>Click any card to reveal notes and examples.</p>
+    </div>
 
-    <!-- ================= PROPERTY CARDS ================= -->
+    <div class="card-container">
 
-    <section class="categories" id="categories">
-
-        <div class="section-heading">
-
-            <h2 class="section-title">
-                Explore CSS Concepts
-            </h2>
-
-            <p>
-                Click any card to explore
-                notes and examples.
-            </p>
-
-        </div>
-
-        <div class="card-container">
-
-            <div
-            class="property-card"
+        <div class="property-card reveal" data-color="var(--c-purple)"
             data-search="css variables custom properties themes colors"
             onclick="showNotes('variables')">
-
+            <div class="card-accent"></div>
+            <div class="card-icon-wrap" style="--c:var(--c-purple)">
                 <i class="fa-solid fa-palette"></i>
-
-                <h3>CSS Variables</h3>
-
-                <p>
-                    Reusable styling system
-                    for colors and themes.
-                </p>
-                <button class="learn-btn">
-                 Learn More
-            </button>
             </div>
+            <h3>CSS Variables</h3>
+            <p>Reusable styling system for colors and themes.</p>
+            <button class="learn-btn">Learn More <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
 
-            <div
-            class="property-card"
+        <div class="property-card reveal" data-color="var(--c-blue)"
             data-search="grid layout responsive two dimensional templates"
             onclick="showNotes('grid')">
-
+            <div class="card-accent"></div>
+            <div class="card-icon-wrap" style="--c:var(--c-blue)">
                 <i class="fa-solid fa-table-cells-large"></i>
-
-                <h3>Grid Layout</h3>
-
-                <p>
-                    Create responsive layouts
-                    beautifully.
-                </p>
-                  <button class="learn-btn">
-                 Learn More
-            </button>
             </div>
+            <h3>Grid Layout</h3>
+            <p>Create responsive layouts beautifully.</p>
+            <button class="learn-btn">Learn More <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
 
-            <div
-            class="property-card"
+        <div class="property-card reveal" data-color="var(--c-teal)"
             data-search="flexbox rows columns align justify center"
             onclick="showNotes('flexbox')">
-
+            <div class="card-accent"></div>
+            <div class="card-icon-wrap" style="--c:var(--c-teal)">
                 <i class="fa-solid fa-box"></i>
-
-                <h3>Flexbox</h3>
-
-                <p>
-                    Align items in rows
-                    and columns.
-                </p>
-              <button class="learn-btn">
-                 Learn More
-            </button>
             </div>
+            <h3>Flexbox</h3>
+            <p>Align items in rows and columns.</p>
+            <button class="learn-btn">Learn More <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
 
-            <div
-            class="property-card"
+        <div class="property-card reveal" data-color="var(--c-orange)"
             data-search="animation keyframes motion easing transition"
             onclick="showNotes('animation')">
-
+            <div class="card-accent"></div>
+            <div class="card-icon-wrap" style="--c:var(--c-orange)">
                 <i class="fa-solid fa-wand-magic-sparkles"></i>
-
-                <h3>Animation</h3>
-
-                <p>
-                    Add smooth movement
-                    to websites.
-                </p>
-              <button class="learn-btn">
-                 Learn More
-            </button>
             </div>
+            <h3>Animation</h3>
+            <p>Add smooth movement to websites.</p>
+            <button class="learn-btn">Learn More <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
 
-            <div
-            class="property-card"
+        <div class="property-card reveal" data-color="var(--c-pink)"
             data-search="transform rotate scale translate skew"
             onclick="showNotes('transform')">
-
+            <div class="card-accent"></div>
+            <div class="card-icon-wrap" style="--c:var(--c-pink)">
                 <i class="fa-solid fa-rotate"></i>
-
-                <h3>Transform</h3>
-
-                <p>
-                    Rotate, scale
-                    and move elements.
-                </p>
-                 <button class="learn-btn">
-                 Learn More
-            </button>
             </div>
+            <h3>Transform</h3>
+            <p>Rotate, scale and move elements.</p>
+            <button class="learn-btn">Learn More <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
 
-            <div
-            class="property-card"
+        <div class="property-card reveal" data-color="var(--c-green)"
             data-search="selectors class id element attribute pseudo"
             onclick="showNotes('selectors')">
-
+            <div class="card-accent"></div>
+            <div class="card-icon-wrap" style="--c:var(--c-green)">
                 <i class="fa-solid fa-crosshairs"></i>
-
-                <h3>Selectors</h3>
-
-                <p>
-                    Target HTML elements
-                    using CSS.
-                </p>
-               <button class="learn-btn">
-                 Learn More
-            </button>
             </div>
-
+            <h3>Selectors</h3>
+            <p>Target HTML elements using CSS.</p>
+            <button class="learn-btn">Learn More <i class="fa-solid fa-arrow-right"></i></button>
         </div>
 
-        <div class="no-results" id="no-results" hidden>
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <p>No cards match your search. Try a different keyword.</p>
+    </div>
+
+    <div class="no-results" id="no-results" hidden>
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <p>No cards match your search. Try a different keyword.</p>
+    </div>
+</section>
+
+
+<!-- ================= NOTES ================= -->
+<section class="notes-section">
+    <div id="notes-box" class="notes-placeholder">
+        <div class="notes-empty-state">
+            <div class="notes-empty-icon"><i class="fa-solid fa-book-open"></i></div>
+            <h2>Pick a Topic to Begin</h2>
+            <p>Click any card above to reveal curated notes and examples.</p>
         </div>
-
-    </section>
-
-
-    <!-- ================= NOTES ================= -->
-
-    <section class="notes-section">
-
-        <div id="notes-box">
-
-            <h2>
-                Click a Card to Explore
-            </h2>
-
-            <p>
-                Select any topic above
-                to view notes.
-            </p>
-
-        </div>
-
-    </section>
+    </div>
+</section>
 
 
-    <!-- ================= EFFECTS ================= -->
+<!-- ================= EFFECTS ================= -->
+<section class="playground" id="playground">
+    <div class="section-heading reveal">
+        <span class="section-eyebrow">Hands-On</span>
+        <h2 class="section-title">Interactive CSS Effects</h2>
+        <p>Hover over each box to see it in action.</p>
+    </div>
 
-    <section class="playground" id="playground">
+    <div class="effect-container">
 
-        <h2 class="section-title">
-            Interactive CSS Effects
-        </h2>
-
-        <div class="effect-container">
-
-            <!-- Transform -->
-
-            <div class="effect-card">
-
+        <div class="effect-card reveal">
+            <div class="effect-label">
+                <span class="code-tag">transform</span>
                 <h3>Transform</h3>
-
-                <div class="demo-box transform-demo">
-                    Hover Me
-                </div>
-
             </div>
+            <div class="demo-box transform-demo">
+                <span>Hover Me</span>
+            </div>
+            <p class="effect-desc">rotate · scale · translateY</p>
+        </div>
 
-
-            <!-- Transition -->
-
-            <div class="effect-card">
-
+        <div class="effect-card reveal">
+            <div class="effect-label">
+                <span class="code-tag">transition</span>
                 <h3>Transition</h3>
-
-                <div class="demo-box transition-demo">
-                    Hover Me
-                </div>
-
             </div>
+            <div class="demo-box transition-demo">
+                <span>Hover Me</span>
+            </div>
+            <p class="effect-desc">background · border-radius · color</p>
+        </div>
 
-
-            <!-- Animation -->
-
-            <div class="effect-card">
-
+        <div class="effect-card reveal">
+            <div class="effect-label">
+                <span class="code-tag">@keyframes</span>
                 <h3>Animation</h3>
-
-                <div class="demo-box animation-demo">
-                    Animate
-                </div>
-
             </div>
-
+            <div class="demo-box animation-demo">
+                <span>Animating</span>
+            </div>
+            <p class="effect-desc">float · pulse · infinite</p>
         </div>
 
-    </section>
+    </div>
+</section>
 
 
-    <!-- ================= BUTTONS ================= -->
+<!-- ================= BUTTONS ================= -->
+<section class="button-library" id="buttons">
+    <div class="section-heading reveal">
+        <span class="section-eyebrow">Styles</span>
+        <h2 class="section-title">Button Library</h2>
+        <p>Hover each button to see the interaction.</p>
+    </div>
 
-    <section
-    class="button-library"
-    id="buttons">
+    <div class="button-box reveal">
+        <button class="btn primary"><i class="fa-solid fa-star"></i> Primary</button>
+        <button class="btn outline"><i class="fa-regular fa-star"></i> Outline</button>
+        <button class="btn glow"><i class="fa-solid fa-bolt"></i> Glow</button>
+        <button class="btn ghost"><i class="fa-solid fa-ghost"></i> Ghost</button>
+        <button class="btn disabled" disabled><i class="fa-solid fa-lock"></i> Disabled</button>
+    </div>
+</section>
 
-        <h2 class="section-title">
-            Button Library
-        </h2>
 
-        <div class="button-box">
+<!-- ================= FORM ================= -->
+<section class="form-section">
+    <div class="section-heading reveal">
+        <span class="section-eyebrow">Pseudo-classes</span>
+        <h2 class="section-title">:focus · :checked · :hover</h2>
+        <p>Interact with the fields to see pseudo-class states.</p>
+    </div>
 
-            <button class="btn primary">
-                Primary
-            </button>
+    <form class="form-box reveal">
+        <div class="input-group">
+            <label>Your Name</label>
+            <input type="text" placeholder="e.g. Sakshi">
+        </div>
+        <div class="input-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="e.g. hello@cssverse.dev">
+        </div>
+        <label class="checkbox-label">
+            <input type="checkbox">
+            <span class="custom-check"></span>
+            I accept the Terms of Service
+        </label>
+        <button type="button" class="form-submit">
+            <i class="fa-solid fa-paper-plane"></i> Submit
+        </button>
+    </form>
+</section>
 
-            <button class="btn outline">
-                Outline
-            </button>
 
-            <button class="btn glow">
-                Glow
-            </button>
-
-            <button
-            class="btn disabled"
-            disabled>
-
-                Disabled
-
-            </button>
-
+<!-- ================= FOOTER ================= -->
+<footer id="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <div class="logo footer-logo">
+                <i class="fa-brands fa-css3-alt"></i>
+                <span>CSS <span class="logo-accent">Verse</span></span>
+            </div>
+            <p>Your universe of modern CSS — learn visually, code confidently.</p>
         </div>
 
-    </section>
+        <div class="footer-links">
+            <div class="footer-col">
+                <h4>Learn</h4>
+                <a href="#categories">Properties</a>
+                <a href="#playground">Effects</a>
+                <a href="#buttons">Buttons</a>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank">MDN Docs</a>
+                <a href="https://css-tricks.com" target="_blank">CSS-Tricks</a>
+                <a href="https://web.dev/css" target="_blank">web.dev</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>Built with <i class="fa-solid fa-heart" style="color:var(--c-pink)"></i> and pure CSS — CSS Verse © 2025</p>
+    </div>
+</footer>
 
 
-    <!-- ================= FORM ================= -->
+<script src="script.js"></script>
+<script>
+// ── Scroll Progress ──
+const bar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    bar.style.width = pct + '%';
+});
 
-    <section class="form-section">
+// ── Navbar shrink on scroll ──
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+});
 
-        <h2 class="section-title">
-            Pseudo Class Demo
-        </h2>
+// ── Hamburger ──
+const ham = document.getElementById('hamburger');
+const navLinks = document.querySelector('.nav-links');
+ham.addEventListener('click', () => {
+    ham.classList.toggle('open');
+    navLinks.classList.toggle('open');
+});
 
-        <form class="form-box">
+// ── Reveal on scroll ──
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+}, { threshold: 0.1 });
+reveals.forEach(el => io.observe(el));
 
-            <input
-            type="text"
-            placeholder="Enter Name">
+// ── Search ──
+const searchInput = document.getElementById('property-search');
+const clearBtn    = document.getElementById('clear-search');
+const countEl     = document.getElementById('search-count');
+const cards       = document.querySelectorAll('.property-card');
+const noResults   = document.getElementById('no-results');
 
-            <input
-            type="email"
-            placeholder="Enter Email">
+function filterCards(q) {
+    let shown = 0;
+    cards.forEach(c => {
+        const match = c.dataset.search.includes(q.toLowerCase()) || q === '';
+        c.style.display = match ? '' : 'none';
+        if (match) shown++;
+    });
+    noResults.hidden = shown > 0;
+    countEl.textContent = q
+        ? `Showing ${shown} of ${cards.length} cards`
+        : `Showing all ${cards.length} cards`;
+}
 
-            <label>
-                <input type="checkbox">
-                Accept Terms
-            </label>
+searchInput.addEventListener('input', e => filterCards(e.target.value.trim()));
+clearBtn.addEventListener('click', () => { searchInput.value = ''; filterCards(''); });
 
-            <button>
-                Submit
-            </button>
+// ── Notes data ──
+const notesData = {
+    variables: {
+        icon: 'fa-palette', color: 'var(--c-purple)', tag: '--var-name',
+        title: 'CSS Variables',
+        intro: 'Custom properties let you store values in one place and reuse them everywhere — making theming effortless.',
+        snippets: [
+            { label: 'Declare', code: ':root {\n  --primary: #5165a7;\n  --gap: 1rem;\n}' },
+            { label: 'Use', code: '.button {\n  background: var(--primary);\n  gap: var(--gap);\n}' }
+        ],
+        tips: ['Variables cascade like any CSS property.', 'You can override them inside any selector.', 'Great for dark-mode theming.']
+    },
+    grid: {
+        icon: 'fa-table-cells-large', color: 'var(--c-blue)', tag: 'display:grid',
+        title: 'Grid Layout',
+        intro: 'CSS Grid is a two-dimensional layout system — it handles rows and columns simultaneously.',
+        snippets: [
+            { label: 'Basic Grid', code: '.container {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1rem;\n}' },
+            { label: 'Named Areas', code: '.layout {\n  grid-template-areas:\n    "header header"\n    "sidebar main";\n}' }
+        ],
+        tips: ['Use fr units for flexible columns.', 'grid-template-areas makes layouts readable.', 'grid-auto-flow handles implicit tracks.']
+    },
+    flexbox: {
+        icon: 'fa-box', color: 'var(--c-teal)', tag: 'display:flex',
+        title: 'Flexbox',
+        intro: 'Flexbox is a one-dimensional layout model — perfect for aligning items in a row or column.',
+        snippets: [
+            { label: 'Center Everything', code: '.center {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}' },
+            { label: 'Wrap Cards', code: '.cards {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 1.5rem;\n}' }
+        ],
+        tips: ['justify-content controls the main axis.', 'align-items controls the cross axis.', 'flex: 1 lets items grow to fill space.']
+    },
+    animation: {
+        icon: 'fa-wand-magic-sparkles', color: 'var(--c-orange)', tag: '@keyframes',
+        title: 'CSS Animation',
+        intro: '@keyframes lets you define multi-step animations that run automatically — no JavaScript needed.',
+        snippets: [
+            { label: 'Bounce', code: '@keyframes bounce {\n  0%, 100% { transform: translateY(0); }\n  50%       { transform: translateY(-20px); }\n}' },
+            { label: 'Apply', code: '.ball {\n  animation: bounce 1s ease-in-out infinite;\n}' }
+        ],
+        tips: ['Use ease-in-out for natural feel.', 'infinite loops the animation.', 'animation-delay staggers multiple elements.']
+    },
+    transform: {
+        icon: 'fa-rotate', color: 'var(--c-pink)', tag: 'transform:',
+        title: 'CSS Transform',
+        intro: 'Transform moves, resizes, rotates, or skews elements without affecting surrounding layout.',
+        snippets: [
+            { label: 'Rotate & Scale', code: '.card:hover {\n  transform: rotate(5deg) scale(1.05);\n}' },
+            { label: 'Translate', code: '.btn:hover {\n  transform: translateY(-4px);\n}' }
+        ],
+        tips: ['Transforms do not affect document flow.', 'Combine multiple functions in one rule.', 'Pair with transition for smooth effect.']
+    },
+    selectors: {
+        icon: 'fa-crosshairs', color: 'var(--c-green)', tag: 'selector {}',
+        title: 'CSS Selectors',
+        intro: 'Selectors tell CSS which elements to style — from simple tags to complex pseudo-class chains.',
+        snippets: [
+            { label: 'Pseudo-classes', code: 'a:hover    { color: blue; }\ninput:focus { border: 2px solid blue; }\nli:first-child { font-weight: bold; }' },
+            { label: 'Combinators', code: '.card > h3   { /* direct child */ }\n.nav a + a   { /* adjacent sibling */ }\n[data-role]  { /* attribute */ }' }
+        ],
+        tips: ['Specificity: ID > class > element.', ':is() and :where() reduce repetition.', ':not() excludes matching elements.']
+    }
+};
 
-        </form>
+function showNotes(topic) {
+    const d = notesData[topic];
+    if (!d) return;
+    const snippetsHTML = d.snippets.map(s => `
+        <div class="snippet">
+            <div class="snippet-label">${s.label}</div>
+            <pre><code>${escapeHTML(s.code)}</code></pre>
+        </div>`).join('');
+    const tipsHTML = d.tips.map(t => `<li><i class="fa-solid fa-circle-check"></i>${t}</li>`).join('');
 
-    </section>
+    document.getElementById('notes-box').innerHTML = `
+        <div class="notes-header" style="--nc:${d.color}">
+            <div class="notes-icon-wrap"><i class="fa-solid ${d.icon}"></i></div>
+            <div>
+                <span class="code-tag">${d.tag}</span>
+                <h2>${d.title}</h2>
+            </div>
+        </div>
+        <p class="notes-intro">${d.intro}</p>
+        <div class="snippets-grid">${snippetsHTML}</div>
+        <ul class="tips-list">${tipsHTML}</ul>
+    `;
+    document.getElementById('notes-box').classList.remove('notes-placeholder');
+    document.querySelector('.notes-section').scrollIntoView({ behavior:'smooth', block:'start' });
+}
 
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer id="footer">
-
-        <h2>CSS Verse</h2>
-
-        <p>
-            Your Universe of Modern CSS
-        </p>
-
-        <p>
-            Learn • Explore • Master
-        </p>
-
-    </footer>
-
-
-    <script src="script.js"></script>
+function escapeHTML(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
 
 </body>
 </html>

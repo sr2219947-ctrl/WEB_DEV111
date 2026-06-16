@@ -1,0 +1,23 @@
+.box{
+    height:150px;
+    width:150px;
+    border:2px solid black;
+    background-color: pink;;
+}
+
+.one{
+    background-color: aquamarine;
+    position: relative;
+    z-index:-1;
+}
+
+.two{
+    background-color: darksalmon;
+    position: relative;
+    bottom: 50px;
+    z-index: 0;
+}
+
+/* //z index --> if some have +ve value they are visible upon other element and have more 3d effect in comaprison to other 
+and less value behind 
+ if they have position static and defualt then z-index cannot applied on them . */
