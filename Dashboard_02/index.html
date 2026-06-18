@@ -76,7 +76,7 @@
       </div>
       <div class="search">
         <i class="ti ti-search" aria-hidden="true"></i>
-        <input type="text" placeholder="Search subjects…" />
+        <input type="text" id="searchInput" placeholder="Search subjects…" />
       </div>
       <div class="topbar-r">
         <button class="notif" aria-label="Notifications">
@@ -158,8 +158,8 @@
         <div class="bh">
           <div class="bt">Study Board</div>
           <div class="ba">
-            <button class="bf"><i class="ti ti-filter"></i> Filter</button>
-            <button class="badd"><i class="ti ti-plus"></i> Add Topic</button>
+            <button class="bf" id="filterBtn"><i class="ti ti-filter"></i> Filter</button>
+            <button class="badd" id="addTopicBtn"><i class="ti ti-plus"></i> Add Topic</button>
           </div>
         </div>
 
@@ -409,39 +409,9 @@
       </div>
     </nav>
   </div>
-</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script>
-  function openDrawer() {
-    document.getElementById('overlay').classList.add('show');
-    document.getElementById('drawer').classList.add('open');
-  }
-  function closeDrawer() {
-    document.getElementById('overlay').classList.remove('show');
-    document.getElementById('drawer').classList.remove('open');
-  }
-  function setMobNav(el) {
-    document.querySelectorAll('.mni').forEach(i => i.classList.remove('active'));
-    el.classList.add('active');
-  }
-  document.querySelectorAll('.tcl').forEach(b => {
-    b.addEventListener('click', function () {
-      const t = this.closest('.toast');
-      t.style.opacity = '0'; t.style.transform = 'translateX(12px)';
-      setTimeout(() => t.remove(), 280);
-    });
-  });
-  document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('click', function () {
-      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-      this.classList.add('active');
-    });
-  });
-  const ctx = document.getElementById('mc');
-  if (ctx) {
-    const isMob = window.innerWidth <= 900;
-    new Chart(ctx, { type: 'line', data: { labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'], datasets: [{ data: [40, 55, 50, 70, 65, 80, 75], borderColor: isMob ? '#3DD9A4' : '#4A9B7F', backgroundColor: isMob ? 'rgba(61,217,164,.08)' : 'rgba(74,155,127,.08)', borderWidth: 2, pointRadius: 3, pointBackgroundColor: isMob ? '#3DD9A4' : '#4A9B7F', tension: .4, fill: true }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 9 }, color: isMob ? '#6B9E8A' : '#8BA49C' } }, y: { display: false } } } });
-  }
-</script>
+<script src="script.js"></script>
+</body>
+</html>
 </body>
 </html>
