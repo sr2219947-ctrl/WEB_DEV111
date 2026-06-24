@@ -1,416 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyFlow — Login</title>
+  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 </head>
 <body>
-<div class="dash" id="dashRoot">
-  <div class="mob-overlay" id="overlay" onclick="closeDrawer()">
-    <div class="mob-drawer" id="drawer" onclick="event.stopPropagation()">
-      <button class="mob-close" onclick="closeDrawer()" aria-label="Close menu"><i class="ti ti-x"></i></button>
-      <div style="padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.08)">
-        <div class="brand-icon"><i class="ti ti-school" aria-hidden="true"></i></div>
+
+  <div class="login-wrap">
+
+    <!-- Left Panel -->
+    <div class="login-left">
+      <div class="brand-row">
+        <div class="brand-icon"><i class="ti ti-school"></i></div>
         <div class="brand-name">StudyFlow</div>
-        <div class="brand-sub">Learning Dashboard</div>
       </div>
-      <div style="padding:12px 10px">
-        <div class="nav-lbl">Menu</div>
-        <div class="nav-item active"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
-        <div class="nav-item"><i class="ti ti-book"></i> My Subjects</div>
-        <div class="nav-item"><i class="ti ti-circle-check"></i> Completed</div>
-        <div class="nav-item"><i class="ti ti-clock"></i> Pending</div>
-        <div class="nav-item"><i class="ti ti-calendar"></i> Schedule</div>
-        <div class="nav-item"><i class="ti ti-settings"></i> Settings</div>
+      <div class="left-hero">
+        <h1>Track your<br>learning <span>journey</span> 🌿</h1>
+        <p>Stay on top of your study goals, manage topics, and build unstoppable streaks.</p>
       </div>
-      <div style="margin-top:auto;padding:12px">
-        <div class="up-card">
-          <p>Focus Mode 🌿</p>
-          <span>You're on a streak!</span>
-          <button class="up-btn">View Insights</button>
+      <div class="left-stats">
+        <div class="lstat"><div class="lstat-v">48</div><div class="lstat-l">Topics</div></div>
+        <div class="lstat"><div class="lstat-v">14d</div><div class="lstat-l">Streak</div></div>
+        <div class="lstat"><div class="lstat-v">82%</div><div class="lstat-l">Score</div></div>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="login-right">
+      <div class="form-head">
+        <h2>Welcome back 👋</h2>
+        <p>Sign in to continue to your dashboard</p>
+      </div>
+
+      <div class="err-msg" id="errMsg">
+        <i class="ti ti-alert-circle"></i>
+        <span id="errText">Invalid username or password. Try again.</span>
+      </div>
+
+      <div class="field">
+        <label for="username">Username</label>
+        <div class="field-wrap">
+          <i class="ti ti-user"></i>
+          <input type="text" id="username" placeholder="Enter your username" autocomplete="username" />
         </div>
       </div>
-    </div>
-  </div>
 
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-icon"><i class="ti ti-school" aria-hidden="true"></i></div>
-      <div class="brand-name">StudyFlow</div>
-      <div class="brand-sub">Learning Dashboard</div>
-    </div>
-    <div class="nav-sec">
-      <div class="nav-lbl">Menu</div>
-      <div class="nav-item active">
-        <i class="ti ti-layout-dashboard"></i> Dashboard</div>
-      <div class="nav-item"><i class="ti ti-book"></i> My Subjects</div>
-      <div class="nav-item"><i class="ti ti-circle-check"></i> Completed</div>
-      <div class="nav-item"><i class="ti ti-clock"></i> Pending</div>
-      <div class="nav-item"><i class="ti ti-calendar"></i> Schedule</div>
-      <div class="nav-item"><i class="ti ti-settings"></i> Settings</div>
-    </div>
-    <div class="lbl-sec">
-      <div class="lbl-t">Priority</div>
-      <div class="lbl-item"><span class="lbl-dot" style="background:#E24B4A"></span> High Priority</div>
-      <div class="lbl-item"><span class="lbl-dot" style="background:#EF9F27"></span> Medium</div>
-      <div class="lbl-item"><span class="lbl-dot" style="background:var(--sage)"></span> Low Priority</div>
-    </div>
-    <div class="up-card">
-      <p>Focus Mode 🌿</p>
-      <span>You're on a streak!</span>
-      <button class="up-btn">View Insights</button>
-    </div>
-  </aside>
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="field-wrap">
+          <i class="ti ti-lock"></i>
+          <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" />
+          <button class="eye-btn" type="button" id="eyeBtn" aria-label="Toggle password">
+            <i class="ti ti-eye" id="eyeIcon"></i>
+          </button>
+        </div>
+      </div>
 
-  <div class="main">
-    <div class="topbar">
-      <button class="hamburger" id="menuBtn" aria-label="Open menu" onclick="openDrawer()">
-        <i class="ti ti-menu-2"></i>
+      <button class="login-btn" onclick="login()">
+        <i class="ti ti-login"></i> Sign In
       </button>
-      <div class="topbar-l">
-        <h2>Welcome back, Sakshi Rana! 🌿</h2>
-        <p>Here's your study progress for today.</p>
-      </div>
-      <div class="search">
-        <i class="ti ti-search" aria-hidden="true"></i>
-        <input type="text" id="searchInput" placeholder="Search subjects…" />
-      </div>
-      <div class="topbar-r">
-        <button class="notif" aria-label="Notifications">
-          <i class="ti ti-bell"></i>
-          <span class="nbadge">3</span>
-        </button>
-        <div style="display:flex;align-items:center;gap:7px;cursor:pointer">
-          <div class="avatar">SR</div>
-          <div>
-            <div class="uname">Sakshi Rana</div>
-            <div class="urole">MCA Student</div>
-          </div>
-        </div>
+
+      <div class="divider"><span>Don't have an account?</span></div>
+
+      <a href="registration.html" class="register-link">
+        <i class="ti ti-user-plus"></i> Create New Account
+      </a>
+
+      <div class="hint">
+        <i class="ti ti-info-circle"></i>
+        <span>Default admin: <strong>admin</strong> / <strong>admin123</strong></span>
       </div>
     </div>
 
-    <div class="content">
-      <div class="content-l">
-        <div class="stats">
-          <div class="sc">
-            <div class="si" style="background:var(--sage-l)"><i class="ti ti-list-check" style="color:var(--sage)"></i>
-            </div>
-            <div class="sl">Total Topics</div>
-            <div class="sv">48</div>
-            <div class="sch up"><i class="ti ti-trending-up"></i> 10% this week</div>
-            <div class="sbar">
-              <div class="sbf" style="width:75%;background:var(--sage)"></div>
-            </div>
-          </div>
-          <div class="sc">
-            <div class="si" style="background:var(--moss-l)"><i class="ti ti-circle-check"
-                style="color:var(--moss)"></i></div>
-            <div class="sl">Completed</div>
-            <div class="sv">31</div>
-            <div class="sch up"><i class="ti ti-trending-up"></i> 8% this week</div>
-            <div class="sbar">
-              <div class="sbf" style="width:65%;background:var(--moss)"></div>
-            </div>
-          </div>
-          <div class="sc">
-            <div class="si" style="background:var(--clay-l)"><i class="ti ti-clock-pause" style="color:var(--clay)"></i>
-            </div>
-            <div class="sl">Pending</div>
-            <div class="sv">9</div>
-            <div class="sch dn"><i class="ti ti-trending-down"></i> 5% this week</div>
-            <div class="sbar">
-              <div class="sbf" style="width:30%;background:var(--clay)"></div>
-            </div>
-          </div>
-          <div class="sc">
-            <div class="si" style="background:var(--sky-l)"><i class="ti ti-loader" style="color:var(--sky)"></i></div>
-            <div class="sl">In Progress</div>
-            <div class="sv">8</div>
-            <div class="sch up"><i class="ti ti-trending-up"></i> 3% this week</div>
-            <div class="sbar">
-              <div class="sbf" style="width:40%;background:var(--sky)"></div>
-            </div>
-          </div>
-          <div class="sc">
-            <div class="si" style="background:var(--lav-l)"><i class="ti ti-flame" style="color:var(--lav)"></i></div>
-            <div class="sl">Study Streak</div>
-            <div class="sv">14d</div>
-            <div class="sch up"><i class="ti ti-trending-up"></i> 2d gain</div>
-            <div class="sbar">
-              <div class="sbf" style="width:55%;background:var(--lav)"></div>
-            </div>
-          </div>
-          <div class="sc">
-            <div class="si" style="background:#E8F5EF"><i class="ti ti-chart-bar" style="color:#2D9B6F"></i></div>
-            <div class="sl">Score</div>
-            <div class="sv">82%</div>
-            <div class="sch up"><i class="ti ti-trending-up"></i> 15% lift</div>
-            <div class="sbar">
-              <div class="sbf" style="width:82%;background:#2D9B6F"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bh">
-          <div class="bt">Study Board</div>
-          <div class="ba">
-            <button class="bf" id="filterBtn"><i class="ti ti-filter"></i> Filter</button>
-            <button class="badd" id="addTopicBtn"><i class="ti ti-plus"></i> Add Topic</button>
-          </div>
-        </div>
-        <div class="kanban">
-          <div class="col col-p">
-            <div class="ch">
-              <div class="ctw"><span class="ct">Pending</span><span class="cc">4</span></div><i
-                class="ti ti-dots cdots"></i>
-            </div>
-            <div class="tc">
-              <div class="tn">DSA — Trees &amp; Graphs</div>
-              <div class="tm2"><span class="pb ph">High</span><span class="td2"><i class="ti ti-calendar"></i> 20
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <div class="tc">
-              <div class="tn">Aptitude — Time &amp; Work</div>
-              <div class="tm2"><span class="pb pm">Medium</span><span class="td2"><i class="ti ti-calendar"></i> 22
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <div class="tc">
-              <div class="tn">DSA — Array &amp; String</div>
-              <div class="tm2"><span class="pb ph">High</span><span class="td2"><i class="ti ti-calendar"></i> 25
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <div class="tc">
-              <div class="tn">Aptitude — Number Series</div>
-              <div class="tm2"><span class="pb pl">Low</span><span class="td2"><i class="ti ti-calendar"></i> 28
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <button class="atb"><i class="ti ti-plus"></i> Add topic</button>
-          </div>
-          <div class="col col-i">
-            <div class="ch">
-              <div class="ctw"><span class="ct">In Progress</span><span class="cc">3</span></div><i
-                class="ti ti-dots cdots"></i>
-            </div>
-            <div class="tc">
-              <div class="tn">System Design — Scalability</div>
-              <div class="tm2"><span class="pb ph">High</span><span class="td2"><i class="ti ti-calendar"></i> 18
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <div class="tc">
-              <div class="tn">DSA — Dynamic Programming</div>
-              <div class="tm2"><span class="pb pm">Medium</span><span class="td2"><i class="ti ti-calendar"></i> 19
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <div class="tc">
-              <div class="tn">Aptitude — Logical Reasoning</div>
-              <div class="tm2"><span class="pb pm">Medium</span><span class="td2"><i class="ti ti-calendar"></i> 21
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <button class="atb"><i class="ti ti-plus"></i> Add topic</button>
-          </div>
-          <div class="col col-d">
-            <div class="ch">
-              <div class="ctw"><span class="ct">Completed</span><span class="cc">3</span></div><i
-                class="ti ti-dots cdots"></i>
-            </div>
-            <div class="tc" style="opacity:.7">
-              <div class="tn" style="text-decoration:line-through;color:var(--tmut)">System Design — Intro &amp; HLD
-              </div>
-              <div class="tm2"><span class="pb pl">Low</span><span class="td2"><i class="ti ti-calendar"></i> 15
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <div class="tc" style="opacity:.7">
-              <div class="tn" style="text-decoration:line-through;color:var(--tmut)">DSA — Arrays &amp; Strings</div>
-              <div class="tm2"><span class="pb pm">Medium</span><span class="td2"><i class="ti ti-calendar"></i> 14
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <div class="tc" style="opacity:.7">
-              <div class="tn" style="text-decoration:line-through;color:var(--tmut)">Aptitude — Percentages</div>
-              <div class="tm2"><span class="pb pl">Low</span><span class="td2"><i class="ti ti-calendar"></i> 12
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <button class="atb"><i class="ti ti-plus"></i> Add topic</button>
-          </div>
-        </div>
-
-        <div class="bg2">
-          <div class="bc">
-            <div class="bct">Study Overview</div>
-            <div class="bcs">Ahead of 72% of peers this week</div>
-            <div class="pcs">
-              <div class="pi">
-                <div class="pr"><svg width="64" height="64" viewBox="0 0 64 64">
-                    <circle cx="32" cy="32" r="26" fill="none" stroke="#E8F5EF" stroke-width="7" />
-                    <circle cx="32" cy="32" r="26" fill="none" stroke="var(--sage)" stroke-width="7"
-                      stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="41" class="ram" />
-                  </svg>
-                  <div class="pv">75%</div>
-                </div>
-                <div class="plbl">Daily</div>
-              </div>
-              <div class="pi">
-                <div class="pr"><svg width="64" height="64" viewBox="0 0 64 64">
-                    <circle cx="32" cy="32" r="26" fill="none" stroke="#E8F2FA" stroke-width="7" />
-                    <circle cx="32" cy="32" r="26" fill="none" stroke="var(--sky)" stroke-width="7"
-                      stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="57" style="animation-delay:.2s"
-                      class="ram" />
-                  </svg>
-                  <div class="pv">65%</div>
-                </div>
-                <div class="plbl">Weekly</div>
-              </div>
-              <div class="pi">
-                <div class="pr"><svg width="64" height="64" viewBox="0 0 64 64">
-                    <circle cx="32" cy="32" r="26" fill="none" stroke="#FAEEDA" stroke-width="7" />
-                    <circle cx="32" cy="32" r="26" fill="none" stroke="#EF9F27" stroke-width="7" stroke-linecap="round"
-                      stroke-dasharray="163.4" stroke-dashoffset="90" style="animation-delay:.4s" class="ram" />
-                  </svg>
-                  <div class="pv">45%</div>
-                </div>
-                <div class="plbl">Monthly</div>
-              </div>
-            </div>
-          </div>
-          <div class="bc">
-            <div class="bct">Recent Activity</div>
-            <div class="bcs">Your latest study actions</div>
-            <ul class="al">
-              <li class="ai">
-                <div class="aico" style="background:var(--sage-l)"><i class="ti ti-plus" style="color:var(--sage)"></i>
-                </div>
-                <div>
-                  <div class="at">DSA — Trees &amp; Graphs added</div>
-                  <div class="ati">5 min ago</div>
-                </div>
-              </li>
-              <li class="ai">
-                <div class="aico" style="background:var(--sky-l)"><i class="ti ti-loader" style="color:var(--sky)"></i>
-                </div>
-                <div>
-                  <div class="at">System Design in progress</div>
-                  <div class="ati">20 min ago</div>
-                </div>
-              </li>
-              <li class="ai">
-                <div class="aico" style="background:var(--moss-l)"><i class="ti ti-circle-check"
-                    style="color:var(--moss)"></i></div>
-                <div>
-                  <div class="at">DSA — Arrays done</div>
-                  <div class="ati">2 hours ago</div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="content-r">
-        <div class="rs">
-          <div class="rt">Today's Progress</div>
-          <div class="dw"><svg width="90" height="90" viewBox="0 0 90 90">
-              <circle cx="45" cy="45" r="37" fill="none" stroke="#E8F5EF" stroke-width="9" />
-              <circle cx="45" cy="45" r="37" fill="none" stroke="var(--sage)" stroke-width="9" stroke-linecap="round"
-                stroke-dasharray="232.5" stroke-dashoffset="58" class="ram" style="animation-delay:.1s" />
-            </svg>
-            <div class="dv">75%</div>
-          </div>
-          <div class="dl">Great progress! 🌱</div>
-          <div class="ds">Keep it up, Sakshi!</div>
-        </div>
-        <div class="rs">
-          <div class="rt">Upcoming Sessions <span class="va">View all</span></div>
-          <div class="ui">
-            <div class="uico"><i class="ti ti-calendar"></i></div>
-            <div>
-              <div class="ut">DSA Revision</div>
-              <div class="utime">Today, 4:00 PM</div>
-            </div>
-          </div>
-          <div class="ui">
-            <div class="uico"><i class="ti ti-calendar"></i></div>
-            <div>
-              <div class="ut">System Design Class</div>
-              <div class="utime">Tomorrow, 10:00 AM</div>
-            </div>
-          </div>
-          <div class="ui">
-            <div class="uico"><i class="ti ti-calendar"></i></div>
-            <div>
-              <div class="ut">Aptitude Mock Test</div>
-              <div class="utime">19 Jun, 2:00 PM</div>
-            </div>
-          </div>
-        </div>
-        <div class="rs">
-          <div class="rt">Weekly Trend <span class="va">This Week</span></div>
-          <div class="mch"><canvas id="mc"></canvas></div>
-        </div>
-        <div class="rs">
-          <div class="rt">Updates</div>
-          <div class="ts">
-            <div class="toast s">
-              <div class="tco"><i class="ti ti-circle-check"></i></div>
-              <div>
-                <div class="tt">Topic Completed</div>
-                <div class="tsub">Arrays &amp; Strings done</div>
-              </div><span class="tcl">×</span>
-            </div>
-            <div class="toast i">
-              <div class="tco"><i class="ti ti-info-circle"></i></div>
-              <div>
-                <div class="tt">Class Reminder</div>
-                <div class="tsub">System Design today</div>
-              </div><span class="tcl">×</span>
-            </div>
-            <div class="toast w">
-              <div class="tco"><i class="ti ti-alert-triangle"></i></div>
-              <div>
-                <div class="tt">Deadline Near</div>
-                <div class="tsub">3 topics due soon</div>
-              </div><span class="tcl">×</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <nav class="mob-nav" aria-label="Mobile navigation">
-      <div class="mob-nav-inner">
-        <div class="mni active" onclick="setMobNav(this)"><i class="ti ti-layout-dashboard"></i><span>Home</span></div>
-        <div class="mni" onclick="setMobNav(this)"><i class="ti ti-book"></i><span>Subjects</span></div>
-        <div class="mni" onclick="setMobNav(this)"><i class="ti ti-circle-check"></i><span>Done</span></div>
-        <div class="mni" onclick="setMobNav(this)"><i class="ti ti-calendar"></i><span>Schedule</span></div>
-        <div class="mni" onclick="setMobNav(this)"><i class="ti ti-user"></i><span>Profile</span></div>
-      </div>
-    </nav>
   </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script src="script.js"></script>
-</body>
-</html>
+
+  <script>
+    // Clear session — must login every time
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUser');
+
+    function login() {
+      const u = document.getElementById('username').value.trim();
+      const p = document.getElementById('password').value;
+      const err = document.getElementById('errMsg');
+      const errText = document.getElementById('errText');
+
+      if (!u || !p) {
+        errText.textContent = 'Please fill in both fields.';
+        err.classList.add('show');
+        return;
+      }
+
+      // Check default admin
+      if (u === 'admin' && p === 'admin123') {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('currentUser', 'Admin');
+        location.href = 'dashboard.html';
+        return;
+      }
+
+      // Check registered users
+      const users = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+      const found = users.find(user => user.username === u && user.password === p);
+
+      if (found) {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('currentUser', found.name);
+        location.href = 'dashboard.html';
+      } else {
+        errText.textContent = 'Invalid username or password. Try again.';
+        err.classList.add('show');
+        document.getElementById('password').value = '';
+      }
+    }
+
+    // Enter key
+    document.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+    // Toggle password
+    document.getElementById('eyeBtn').addEventListener('click', function () {
+      const input = document.getElementById('password');
+      const icon  = document.getElementById('eyeIcon');
+      const show  = input.type === 'password';
+      input.type  = show ? 'text' : 'password';
+      icon.className = show ? 'ti ti-eye-off' : 'ti ti-eye';
+    });
+
+    // Clear error on typing
+    ['username', 'password'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+        document.getElementById('errMsg').classList.remove('show');
+      });
+    });
+  </script>
+
 </body>
 </html>

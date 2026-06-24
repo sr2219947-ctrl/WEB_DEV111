@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyFlow — Register</title>
+  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <div class="login-wrap">
+
+    <!-- Left Panel -->
+    <div class="login-left">
+      <div class="brand-row">
+        <div class="brand-icon"><i class="ti ti-school"></i></div>
+        <div class="brand-name">StudyFlow</div>
+      </div>
+      <div class="left-hero">
+        <h1>Start your<br>study <span>journey</span> 🚀</h1>
+        <p>Create your account and join thousands of students tracking their learning goals every day.</p>
+      </div>
+      <div class="left-stats">
+        <div class="lstat"><div class="lstat-v">48</div><div class="lstat-l">Topics</div></div>
+        <div class="lstat"><div class="lstat-v">14d</div><div class="lstat-l">Streak</div></div>
+        <div class="lstat"><div class="lstat-v">82%</div><div class="lstat-l">Score</div></div>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="login-right">
+      <div class="form-head">
+        <h2>Create Account ✨</h2>
+        <p>Fill in the details below to get started</p>
+      </div>
+
+      <!-- Error -->
+      <div class="err-msg" id="errMsg">
+        <i class="ti ti-alert-circle"></i>
+        <span id="errText">Something went wrong.</span>
+      </div>
+
+      <!-- Success -->
+      <div class="success-msg" id="successMsg">
+        <i class="ti ti-circle-check"></i>
+        <span>Account created! Redirecting to login…</span>
+      </div>
+
+      <!-- Full Name -->
+      <div class="field">
+        <label for="fullname">Full Name</label>
+        <div class="field-wrap">
+          <i class="ti ti-id-badge"></i>
+          <input type="text" id="fullname" placeholder="Enter your full name" />
+        </div>
+      </div>
+
+      <!-- Username -->
+      <div class="field">
+        <label for="username">Username</label>
+        <div class="field-wrap">
+          <i class="ti ti-user"></i>
+          <input type="text" id="username" placeholder="Choose a username" autocomplete="username" />
+        </div>
+      </div>
+     
+     <!-- Email -->
+<div class="field">
+  <label for="email">Email</label>
+
+  <div class="field-wrap">
+    <i class="ti ti-mail"></i>
+
+    <input 
+      type="email" 
+      id="email" 
+      placeholder="Enter your email"
+    />
+
+  </div>
+</div>
+      <!-- Password -->
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="field-wrap">
+          <i class="ti ti-lock"></i>
+          <input type="password" id="password" placeholder="Create a password" autocomplete="new-password" />
+          <button class="eye-btn" type="button" id="eyeBtn" aria-label="Toggle password">
+            <i class="ti ti-eye" id="eyeIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="field">
+        <label for="confirm">Confirm Password</label>
+        <div class="field-wrap">
+          <i class="ti ti-lock-check"></i>
+          <input type="password" id="confirm" placeholder="Re-enter your password" autocomplete="new-password" />
+          <button class="eye-btn" type="button" id="eyeBtn2" aria-label="Toggle confirm password">
+            <i class="ti ti-eye" id="eyeIcon2"></i>
+          </button>
+        </div>
+      </div>
+
+      <button class="login-btn" onclick="register()">
+        <i class="ti ti-user-plus"></i> Create Account
+      </button>
+
+      <div class="divider"><span>Already have an account?</span></div>
+
+      <a href="index.html" class="register-link">
+        <i class="ti ti-login"></i> Back to Login
+      </a>
+    </div>
+
+  </div>
+<script src="register.js"></script>
+  </body>
+  </html>

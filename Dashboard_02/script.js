@@ -1,3 +1,16 @@
+// ── Auth Guard ──────────────────────────────────────────────
+// Redirect to login if not authenticated
+if (localStorage.getItem('isLoggedIn') !== 'true') {
+  location.href = 'index.html';
+}
+
+// ── Logout 
+function logout() {
+  localStorage.clear();
+  location.href = 'index.html';
+}
+
+// ── Drawer (mobile sidebar) 
 function openDrawer() {
   document.getElementById('overlay').classList.add('show');
   document.getElementById('drawer').classList.add('open');
@@ -13,6 +26,7 @@ function setMobNav(el) {
   el.classList.add('active');
 }
 
+// ── Toast close buttons ──────────────────────────────────────
 document.querySelectorAll('.tcl').forEach(b => {
   b.addEventListener('click', function () {
     const t = this.closest('.toast');
@@ -22,6 +36,7 @@ document.querySelectorAll('.tcl').forEach(b => {
   });
 });
 
+// ── Sidebar nav active state ─────────────────────────────────
 document.querySelectorAll('.nav-item').forEach(item => {
   item.addEventListener('click', function () {
     document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
@@ -29,6 +44,7 @@ document.querySelectorAll('.nav-item').forEach(item => {
   });
 });
 
+// ── Chart ────────────────────────────────────────────────────
 const ctx = document.getElementById('mc');
 
 if (ctx) {
@@ -52,72 +68,44 @@ if (ctx) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: false
-        }
-      },
+      plugins: { legend: { display: false } },
       scales: {
         x: {
-          grid: {
-            display: false
-          },
+          grid: { display: false },
           ticks: {
-            font: {
-              size: 9
-            },
+            font: { size: 9 },
             color: isMob ? '#6B9E8A' : '#8BA49C'
           }
         },
-        y: {
-          display: false
-        }
+        y: { display: false }
       }
     }
   });
 }
 
-//Search function 
-
+// ── Search ───────────────────────────────────────────────────
 const searchInput = document.getElementById("searchInput");
 
 if (searchInput) {
   searchInput.addEventListener("keyup", function () {
-
     const value = this.value.toLowerCase();
-
     document.querySelectorAll(".tc").forEach(card => {
-
       const title = card.querySelector(".tn").textContent.toLowerCase();
-
-      if (title.includes(value)) {
-        card.style.display = "";
-      } else {
-        card.style.display = "none";
-      }
-
+      card.style.display = title.includes(value) ? "" : "none";
     });
-
   });
 }
 
-
-// add topic functions 
-
+// ── Add Topic ────────────────────────────────────────────────
 const addTopicBtn = document.getElementById("addTopicBtn");
 
 if (addTopicBtn) {
-
   addTopicBtn.addEventListener("click", () => {
-
     const topic = prompt("Enter Topic Name");
-
     if (!topic) return;
 
     const card = document.createElement("div");
-
     card.className = "tc";
-
     card.innerHTML = `
       <div class="tn">${topic}</div>
       <div class="tm2">
@@ -128,42 +116,24 @@ if (addTopicBtn) {
         <div class="tav">SR</div>
       </div>
     `;
-
     document.querySelector(".col-p").appendChild(card);
-
   });
-
 }
 
-//Filter option 
-
+// ── Filter ───────────────────────────────────────────────────
 const filterBtn = document.getElementById("filterBtn");
 
 if (filterBtn) {
-
   filterBtn.addEventListener("click", () => {
-
-    const priority = prompt(
-      "Enter:\nHigh\nMedium\nLow\nAll"
-    );
-
+    const priority = prompt("Enter:\nHigh\nMedium\nLow\nAll");
     if (!priority) return;
 
     document.querySelectorAll(".tc").forEach(card => {
-
       const badge = card.querySelector(".pb");
-
-      if (
+      card.style.display = (
         priority.toLowerCase() === "all" ||
         badge.textContent.toLowerCase() === priority.toLowerCase()
-      ) {
-        card.style.display = "";
-      } else {
-        card.style.display = "none";
-      }
-
+      ) ? "" : "none";
     });
-
   });
-
 }
