@@ -1494,3 +1494,325 @@
       color: #E8F5EF;
     }
   }
+
+  /* ═══════════════════════════════════════════════════════
+   CRUD ADDITIONS — 
+ */
+
+/* ── Topic card action buttons (Edit / Delete) ─────── */
+.tc {
+  position: relative;
+}
+
+.tc-actions {
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  gap: 4px;
+  z-index: 2;
+}
+
+.tc:hover .tc-actions {
+  display: flex;
+}
+
+.tca-btn {
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  transition: background .15s, transform .1s;
+}
+
+.tca-edit {
+  background: rgba(74,155,127,.12);
+  color: var(--sage);
+}
+
+.tca-edit:hover {
+  background: rgba(74,155,127,.25);
+}
+
+.tca-del {
+  background: rgba(226,75,74,.10);
+  color: #E24B4A;
+}
+
+.tca-del:hover {
+  background: rgba(226,75,74,.22);
+}
+
+.tca-btn:active {
+  transform: scale(.9);
+}
+
+/* ── CRUD Backdrop ─────────────────────────────────── */
+.crud-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(20,36,32,.45);
+  backdrop-filter: blur(3px);
+  z-index: 900;
+}
+
+.crud-backdrop.show {
+  display: block;
+}
+
+/* ── CRUD Modal ────────────────────────────────────── */
+.crud-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%) scale(.96);
+  width: min(480px, 94vw);
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 28px 24px;
+  z-index: 910;
+  box-shadow: 0 24px 64px rgba(20,36,32,.22), 0 4px 16px rgba(0,0,0,.08);
+  transition: transform .22s cubic-bezier(.34,1.56,.64,1), opacity .18s;
+  opacity: 0;
+}
+
+.crud-modal.show {
+  display: block;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* ── Modal head ────────────────────────────────────── */
+.crud-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.crud-modal-head h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--td);
+}
+
+.crud-close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--tmut);
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s, color .15s;
+}
+
+.crud-close:hover {
+  background: #ffe4e4;
+  color: #E24B4A;
+}
+
+/* ── Fields ────────────────────────────────────────── */
+.crud-field {
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.crud-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--tm);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+}
+
+.crud-field input,
+.crud-field select {
+  width: 100%;
+  padding: 10px 13px;
+  border: 1.5px solid var(--bdr);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 13.5px;
+  color: var(--td);
+  background: var(--bg);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.crud-field input:focus,
+.crud-field select:focus {
+  border-color: var(--sage);
+  box-shadow: 0 0 0 3px rgba(74,155,127,.12);
+  background: #fff;
+}
+
+.crud-row {
+  display: flex;
+  gap: 12px;
+}
+
+/* ── Modal actions ─────────────────────────────────── */
+.crud-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+  justify-content: flex-end;
+}
+
+.crud-cancel {
+  padding: 10px 20px;
+  border: 1.5px solid var(--bdr);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--tm);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s;
+}
+
+.crud-cancel:hover {
+  background: var(--bg);
+}
+
+.crud-save {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 10px;
+  background: var(--sage);
+  color: #fff;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 4px 12px rgba(74,155,127,.28);
+  transition: background .2s, box-shadow .2s, transform .1s;
+}
+
+.crud-save:hover {
+  background: #3d8a6f;
+  box-shadow: 0 6px 18px rgba(74,155,127,.35);
+}
+
+.crud-save:active {
+  transform: scale(.97);
+}
+
+/* ── Delete confirm modal ─────────────────────────── */
+.del-modal {
+  text-align: center;
+  padding: 36px 28px 28px;
+}
+
+.del-icon {
+  width: 56px;
+  height: 56px;
+  background: #fff0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #E24B4A;
+  margin: 0 auto 16px;
+}
+
+.del-modal h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 18px;
+  color: var(--td);
+  margin-bottom: 6px;
+}
+
+.del-modal p {
+  font-size: 13px;
+  color: var(--tmut);
+  margin-bottom: 4px;
+}
+
+.del-confirm {
+  background: #E24B4A !important;
+  box-shadow: 0 4px 12px rgba(226,75,74,.3) !important;
+}
+
+.del-confirm:hover {
+  background: #c0392b !important;
+}
+
+/* ── Completed cards in kanban ─────────────────────── */
+.tc.is-done .tn {
+  text-decoration: line-through;
+  color: var(--tmut);
+  opacity: .8;
+}
+
+.tc.is-done {
+  opacity: .7;
+}
+
+/* ── Logout button — topbar (red style) ────────────── */
+.topbar-logout {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #fff0f0;
+  color: #E24B4A;
+  border: 1.5px solid #ffd0d0;
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .18s, border-color .18s;
+  white-space: nowrap;
+}
+
+.topbar-logout:hover {
+  background: #ffe4e4;
+  border-color: #E24B4A;
+}
+
+/* ── Logout button — sidebar ───────────────────────── */
+.sidebar-logout {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 8px 12px 12px;
+  padding: 10px 14px;
+  background: #fff0f0;
+  color: #E24B4A;
+  border: 1.5px solid #ffd0d0;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .18s, border-color .18s;
+}
+
+.sidebar-logout:hover {
+  background: #ffe4e4;
+  border-color: #E24B4A;
+}
+

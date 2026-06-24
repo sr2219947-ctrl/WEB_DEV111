@@ -421,6 +421,65 @@
     </nav>
   </div>
 </div>
+<!-- ── CRUD Modal ── PASTE THIS just before </body> in Dashboard.html ── -->
+<div class="crud-backdrop" id="crudBackdrop" onclick="closeCrudModal()"></div>
+
+<div class="crud-modal" id="crudModal" role="dialog" aria-modal="true" aria-labelledby="crudModalTitle">
+  <div class="crud-modal-head">
+    <h3 id="crudModalTitle">Add Topic</h3>
+    <button class="crud-close" onclick="closeCrudModal()" aria-label="Close"><i class="ti ti-x"></i></button>
+  </div>
+
+  <div class="crud-field">
+    <label for="crudTitle">Topic Name</label>
+    <input type="text" id="crudTitle" placeholder="e.g. DSA — Binary Trees" />
+  </div>
+
+  <div class="crud-row">
+    <div class="crud-field">
+      <label for="crudPriority">Priority</label>
+      <select id="crudPriority">
+        <option value="High">High</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="Low">Low</option>
+      </select>
+    </div>
+    <div class="crud-field">
+      <label for="crudStatus">Status</label>
+      <select id="crudStatus">
+        <option value="pending">Pending</option>
+        <option value="inprogress">In Progress</option>
+        <option value="completed">Completed</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="crud-field">
+    <label for="crudDate">Due Date</label>
+    <input type="date" id="crudDate" />
+  </div>
+
+  <div class="crud-actions">
+    <button class="crud-cancel" onclick="closeCrudModal()">Cancel</button>
+    <button class="crud-save" id="crudSaveBtn" onclick="saveCrudTopic()">
+      <i class="ti ti-check"></i> Save Topic
+    </button>
+  </div>
+</div>
+
+<!-- ── Delete Confirm Modal ── -->
+<div class="crud-backdrop" id="delBackdrop" onclick="closeDeleteModal()"></div>
+<div class="crud-modal del-modal" id="delModal" role="dialog" aria-modal="true">
+  <div class="del-icon"><i class="ti ti-trash"></i></div>
+  <h3>Delete Topic?</h3>
+  <p>This action cannot be undone.</p>
+  <div class="crud-actions">
+    <button class="crud-cancel" onclick="closeDeleteModal()">Cancel</button>
+    <button class="crud-save del-confirm" id="delConfirmBtn"><i class="ti ti-trash"></i> Delete</button>
+  </div>
+</div>
+<!-- ── END CRUD Modal ── -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="script.js"></script>
 </body>
