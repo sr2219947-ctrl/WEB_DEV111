@@ -18,7 +18,7 @@
       if (u === 'admin' && p === 'admin123') {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('currentUser', 'Admin');
-        location.href = 'dashboard.html';
+        location.href = 'Dashboard/';
         return;
       }
 
@@ -29,7 +29,7 @@
       if (found) {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('currentUser', found.name);
-        location.href = 'dashboard.html';
+        location.href = 'Dashboard/';
       } else {
         errText.textContent = 'Invalid username or password. Try again.';
         err.classList.add('show');

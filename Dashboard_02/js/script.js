@@ -2,13 +2,13 @@
 
 // ── Auth Guard ───────────────────────────────────────────────
 if (localStorage.getItem('isLoggedIn') !== 'true') {
-  location.href = 'index.html';
+  location.href = '../index.html';
 }
 
 // ── Logout ───────────────────────────────────────────────────
 function logout() {
   localStorage.clear();
-  location.href = 'index.html';
+  location.href = '../index.html';
 }
 
 // ── Drawer (mobile sidebar) ──────────────────────────────────

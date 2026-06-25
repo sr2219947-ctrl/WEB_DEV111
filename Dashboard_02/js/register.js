@@ -69,7 +69,7 @@
 
       // Show success and redirect
       success.classList.add('show');
-      setTimeout(() => { location.href = 'index.html'; }, 1800);
+      setTimeout(() => { location.href = '../index.html'; }, 1800);
     }
 
     // Enter key
