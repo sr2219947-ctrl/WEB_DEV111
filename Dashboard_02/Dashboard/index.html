@@ -1,464 +1,641 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyFlow — Dashboard</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyFlow — Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<div class="dash" id="dashRoot">
-  <div class="mob-overlay" id="overlay" onclick="closeDrawer()">
-    <div class="mob-drawer" id="drawer" onclick="event.stopPropagation()">
-      <button class="mob-close" onclick="closeDrawer()" aria-label="Close menu"><i class="ti ti-x"></i></button>
-      <div style="padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.08)">
-        <div class="brand-icon"><i class="ti ti-school" aria-hidden="true"></i></div>
+
+<div class="dash">
+
+  <!-- ── SIDEBAR ─────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon"><i class="ti ti-school"></i></div>
+      <div>
         <div class="brand-name">StudyFlow</div>
         <div class="brand-sub">Learning Dashboard</div>
       </div>
-      <div style="padding:12px 10px">
-        <div class="nav-lbl">Menu</div>
-        <div class="nav-item active"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
-        <div class="nav-item"><i class="ti ti-book"></i> My Subjects</div>
-        <div class="nav-item"><i class="ti ti-circle-check"></i> Completed</div>
-        <div class="nav-item"><i class="ti ti-clock"></i> Pending</div>
-        <div class="nav-item"><i class="ti ti-calendar"></i> Schedule</div>
-        <div class="nav-item"><i class="ti ti-settings"></i> Settings</div>
-        <!-- Logout in mobile drawer -->
-        <div class="nav-item logout-item" onclick="logout()" style="margin-top:8px;color:#E24B4A;">
-          <i class="ti ti-logout"></i> Logout
-        </div>
-      </div>
-      <div style="margin-top:auto;padding:12px">
-        <div class="up-card">
-          <p>Focus Mode 🌿</p>
-          <span>You're on a streak!</span>
-          <button class="up-btn">View Insights</button>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-icon"><i class="ti ti-school" aria-hidden="true"></i></div>
-      <div class="brand-name">StudyFlow</div>
-      <div class="brand-sub">Learning Dashboard</div>
-    </div>
     <div class="nav-sec">
-      <div class="nav-lbl">Menu</div>
-      <div class="nav-item active">
-        <i class="ti ti-layout-dashboard"></i> Dashboard</div>
-      <div class="nav-item"><i class="ti ti-book"></i> My Subjects</div>
-      <div class="nav-item"><i class="ti ti-circle-check"></i> Completed</div>
-      <div class="nav-item"><i class="ti ti-clock"></i> Pending</div>
-      <div class="nav-item"><i class="ti ti-calendar"></i> Schedule</div>
-      <div class="nav-item"><i class="ti ti-settings"></i> Settings</div>
+      <div class="nav-lbl">Main</div>
+      <div class="nav-item active" data-section="dashboard"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+      <div class="nav-item" data-section="subjects"><i class="ti ti-books"></i> My Subjects</div>
+      <div class="nav-item" data-section="schedule"><i class="ti ti-clock"></i> Schedule</div>
     </div>
+
+    <div class="nav-sec">
+      <div class="nav-lbl">Tasks</div>
+      <div class="nav-item" data-section="completed"><i class="ti ti-circle-check"></i> Completed</div>
+      <div class="nav-item" data-section="pending"><i class="ti ti-hourglass"></i> Pending</div>
+    </div>
+
+    <div class="nav-sec" style="margin-top:auto">
+      <div class="nav-lbl">Account</div>
+      <div class="nav-item" data-section="settings"><i class="ti ti-settings"></i> Settings</div>
+    </div>
+
     <div class="lbl-sec">
       <div class="lbl-t">Priority</div>
-      <div class="lbl-item"><span class="lbl-dot" style="background:#E24B4A"></span> High Priority</div>
-      <div class="lbl-item"><span class="lbl-dot" style="background:#EF9F27"></span> Medium</div>
-      <div class="lbl-item"><span class="lbl-dot" style="background:var(--sage)"></span> Low Priority</div>
+      <div class="lbl-item"><div class="lbl-dot" style="background:#E24B4A"></div> High</div>
+      <div class="lbl-item"><div class="lbl-dot" style="background:#C4875A"></div> Medium</div>
+      <div class="lbl-item"><div class="lbl-dot" style="background:#4A9B7F"></div> Low</div>
     </div>
-    <!-- Logout button in sidebar -->
-    <div class="sidebar-logout" onclick="logout()">
-      <i class="ti ti-logout"></i> Logout
-    </div>
+
     <div class="up-card">
-      <p>Focus Mode 🌿</p>
-      <span>You're on a streak!</span>
-      <button class="up-btn">View Insights</button>
+      <p>📅 Stay on track</p>
+      <span>Set due dates on your topics to see upcoming sessions</span>
+      <button class="up-btn" onclick="openAddModal()">+ Add Topic</button>
     </div>
+
+    <button class="sidebar-logout" onclick="logout()">
+      <i class="ti ti-logout"></i> Logout
+    </button>
   </aside>
 
+  <!-- ── MAIN ───────────────────────────────────────────── -->
   <div class="main">
+
+    <!-- TOPBAR -->
     <div class="topbar">
-      <button class="hamburger" id="menuBtn" aria-label="Open menu" onclick="openDrawer()">
-        <i class="ti ti-menu-2"></i>
-      </button>
-      <div class="topbar-l">
-        <h2>Welcome back, Sakshi Rana! 🌿</h2>
-        <p>Here's your study progress for today.</p>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="hamburger" onclick="openDrawer()"><i class="ti ti-menu-2"></i></button>
+        <div class="topbar-l">
+          <h2 id="topbarTitle">StudyFlow</h2>
+          <p id="topbarGreeting">Good morning! Ready to study?</p>
+        </div>
       </div>
+
       <div class="search">
-        <i class="ti ti-search" aria-hidden="true"></i>
-        <input type="text" id="searchInput" placeholder="Search subjects…" />
+        <i class="ti ti-search"></i>
+        <input type="text" id="searchInput" placeholder="Search topics…" />
       </div>
+
       <div class="topbar-r">
-        <button class="notif" aria-label="Notifications">
-          <i class="ti ti-bell"></i>
-          <span class="nbadge">3</span>
+        <button class="night-toggle" onclick="toggleNightMode()" title="Toggle night mode">
+          <i class="ti ti-moon" id="nightIcon"></i>
         </button>
-        <div style="display:flex;align-items:center;gap:7px;cursor:pointer">
-          <div class="avatar">SR</div>
+
+        <button class="notif">
+          <i class="ti ti-bell"></i>
+          <span class="nbadge" id="notifBadge">3</span>
+        </button>
+
+        <div style="display:flex;align-items:center;gap:7px">
+          <div class="avatar" id="avatarEl">SR</div>
           <div>
-            <div class="uname">Sakshi Rana</div>
-            <div class="urole">MCA Student</div>
+            <div class="uname" id="topbarUser">Student</div>
+            <div class="urole">Learner</div>
           </div>
         </div>
-        <!-- Logout button in topbar -->
-        <button class="topbar-logout" onclick="logout()" aria-label="Logout">
-          <i class="ti ti-logout"></i>
-          <span>Logout</span>
-        </button>
       </div>
     </div>
 
-    <div class="content">
-      <div class="content-l">
-        <div class="stats">
-          <div class="sc">
-            <div class="si" style="background:var(--sage-l)"><i class="ti ti-list-check" style="color:var(--sage)"></i>
-            </div>
-            <div class="sl">Total Topics</div>
-            <div class="sv">48</div>
-            <div class="sch up"><i class="ti ti-trending-up"></i> 10% this week</div>
-            <div class="sbar">
-              <div class="sbf" style="width:75%;background:var(--sage)"></div>
-            </div>
-          </div>
-          <div class="sc">
-            <div class="si" style="background:var(--moss-l)"><i class="ti ti-circle-check"
-                style="color:var(--moss)"></i></div>
-            <div class="sl">Completed</div>
-            <div class="sv">31</div>
-            <div class="sch up"><i class="ti ti-trending-up"></i> 8% this week</div>
-            <div class="sbar">
-              <div class="sbf" style="width:65%;background:var(--moss)"></div>
-            </div>
-          </div>
-          <div class="sc">
-            <div class="si" style="background:var(--clay-l)"><i class="ti ti-clock-pause" style="color:var(--clay)"></i>
-            </div>
-            <div class="sl">Pending</div>
-            <div class="sv">9</div>
-            <div class="sch dn"><i class="ti ti-trending-down"></i> 5% this week</div>
-            <div class="sbar">
-              <div class="sbf" style="width:30%;background:var(--clay)"></div>
-            </div>
-          </div>
-          <div class="sc">
-            <div class="si" style="background:var(--sky-l)"><i class="ti ti-loader" style="color:var(--sky)"></i></div>
-            <div class="sl">In Progress</div>
-            <div class="sv">8</div>
-            <div class="sch up"><i class="ti ti-trending-up"></i> 3% this week</div>
-            <div class="sbar">
-              <div class="sbf" style="width:40%;background:var(--sky)"></div>
-            </div>
-          </div>
-          <div class="sc">
-            <div class="si" style="background:var(--lav-l)"><i class="ti ti-flame" style="color:var(--lav)"></i></div>
-            <div class="sl">Study Streak</div>
-            <div class="sv">14d</div>
-            <div class="sch up"><i class="ti ti-trending-up"></i> 2d gain</div>
-            <div class="sbar">
-              <div class="sbf" style="width:55%;background:var(--lav)"></div>
-            </div>
-          </div>
-          <div class="sc">
-            <div class="si" style="background:#E8F5EF"><i class="ti ti-chart-bar" style="color:#2D9B6F"></i></div>
-            <div class="sl">Score</div>
-            <div class="sv">82%</div>
-            <div class="sch up"><i class="ti ti-trending-up"></i> 15% lift</div>
-            <div class="sbar">
-              <div class="sbf" style="width:82%;background:#2D9B6F"></div>
-            </div>
-          </div>
-        </div>
+    <!-- SECTION CONTENT AREA -->
+    <div class="content" id="contentArea">
 
-        <div class="bh">
-          <div class="bt">Study Board</div>
-          <div class="ba">
-            <button class="bf" id="filterBtn"><i class="ti ti-filter"></i> Filter</button>
-            <button class="badd" id="addTopicBtn"><i class="ti ti-plus"></i> Add Topic</button>
-          </div>
-        </div>
-        <div class="kanban">
-          <div class="col col-p">
-            <div class="ch">
-              <div class="ctw"><span class="ct">Pending</span><span class="cc">4</span></div><i
-                class="ti ti-dots cdots"></i>
-            </div>
-            <div class="tc">
-              <div class="tn">DSA — Trees &amp; Graphs</div>
-              <div class="tm2"><span class="pb ph">High</span><span class="td2"><i class="ti ti-calendar"></i> 20
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <div class="tc">
-              <div class="tn">Aptitude — Time &amp; Work</div>
-              <div class="tm2"><span class="pb pm">Medium</span><span class="td2"><i class="ti ti-calendar"></i> 22
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <div class="tc">
-              <div class="tn">DSA — Array &amp; String</div>
-              <div class="tm2"><span class="pb ph">High</span><span class="td2"><i class="ti ti-calendar"></i> 25
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <div class="tc">
-              <div class="tn">Aptitude — Number Series</div>
-              <div class="tm2"><span class="pb pl">Low</span><span class="td2"><i class="ti ti-calendar"></i> 28
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <button class="atb"><i class="ti ti-plus"></i> Add topic</button>
-          </div>
-          <div class="col col-i">
-            <div class="ch">
-              <div class="ctw"><span class="ct">In Progress</span><span class="cc">3</span></div><i
-                class="ti ti-dots cdots"></i>
-            </div>
-            <div class="tc">
-              <div class="tn">System Design — Scalability</div>
-              <div class="tm2"><span class="pb ph">High</span><span class="td2"><i class="ti ti-calendar"></i> 18
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <div class="tc">
-              <div class="tn">DSA — Dynamic Programming</div>
-              <div class="tm2"><span class="pb pm">Medium</span><span class="td2"><i class="ti ti-calendar"></i> 19
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <div class="tc">
-              <div class="tn">Aptitude — Logical Reasoning</div>
-              <div class="tm2"><span class="pb pm">Medium</span><span class="td2"><i class="ti ti-calendar"></i> 21
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <button class="atb"><i class="ti ti-plus"></i> Add topic</button>
-          </div>
-          <div class="col col-d">
-            <div class="ch">
-              <div class="ctw"><span class="ct">Completed</span><span class="cc">3</span></div><i
-                class="ti ti-dots cdots"></i>
-            </div>
-            <div class="tc" style="opacity:.7">
-              <div class="tn" style="text-decoration:line-through;color:var(--tmut)">System Design — Intro &amp; HLD
-              </div>
-              <div class="tm2"><span class="pb pl">Low</span><span class="td2"><i class="ti ti-calendar"></i> 15
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <div class="tc" style="opacity:.7">
-              <div class="tn" style="text-decoration:line-through;color:var(--tmut)">DSA — Arrays &amp; Strings</div>
-              <div class="tm2"><span class="pb pm">Medium</span><span class="td2"><i class="ti ti-calendar"></i> 14
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <div class="tc" style="opacity:.7">
-              <div class="tn" style="text-decoration:line-through;color:var(--tmut)">Aptitude — Percentages</div>
-              <div class="tm2"><span class="pb pl">Low</span><span class="td2"><i class="ti ti-calendar"></i> 12
-                  Jun</span>
-                <div class="tav">SR</div>
-              </div>
-            </div>
-            <button class="atb"><i class="ti ti-plus"></i> Add topic</button>
-          </div>
-        </div>
+      <!-- ═══════════════════════════════════════════════
+           SECTION: DASHBOARD
+      ═══════════════════════════════════════════════ -->
+      <div class="section-page active" id="section-dashboard">
+        <div class="content-l">
 
-        <div class="bg2">
-          <div class="bc">
-            <div class="bct">Study Overview</div>
-            <div class="bcs">Ahead of 72% of peers this week</div>
+          <!-- View Toggle -->
+          <div class="view-toggle">
+            <button class="view-btn view-btn-active" id="viewBtnDash" onclick="showView('dashboard')">
+              <i class="ti ti-layout-dashboard"></i> Dashboard
+            </button>
+            <button class="view-btn view-btn-inactive" id="viewBtnFocus" onclick="showView('focus')">
+              <i class="ti ti-chart-bar"></i> Focus Mode
+            </button>
+          </div>
+
+          <!-- ─── DASHBOARD VIEW ─── -->
+          <div id="dashboardView">
+
+            <!-- 6 STAT CARDS -->
+            <div class="stats">
+              <div class="sc">
+                <div class="si" style="background:var(--sage-l)"><i class="ti ti-books" style="color:var(--sage)"></i></div>
+                <div class="sl">Total Topics</div>
+                <div class="sv" id="stat-total">0</div>
+                <div class="sch up"><i class="ti ti-trending-up"></i> All time</div>
+                <div class="sbar"><div class="sbf" style="background:var(--sage)" id="stat-pct-bar"></div></div>
+              </div>
+
+              <div class="sc">
+                <div class="si" style="background:#E8F5EF"><i class="ti ti-circle-check" style="color:#2D7A56"></i></div>
+                <div class="sl">Completed</div>
+                <div class="sv" id="stat-completed" style="color:#2D7A56">0</div>
+                <div class="sch up"><i class="ti ti-trending-up"></i> Done</div>
+                <div class="sbar"><div class="sbf" id="stat-completed-bar" style="background:#2D7A56;width:0%"></div></div>
+              </div>
+
+              <div class="sc">
+                <div class="si" style="background:var(--sky-l)"><i class="ti ti-loader" style="color:var(--sky)"></i></div>
+                <div class="sl">In Progress</div>
+                <div class="sv" id="stat-inprog" style="color:var(--sky)">0</div>
+                <div class="sch"><i class="ti ti-activity"></i> Active</div>
+                <div class="sbar"><div class="sbf" id="stat-inprog-bar" style="background:var(--sky);width:0%"></div></div>
+              </div>
+
+              <div class="sc">
+                <div class="si" style="background:var(--clay-l)"><i class="ti ti-clock-pause" style="color:var(--clay)"></i></div>
+                <div class="sl">Pending</div>
+                <div class="sv" id="stat-pending" style="color:var(--clay)">0</div>
+                <div class="sch dn"><i class="ti ti-clock"></i> Waiting</div>
+                <div class="sbar"><div class="sbf" id="stat-pending-bar" style="background:var(--clay);width:0%"></div></div>
+              </div>
+
+              <div class="sc">
+                <div class="si" style="background:var(--lav-l)"><i class="ti ti-chart-pie" style="color:var(--lav)"></i></div>
+                <div class="sl">Completion</div>
+                <div class="sv" id="stat-pct" style="color:var(--lav)">0%</div>
+                <div class="sch up"><i class="ti ti-trending-up"></i> Progress</div>
+                <div class="sbar"><div class="sbf" id="stat-pct-fill" style="background:var(--lav);width:0%"></div></div>
+              </div>
+
+              <div class="sc">
+                <div class="si" style="background:var(--moss-l)"><i class="ti ti-calendar-plus" style="color:var(--moss)"></i></div>
+                <div class="sl">Added Today</div>
+                <div class="sv" id="stat-today" style="color:var(--moss)">0</div>
+                <div class="sch up"><i class="ti ti-sun"></i> Today</div>
+                <div class="sbar"><div class="sbf" id="stat-today-bar" style="background:var(--moss);width:100%"></div></div>
+              </div>
+            </div>
+
+            <!-- KANBAN HEADER -->
+            <div class="bh">
+              <div class="bt">📋 My Topics</div>
+              <div class="ba">
+                <button class="bf" id="filterBtn"><i class="ti ti-filter"></i> Filter</button>
+                <button class="badd" id="addTopicBtn"><i class="ti ti-plus"></i> Add Topic</button>
+              </div>
+            </div>
+
+            <!-- KANBAN BOARD -->
+            <div class="kanban">
+              <div class="col col-p">
+                <div class="ch">
+                  <div class="ctw">
+                    <div class="ct">📌 Pending</div>
+                    <div class="cc">0</div>
+                  </div>
+                  <i class="ti ti-dots cdots"></i>
+                </div>
+                <div class="tc">
+                  <div class="tn">Data Structures & Algorithms</div>
+                  <div class="tm2">
+                    <span class="pb ph">High</span>
+                    <span class="td2"><i class="ti ti-calendar"></i> TBD</span>
+                    <div class="tav">SR</div>
+                  </div>
+                </div>
+                <div class="tc">
+                  <div class="tn">Operating Systems</div>
+                  <div class="tm2">
+                    <span class="pb pm">Medium</span>
+                    <span class="td2"><i class="ti ti-calendar"></i> TBD</span>
+                    <div class="tav">SR</div>
+                  </div>
+                </div>
+                <button class="atb"><i class="ti ti-plus"></i> Add Topic</button>
+              </div>
+
+              <div class="col col-i">
+                <div class="ch">
+                  <div class="ctw">
+                    <div class="ct">⚡ In Progress</div>
+                    <div class="cc">0</div>
+                  </div>
+                  <i class="ti ti-dots cdots"></i>
+                </div>
+                <div class="tc">
+                  <div class="tn">Database Management</div>
+                  <div class="tm2">
+                    <span class="pb pm">Medium</span>
+                    <span class="td2"><i class="ti ti-calendar"></i> TBD</span>
+                    <div class="tav">SR</div>
+                  </div>
+                </div>
+                <button class="atb"><i class="ti ti-plus"></i> Add Topic</button>
+              </div>
+
+              <div class="col col-d">
+                <div class="ch">
+                  <div class="ctw">
+                    <div class="ct">✅ Completed</div>
+                    <div class="cc">0</div>
+                  </div>
+                  <i class="ti ti-dots cdots"></i>
+                </div>
+                <div class="tc is-done">
+                  <div class="tn">HTML & CSS Basics</div>
+                  <div class="tm2">
+                    <span class="pb pl">Low</span>
+                    <span class="td2"><i class="ti ti-calendar"></i> TBD</span>
+                    <div class="tav">SR</div>
+                  </div>
+                </div>
+                <button class="atb"><i class="ti ti-plus"></i> Add Topic</button>
+              </div>
+            </div>
+
+            <!-- BOTTOM: Chart + Activity -->
+            <div class="bg2">
+              <div class="bc">
+                <div class="bct">📈 Weekly Completions</div>
+                <div class="bcs">Topics completed per day this week (real-time)</div>
+                <div class="mch"><canvas id="mc"></canvas></div>
+              </div>
+              <div class="bc">
+                <div class="bct">🕐 Recent Activity</div>
+                <div class="bcs">Your latest completed topics</div>
+                <ul class="al" id="activityFeed">
+                  <li class="ai">
+                    <div class="aico" style="background:var(--sage-l)">
+                      <i class="ti ti-circle-check" style="color:var(--sage)"></i>
+                    </div>
+                    <div>
+                      <div class="at">Loading activity…</div>
+                      <div class="ati">Just now</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          </div><!-- /dashboardView -->
+
+          <!-- ─── FOCUS MODE VIEW ─── -->
+          <div id="focusView" style="display:none">
+            <div class="focus-header">
+              <div class="focus-title">🎯 Focus Mode — Learning Insights</div>
+              <div class="focus-sub">Your real-time study analytics at a glance</div>
+            </div>
+            <div id="focusInsights"></div>
+          </div>
+
+        </div><!-- /content-l -->
+
+        <!-- RIGHT PANEL -->
+        <div class="content-r">
+          <div class="rs">
+            <div class="rt">Today's Progress <span class="va">Details</span></div>
+            <div class="dw">
+              <svg width="90" height="90" viewBox="0 0 90 90">
+                <circle cx="45" cy="45" r="36" fill="none" stroke="var(--bdr)" stroke-width="8"/>
+                <circle class="dring" cx="45" cy="45" r="36" fill="none"
+                  stroke="var(--sage)" stroke-width="8" stroke-linecap="round"
+                  stroke-dasharray="226" stroke-dashoffset="226"
+                  style="transition:stroke-dashoffset .8s ease"/>
+              </svg>
+              <div class="dv">0%</div>
+            </div>
+            <div class="ds">0 of 0 topics done</div>
+            <div class="dl">Add your first topic!</div>
+          </div>
+
+          <div class="rs">
+            <div class="rt">By Priority</div>
             <div class="pcs">
               <div class="pi">
-                <div class="pr"><svg width="64" height="64" viewBox="0 0 64 64">
-                    <circle cx="32" cy="32" r="26" fill="none" stroke="#E8F5EF" stroke-width="7" />
-                    <circle cx="32" cy="32" r="26" fill="none" stroke="var(--sage)" stroke-width="7"
-                      stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="41" class="ram" />
+                <div class="pr">
+                  <svg width="64" height="64" viewBox="0 0 64 64">
+                    <circle cx="32" cy="32" r="26" fill="none" stroke="var(--bdr)" stroke-width="6"/>
+                    <circle id="priHighRing" cx="32" cy="32" r="26" fill="none"
+                      stroke="#E24B4A" stroke-width="6" stroke-linecap="round"
+                      stroke-dasharray="163" stroke-dashoffset="163"
+                      style="transition:stroke-dashoffset .8s ease;transform:rotate(-90deg);transform-origin:50% 50%"/>
                   </svg>
-                  <div class="pv">75%</div>
+                  <div class="pv" id="priHighPct">0%</div>
                 </div>
-                <div class="plbl">Daily</div>
+                <div class="plbl">High</div>
               </div>
               <div class="pi">
-                <div class="pr"><svg width="64" height="64" viewBox="0 0 64 64">
-                    <circle cx="32" cy="32" r="26" fill="none" stroke="#E8F2FA" stroke-width="7" />
-                    <circle cx="32" cy="32" r="26" fill="none" stroke="var(--sky)" stroke-width="7"
-                      stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="57" style="animation-delay:.2s"
-                      class="ram" />
+                <div class="pr">
+                  <svg width="64" height="64" viewBox="0 0 64 64">
+                    <circle cx="32" cy="32" r="26" fill="none" stroke="var(--bdr)" stroke-width="6"/>
+                    <circle id="priMedRing" cx="32" cy="32" r="26" fill="none"
+                      stroke="#C4875A" stroke-width="6" stroke-linecap="round"
+                      stroke-dasharray="163" stroke-dashoffset="163"
+                      style="transition:stroke-dashoffset .8s ease;transform:rotate(-90deg);transform-origin:50% 50%"/>
                   </svg>
-                  <div class="pv">65%</div>
+                  <div class="pv" id="priMedPct">0%</div>
                 </div>
-                <div class="plbl">Weekly</div>
+                <div class="plbl">Medium</div>
               </div>
               <div class="pi">
-                <div class="pr"><svg width="64" height="64" viewBox="0 0 64 64">
-                    <circle cx="32" cy="32" r="26" fill="none" stroke="#FAEEDA" stroke-width="7" />
-                    <circle cx="32" cy="32" r="26" fill="none" stroke="#EF9F27" stroke-width="7" stroke-linecap="round"
-                      stroke-dasharray="163.4" stroke-dashoffset="90" style="animation-delay:.4s" class="ram" />
+                <div class="pr">
+                  <svg width="64" height="64" viewBox="0 0 64 64">
+                    <circle cx="32" cy="32" r="26" fill="none" stroke="var(--bdr)" stroke-width="6"/>
+                    <circle id="priLowRing" cx="32" cy="32" r="26" fill="none"
+                      stroke="var(--sage)" stroke-width="6" stroke-linecap="round"
+                      stroke-dasharray="163" stroke-dashoffset="163"
+                      style="transition:stroke-dashoffset .8s ease;transform:rotate(-90deg);transform-origin:50% 50%"/>
                   </svg>
-                  <div class="pv">45%</div>
+                  <div class="pv" id="priLowPct">0%</div>
                 </div>
-                <div class="plbl">Monthly</div>
+                <div class="plbl">Low</div>
               </div>
             </div>
           </div>
-          <div class="bc">
-            <div class="bct">Recent Activity</div>
-            <div class="bcs">Your latest study actions</div>
-            <ul class="al">
-              <li class="ai">
-                <div class="aico" style="background:var(--sage-l)"><i class="ti ti-plus" style="color:var(--sage)"></i>
-                </div>
+
+          <div class="rs">
+            <div class="rt">Upcoming Sessions <span class="va">View all</span></div>
+            <ul class="al" id="upcomingSessions">
+              <li class="ui">
+                <div class="uico"><i class="ti ti-clock"></i></div>
                 <div>
-                  <div class="at">DSA — Trees &amp; Graphs added</div>
-                  <div class="ati">5 min ago</div>
-                </div>
-              </li>
-              <li class="ai">
-                <div class="aico" style="background:var(--sky-l)"><i class="ti ti-loader" style="color:var(--sky)"></i>
-                </div>
-                <div>
-                  <div class="at">System Design in progress</div>
-                  <div class="ati">20 min ago</div>
-                </div>
-              </li>
-              <li class="ai">
-                <div class="aico" style="background:var(--moss-l)"><i class="ti ti-circle-check"
-                    style="color:var(--moss)"></i></div>
-                <div>
-                  <div class="at">DSA — Arrays done</div>
-                  <div class="ati">2 hours ago</div>
+                  <div class="ut">Loading…</div>
+                  <div class="utime">Set due dates to see sessions</div>
                 </div>
               </li>
             </ul>
           </div>
+
+          <div class="rs">
+            <div class="rt">Notifications</div>
+            <div class="ts">
+              <div class="toast s">
+                <div class="tco"><i class="ti ti-circle-check"></i></div>
+                <div>
+                  <div class="tt">Keep it up!</div>
+                  <div class="tsub">Complete more topics today</div>
+                </div>
+                <i class="ti ti-x tcl"></i>
+              </div>
+              <div class="toast i">
+                <div class="tco"><i class="ti ti-info-circle"></i></div>
+                <div>
+                  <div class="tt">Tip: Set due dates</div>
+                  <div class="tsub">Track your upcoming sessions</div>
+                </div>
+                <i class="ti ti-x tcl"></i>
+              </div>
+            </div>
+          </div>
+        </div><!-- /content-r -->
+      </div><!-- /section-dashboard -->
+
+
+      <!-- ═══════════════════════════════════════════════
+           SECTION: MY SUBJECTS
+      ═══════════════════════════════════════════════ -->
+      <div class="section-page" id="section-subjects">
+        <div class="content-l full-width">
+          <div class="section-hero">
+            <div class="section-hero-icon" style="background:linear-gradient(135deg,var(--sky),var(--lav))"><i class="ti ti-books"></i></div>
+            <div>
+              <div class="section-hero-title">My Subjects</div>
+              <div class="section-hero-sub">All your study topics organised by subject</div>
+            </div>
+          </div>
+          <div class="subject-grid" id="subjectGrid">
+            <!-- Filled dynamically -->
+          </div>
+          <div class="empty-state" id="subjectsEmpty" style="display:none">
+            <i class="ti ti-books"></i>
+            <div class="empty-title">No subjects yet</div>
+            <div class="empty-sub">Add topics from the Dashboard to see them here grouped by subject.</div>
+            <button class="empty-btn" onclick="switchSection('dashboard');openAddModal()"><i class="ti ti-plus"></i> Add First Topic</button>
+          </div>
         </div>
       </div>
 
-      <div class="content-r">
-        <div class="rs">
-          <div class="rt">Today's Progress</div>
-          <div class="dw"><svg width="90" height="90" viewBox="0 0 90 90">
-              <circle cx="45" cy="45" r="37" fill="none" stroke="#E8F5EF" stroke-width="9" />
-              <circle cx="45" cy="45" r="37" fill="none" stroke="var(--sage)" stroke-width="9" stroke-linecap="round"
-                stroke-dasharray="232.5" stroke-dashoffset="58" class="ram" style="animation-delay:.1s" />
-            </svg>
-            <div class="dv">75%</div>
-          </div>
-          <div class="dl">Great progress! 🌱</div>
-          <div class="ds">Keep it up, Sakshi!</div>
-        </div>
-        <div class="rs">
-          <div class="rt">Upcoming Sessions <span class="va">View all</span></div>
-          <div class="ui">
-            <div class="uico"><i class="ti ti-calendar"></i></div>
+
+      <!-- ═══════════════════════════════════════════════
+           SECTION: SCHEDULE
+      ═══════════════════════════════════════════════ -->
+      <div class="section-page" id="section-schedule">
+        <div class="content-l full-width">
+          <div class="section-hero">
+            <div class="section-hero-icon" style="background:linear-gradient(135deg,var(--clay),#E27A2D)"><i class="ti ti-clock"></i></div>
             <div>
-              <div class="ut">DSA Revision</div>
-              <div class="utime">Today, 4:00 PM</div>
+              <div class="section-hero-title">Schedule</div>
+              <div class="section-hero-sub">Your upcoming study sessions by due date</div>
             </div>
           </div>
-          <div class="ui">
-            <div class="uico"><i class="ti ti-calendar"></i></div>
-            <div>
-              <div class="ut">System Design Class</div>
-              <div class="utime">Tomorrow, 10:00 AM</div>
-            </div>
+
+          <div class="schedule-grid" id="scheduleGrid">
+            <!-- Filled dynamically -->
           </div>
-          <div class="ui">
-            <div class="uico"><i class="ti ti-calendar"></i></div>
-            <div>
-              <div class="ut">Aptitude Mock Test</div>
-              <div class="utime">19 Jun, 2:00 PM</div>
-            </div>
+
+          <div class="empty-state" id="scheduleEmpty" style="display:none">
+            <i class="ti ti-calendar-off"></i>
+            <div class="empty-title">No scheduled sessions</div>
+            <div class="empty-sub">Set due dates on your topics to build your schedule.</div>
+            <button class="empty-btn" onclick="switchSection('dashboard');openAddModal()"><i class="ti ti-plus"></i> Add Topic with Due Date</button>
           </div>
         </div>
-        <div class="rs">
-          <div class="rt">Weekly Trend <span class="va">This Week</span></div>
-          <div class="mch"><canvas id="mc"></canvas></div>
-        </div>
-        <div class="rs">
-          <div class="rt">Updates</div>
-          <div class="ts">
-            <div class="toast s">
-              <div class="tco"><i class="ti ti-circle-check"></i></div>
-              <div>
-                <div class="tt">Topic Completed</div>
-                <div class="tsub">Arrays &amp; Strings done</div>
-              </div><span class="tcl">×</span>
-            </div>
-            <div class="toast i">
-              <div class="tco"><i class="ti ti-info-circle"></i></div>
-              <div>
-                <div class="tt">Class Reminder</div>
-                <div class="tsub">System Design today</div>
-              </div><span class="tcl">×</span>
-            </div>
-            <div class="toast w">
-              <div class="tco"><i class="ti ti-alert-triangle"></i></div>
-              <div>
-                <div class="tt">Deadline Near</div>
-                <div class="tsub">3 topics due soon</div>
-              </div><span class="tcl">×</span>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════════════
+           SECTION: COMPLETED
+      ═══════════════════════════════════════════════ -->
+      <div class="section-page" id="section-completed">
+        <div class="content-l full-width">
+          <div class="section-hero">
+            <div class="section-hero-icon" style="background:linear-gradient(135deg,#2D7A56,var(--sage))"><i class="ti ti-circle-check"></i></div>
+            <div>
+              <div class="section-hero-title">Completed Topics</div>
+              <div class="section-hero-sub">Celebrate your wins — all finished topics</div>
             </div>
           </div>
+
+          <div class="section-stats-bar" id="completedStatsBar"></div>
+
+          <div class="completed-list" id="completedList">
+            <!-- Filled dynamically -->
+          </div>
+
+          <div class="empty-state" id="completedEmpty" style="display:none">
+            <i class="ti ti-trophy"></i>
+            <div class="empty-title">Nothing completed yet</div>
+            <div class="empty-sub">Move topics to "Completed" on the Dashboard to see them here.</div>
+            <button class="empty-btn" onclick="switchSection('dashboard')"><i class="ti ti-layout-dashboard"></i> Go to Dashboard</button>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════════════
+           SECTION: PENDING
+      ═══════════════════════════════════════════════ -->
+      <div class="section-page" id="section-pending">
+        <div class="content-l full-width">
+          <div class="section-hero">
+            <div class="section-hero-icon" style="background:linear-gradient(135deg,var(--clay),var(--lav))"><i class="ti ti-hourglass"></i></div>
+            <div>
+              <div class="section-hero-title">Pending Topics</div>
+              <div class="section-hero-sub">Topics waiting to be started — prioritise wisely</div>
+            </div>
+          </div>
+
+          <div class="section-stats-bar" id="pendingStatsBar"></div>
+
+          <div class="pending-list" id="pendingList">
+            <!-- Filled dynamically -->
+          </div>
+
+          <div class="empty-state" id="pendingEmpty" style="display:none">
+            <i class="ti ti-mood-happy"></i>
+            <div class="empty-title">No pending topics!</div>
+            <div class="empty-sub">You're all caught up. Add more topics or start studying.</div>
+            <button class="empty-btn" onclick="switchSection('dashboard');openAddModal()"><i class="ti ti-plus"></i> Add New Topic</button>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════════════
+           SECTION: SETTINGS
+      ═══════════════════════════════════════════════ -->
+      <div class="section-page" id="section-settings">
+        <div class="content-l full-width">
+          <div class="section-hero">
+            <div class="section-hero-icon" style="background:linear-gradient(135deg,#555,#222)"><i class="ti ti-settings"></i></div>
+            <div>
+              <div class="section-hero-title">Settings</div>
+              <div class="section-hero-sub">Customise your StudyFlow experience</div>
+            </div>
+          </div>
+
+          <div class="settings-grid">
+            <div class="settings-card">
+              <div class="settings-card-title"><i class="ti ti-user"></i> Profile</div>
+              <div class="settings-row">
+                <label>Display Name</label>
+                <input type="text" id="settingsName" class="settings-input" placeholder="Your name" />
+              </div>
+              <button class="settings-save-btn" onclick="saveSettings()"><i class="ti ti-check"></i> Save Profile</button>
+            </div>
+
+            <div class="settings-card">
+              <div class="settings-card-title"><i class="ti ti-palette"></i> Appearance</div>
+              <div class="settings-row">
+                <label>Night Mode</label>
+                <button class="settings-toggle-btn" onclick="toggleNightMode()" id="settingsNightBtn">
+                  <i class="ti ti-moon" id="settingsNightIcon"></i> Toggle Night Mode
+                </button>
+              </div>
+            </div>
+
+            <div class="settings-card">
+              <div class="settings-card-title"><i class="ti ti-database"></i> Data</div>
+              <div class="settings-row">
+                <label>Clear All Topics</label>
+                <button class="settings-danger-btn" onclick="confirmClearAll()">
+                  <i class="ti ti-trash"></i> Clear All Topics
+                </button>
+              </div>
+              <div class="settings-row">
+                <label>Export Data</label>
+                <button class="settings-save-btn" onclick="exportData()">
+                  <i class="ti ti-download"></i> Export JSON
+                </button>
+              </div>
+            </div>
+
+            <div class="settings-card settings-card-full">
+              <div class="settings-card-title"><i class="ti ti-info-circle"></i> About StudyFlow</div>
+              <p class="settings-about">StudyFlow is your personal learning dashboard. Track topics, manage priorities, and visualise your progress. Your data is stored locally in your browser.</p>
+              <div class="settings-version">Version 2.0 · Built with ❤️ for learners</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /contentArea -->
+
+    <!-- MOBILE BOTTOM NAV -->
+    <div class="mob-nav">
+      <div class="mob-nav-inner">
+        <div class="mni active" data-section="dashboard" onclick="setMobNav(this)">
+          <i class="ti ti-home"></i><span>Home</span>
+        </div>
+        <div class="mni" data-section="subjects" onclick="setMobNav(this)">
+          <i class="ti ti-books"></i><span>Subjects</span>
+        </div>
+        <div class="mni" onclick="openAddModal()">
+          <i class="ti ti-plus"></i><span>Add</span>
+        </div>
+        <div class="mni" data-section="completed" onclick="setMobNav(this)">
+          <i class="ti ti-circle-check"></i><span>Done</span>
+        </div>
+        <div class="mni" onclick="toggleNightMode()">
+          <i class="ti ti-moon" id="mobNightIcon"></i><span>Night</span>
         </div>
       </div>
     </div>
-    <nav class="mob-nav" aria-label="Mobile navigation">
-      <div class="mob-nav-inner">
-        <div class="mni active" onclick="setMobNav(this)"><i class="ti ti-layout-dashboard"></i><span>Home</span></div>
-        <div class="mni" onclick="setMobNav(this)"><i class="ti ti-book"></i><span>Subjects</span></div>
-        <div class="mni" onclick="setMobNav(this)"><i class="ti ti-circle-check"></i><span>Done</span></div>
-        <div class="mni" onclick="setMobNav(this)"><i class="ti ti-calendar"></i><span>Schedule</span></div>
-        <div class="mni logout-mob" onclick="logout()"><i class="ti ti-logout"></i><span>Logout</span></div>
-      </div>
-    </nav>
-  </div>
-</div>
-<!-- ── CRUD Modal ── PASTE THIS just before </body> in Dashboard.html ── -->
-<div class="crud-backdrop" id="crudBackdrop" onclick="closeCrudModal()"></div>
 
-<div class="crud-modal" id="crudModal" role="dialog" aria-modal="true" aria-labelledby="crudModalTitle">
+  </div><!-- /main -->
+
+  <!-- MOBILE OVERLAY + DRAWER -->
+  <div class="mob-overlay" id="overlay" onclick="closeDrawer()"></div>
+  <div class="mob-drawer" id="drawer">
+    <button class="mob-close" onclick="closeDrawer()"><i class="ti ti-x"></i></button>
+    <div class="brand" style="padding:0 18px 16px">
+      <div class="brand-icon"><i class="ti ti-school"></i></div>
+      <div class="brand-name">StudyFlow</div>
+    </div>
+    <div class="nav-sec">
+      <div class="nav-item active" data-section="dashboard" onclick="switchSection('dashboard');closeDrawer()"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+      <div class="nav-item" data-section="subjects" onclick="switchSection('subjects');closeDrawer()"><i class="ti ti-books"></i> My Subjects</div>
+      <div class="nav-item" data-section="completed" onclick="switchSection('completed');closeDrawer()"><i class="ti ti-circle-check"></i> Completed</div>
+      <div class="nav-item" data-section="pending" onclick="switchSection('pending');closeDrawer()"><i class="ti ti-hourglass"></i> Pending</div>
+      <div class="nav-item" data-section="settings" onclick="switchSection('settings');closeDrawer()"><i class="ti ti-settings"></i> Settings</div>
+    </div>
+    <button class="sidebar-logout logout-item" onclick="logout()" style="margin-top:auto">
+      <i class="ti ti-logout"></i> Logout
+    </button>
+  </div>
+
+</div><!-- /dash -->
+
+<!-- CRUD MODAL -->
+<div class="crud-backdrop" id="crudBackdrop" onclick="closeCrudModal()"></div>
+<div class="crud-modal" id="crudModal">
   <div class="crud-modal-head">
     <h3 id="crudModalTitle">Add Topic</h3>
-    <button class="crud-close" onclick="closeCrudModal()" aria-label="Close"><i class="ti ti-x"></i></button>
+    <button class="crud-close" onclick="closeCrudModal()"><i class="ti ti-x"></i></button>
   </div>
-
   <div class="crud-field">
-    <label for="crudTitle">Topic Name</label>
-    <input type="text" id="crudTitle" placeholder="e.g. DSA — Binary Trees" />
+    <label>Topic Title</label>
+    <input type="text" id="crudTitle" placeholder="e.g. Data Structures" />
   </div>
-
   <div class="crud-row">
     <div class="crud-field">
-      <label for="crudPriority">Priority</label>
+      <label>Priority</label>
       <select id="crudPriority">
-        <option value="High">High</option>
-        <option value="Medium" selected>Medium</option>
-        <option value="Low">Low</option>
+        <option value="High">🔴 High</option>
+        <option value="Medium" selected>🟡 Medium</option>
+        <option value="Low">🟢 Low</option>
       </select>
     </div>
     <div class="crud-field">
-      <label for="crudStatus">Status</label>
+      <label>Status</label>
       <select id="crudStatus">
-        <option value="pending">Pending</option>
-        <option value="inprogress">In Progress</option>
-        <option value="completed">Completed</option>
+        <option value="pending">📌 Pending</option>
+        <option value="inprogress">⚡ In Progress</option>
+        <option value="completed">✅ Completed</option>
       </select>
     </div>
   </div>
-
   <div class="crud-field">
-    <label for="crudDate">Due Date</label>
+    <label>Subject / Category</label>
+    <input type="text" id="crudSubject" placeholder="e.g. Computer Science" />
+  </div>
+  <div class="crud-field">
+    <label>Due Date</label>
     <input type="date" id="crudDate" />
   </div>
-
   <div class="crud-actions">
     <button class="crud-cancel" onclick="closeCrudModal()">Cancel</button>
     <button class="crud-save" id="crudSaveBtn" onclick="saveCrudTopic()">
@@ -467,20 +644,44 @@
   </div>
 </div>
 
-<!-- ── Delete Confirm Modal ── -->
+<!-- DELETE MODAL -->
 <div class="crud-backdrop" id="delBackdrop" onclick="closeDeleteModal()"></div>
-<div class="crud-modal del-modal" id="delModal" role="dialog" aria-modal="true">
+<div class="crud-modal del-modal" id="delModal">
   <div class="del-icon"><i class="ti ti-trash"></i></div>
   <h3>Delete Topic?</h3>
   <p>This action cannot be undone.</p>
-  <div class="crud-actions">
+  <p style="font-size:11px;color:var(--tmut);margin-bottom:20px">The topic will be permanently removed.</p>
+  <div class="crud-actions" style="justify-content:center">
     <button class="crud-cancel" onclick="closeDeleteModal()">Cancel</button>
-    <button class="crud-save del-confirm" id="delConfirmBtn"><i class="ti ti-trash"></i> Delete</button>
+    <button class="crud-save del-confirm" id="delConfirmBtn">
+      <i class="ti ti-trash"></i> Delete
+    </button>
   </div>
 </div>
-<!-- ── END CRUD Modal ── -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<!-- SUCCESS TOAST -->
+<div class="success-toast" id="successToast">
+  <i class="ti ti-circle-check"></i>
+  <span id="successToastMsg">Topic saved!</span>
+</div>
+
+<script>
+  // ── Inline init: greeting + avatar ────────────────────────────
+  (function() {
+    const user = localStorage.getItem('currentUser') || 'Student';
+    const el = document.getElementById('topbarUser');
+    if (el) el.textContent = user;
+    const av = document.getElementById('avatarEl');
+    if (av) {
+      const parts = user.split(' ');
+      av.textContent = parts.map(p => p[0]).join('').toUpperCase().slice(0,2);
+    }
+    const h = new Date().getHours();
+    const greet = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+    const gEl = document.getElementById('topbarGreeting');
+    if (gEl) gEl.textContent = greet + ', ' + user + '! Ready to study?';
+  })();
+</script>
 <script src="../js/script.js"></script>
 </body>
 </html>
