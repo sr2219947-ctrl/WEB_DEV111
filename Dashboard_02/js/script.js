@@ -34,8 +34,13 @@ function toggleNightMode() {
 }
 
 // ── Logout ───────────────────────────────────────────────────────
+// IMPORTANT: Only remove the current session keys — NEVER call
+// localStorage.clear() here, because that would wipe every other
+// user's saved tasks stored under their own namespaced LS key.
 function logout() {
-  localStorage.clear();
+  localStorage.removeItem('isLoggedIn');
+  localStorage.removeItem('currentUser');
+  localStorage.removeItem('nightMode');
   location.href = '../index.html';
 }
 
@@ -131,9 +136,16 @@ function fmtDate(val) {
 }
 
 /* ══════════════════════════════════════════════════════════
-   LOCAL STORAGE
+   LOCAL STORAGE — USER-ISOLATED
+   Each user gets their own namespaced key so their tasks are
+   completely separate. No user can ever see another's cards.
+   Format: studyflow_cards__<username_slug>
 ══════════════════════════════════════════════════════════ */
-const LS_KEY = 'studyflow_cards';
+const _currentUsername = (localStorage.getItem('currentUser') || 'guest')
+  .toLowerCase()
+  .trim()
+  .replace(/\s+/g, '_');
+const LS_KEY = 'studyflow_cards__' + _currentUsername;
 
 function getCardData() {
   const raw = localStorage.getItem(LS_KEY);
@@ -1311,13 +1323,20 @@ function initStaticCards() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   INIT
+   INIT — user-isolated startup
+   • Returning user  → their own tasks load from LS_KEY.
+   • Brand-new user  → HTML demo cards are removed so they
+     start with a completely empty board. Their LS_KEY is
+     then seeded with [] so future loads stay clean too.
 ══════════════════════════════════════════════════════════ */
-if (localStorage.getItem(LS_KEY)) {
+if (localStorage.getItem(LS_KEY) !== null) {
+  // Returning user — restore exactly their own saved tasks
   loadCards();
 } else {
-  initStaticCards();
-  saveCards();
+  // New user — wipe the static HTML seed cards entirely
+  document.querySelectorAll('.tc').forEach(c => c.remove());
+  // Persist the empty state under this user's own key
+  localStorage.setItem(LS_KEY, JSON.stringify([]));
 }
 
 updateCounters();
