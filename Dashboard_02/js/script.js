@@ -147,6 +147,223 @@ const _currentUsername = (localStorage.getItem('currentUser') || 'guest')
   .replace(/\s+/g, '_');
 const LS_KEY = 'studyflow_cards__' + _currentUsername;
 
+/* ══════════════════════════════════════════════════════════
+   NOTIFICATIONS — user-isolated activity log
+   Real events (add / delete / complete / update) are recorded
+   here, per user, and shown in the bell dropdown.
+══════════════════════════════════════════════════════════ */
+const NOTIF_KEY = 'studyflow_notifs__' + _currentUsername;
+const NOTIF_ICON = {
+  add:      'ti-circle-plus',
+  delete:   'ti-trash',
+  complete: 'ti-circle-check',
+  update:   'ti-pencil'
+};
+const NOTIF_VERB = {
+  add:      'Added',
+  delete:   'Deleted',
+  complete: 'Completed',
+  update:   'Updated'
+};
+
+function getNotifications() {
+  const raw = localStorage.getItem(NOTIF_KEY);
+  if (!raw) return [];
+  try { return JSON.parse(raw); } catch { return []; }
+}
+
+function saveNotifications(list) {
+  localStorage.setItem(NOTIF_KEY, JSON.stringify(list));
+}
+
+function addNotification(type, title) {
+  const list = getNotifications();
+  list.unshift({
+    id: Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+    type,                                   // add | delete | complete | update
+    title,
+    ts: Date.now(),
+    read: false
+  });
+  // Cap history so it doesn't grow forever
+  if (list.length > 50) list.length = 50;
+  saveNotifications(list);
+  renderNotifications();
+  renderRightPanelNotifications();
+}
+
+function timeAgo(ts) {
+  const diff = Math.floor((Date.now() - ts) / 1000);
+  if (diff < 10) return 'Just now';
+  if (diff < 60) return `${diff}s ago`;
+  const m = Math.floor(diff / 60);
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h ago`;
+  const d = Math.floor(h / 24);
+  if (d < 7) return `${d}d ago`;
+  return new Date(ts).toLocaleDateString('en-GB', { day:'numeric', month:'short' });
+}
+
+function renderNotifications() {
+  const list  = getNotifications();
+  const box   = document.getElementById('notifList');
+  const badge = document.getElementById('notifBadge');
+  if (!box) return;
+
+  const unreadCount = list.filter(n => !n.read).length;
+  if (badge) {
+    if (unreadCount > 0) {
+      badge.style.display = 'flex';
+      badge.textContent = unreadCount > 9 ? '9+' : unreadCount;
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+
+  if (list.length === 0) {
+    box.innerHTML = `
+      <div class="notif-empty">
+        <i class="ti ti-bell-off"></i>
+        <div>No notifications yet</div>
+        <span>Add, complete, or delete a topic to see activity here</span>
+      </div>`;
+    return;
+  }
+
+  box.innerHTML = list.map(n => {
+    const verb = NOTIF_VERB[n.type] || 'Updated';
+    const icon = NOTIF_ICON[n.type] || 'ti-bell';
+    return `
+      <div class="notif-item ${n.read ? '' : 'unread'}">
+        <div class="notif-icon ${n.type}"><i class="ti ${icon}"></i></div>
+        <div class="notif-body">
+          <div class="notif-text">${verb} topic <strong>"${escapeHtml(n.title)}"</strong></div>
+          <div class="notif-time">${timeAgo(n.ts)}</div>
+        </div>
+        ${n.read ? '' : '<div class="notif-dot"></div>'}
+      </div>`;
+  }).join('');
+}
+
+function escapeHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+/* ── Right-panel "Notifications" card (dashboard) ─────────
+   Shows the same real event feed as the bell — no more
+   hardcoded "Keep it up!" placeholder messages. ──────────── */
+const TOAST_CLASS = { add:'s', complete:'s', update:'i', delete:'d' };
+const TOAST_TITLE  = {
+  add:      'Topic added',
+  complete: 'Topic completed',
+  update:   'Topic updated',
+  delete:   'Topic deleted'
+};
+
+function renderRightPanelNotifications() {
+  const box = document.getElementById('rsNotifList');
+  if (!box) return;
+
+  const list = getNotifications().slice(0, 5); // most recent 5
+
+  if (list.length === 0) {
+    box.innerHTML = `
+      <div style="text-align:center;padding:18px 8px;color:var(--tmut)">
+        <i class="ti ti-bell-off" style="font-size:24px;display:block;margin-bottom:6px;opacity:.5"></i>
+        <div style="font-size:11px;line-height:1.5">No activity yet.<br>Add or complete a topic to see it here.</div>
+      </div>`;
+    return;
+  }
+
+  box.innerHTML = list.map(n => {
+    const cls  = TOAST_CLASS[n.type] || 'i';
+    const icon = NOTIF_ICON[n.type] || 'ti-bell';
+    const head = TOAST_TITLE[n.type] || 'Update';
+    return `
+      <div class="toast ${cls}" data-notif-id="${n.id}">
+        <div class="tco"><i class="ti ${icon}"></i></div>
+        <div>
+          <div class="tt">${head}</div>
+          <div class="tsub">${escapeHtml(n.title)} · ${timeAgo(n.ts)}</div>
+        </div>
+        <i class="ti ti-x tcl" onclick="dismissNotification('${n.id}', this)"></i>
+      </div>`;
+  }).join('');
+}
+
+function dismissNotification(id, el) {
+  const list = getNotifications().filter(n => n.id !== id);
+  saveNotifications(list);
+  const row = el.closest('.toast');
+  if (row) {
+    row.style.opacity = '0';
+    row.style.transform = 'translateX(12px)';
+    setTimeout(() => { row.remove(); renderNotifications(); }, 220);
+  } else {
+    renderRightPanelNotifications();
+    renderNotifications();
+  }
+}
+
+function markAllNotificationsRead() {
+  const list = getNotifications();
+  if (list.length === 0) return;
+  list.forEach(n => n.read = true);
+  saveNotifications(list);
+  const badge = document.getElementById('notifBadge');
+  if (badge) badge.style.display = 'none';
+}
+
+function clearAllNotifications() {
+  saveNotifications([]);
+  renderNotifications();
+  renderRightPanelNotifications();
+}
+
+function toggleNotifPanel(e) {
+  if (e) e.stopPropagation();
+  const panel = document.getElementById('notifPanel');
+  const btn   = document.getElementById('notifBtn');
+  if (!panel || !btn) return;
+
+  const isOpening = panel.style.display !== 'flex';
+
+  if (isOpening) {
+    const rect = btn.getBoundingClientRect();
+    const panelWidth = 320;
+    panel.style.top  = (rect.bottom + 10) + 'px';
+    panel.style.left = Math.max(8, rect.right - panelWidth) + 'px';
+    panel.style.display = 'flex';
+    requestAnimationFrame(() => panel.classList.add('show'));
+    renderNotifications();
+    // Mark as read shortly after opening (lets the unread dot flash briefly)
+    setTimeout(markAllNotificationsRead, 700);
+  } else {
+    panel.classList.remove('show');
+    panel.style.display = 'none';
+  }
+}
+
+document.addEventListener('click', e => {
+  const panel = document.getElementById('notifPanel');
+  const wrap  = document.getElementById('notifWrap');
+  if (panel && panel.style.display === 'flex' && wrap && !wrap.contains(e.target)) {
+    panel.classList.remove('show');
+    panel.style.display = 'none';
+  }
+});
+
+window.addEventListener('resize', () => {
+  const panel = document.getElementById('notifPanel');
+  if (panel && panel.style.display === 'flex') {
+    panel.classList.remove('show');
+    panel.style.display = 'none';
+  }
+});
+
 function getCardData() {
   const raw = localStorage.getItem(LS_KEY);
   if (!raw) return [];
@@ -971,6 +1188,7 @@ function quickComplete(pendingIdx) {
   updateCounters();
   applyFilters();
   saveCards();
+  addNotification('complete', target.title);
   showSuccessToast('Topic marked complete! 🎉');
   setTimeout(() => renderPending(), 100);
 }
@@ -1204,6 +1422,8 @@ function saveCrudTopic() {
 
   const today = new Date().toISOString().split('T')[0];
   const doneOn = status === 'completed' ? today : '';
+  const wasCompletedBefore = _editTarget ? _editTarget.dataset.status === 'completed' : false;
+  const isNowCompleted = status === 'completed';
 
   if (_editTarget) {
     const newCard = buildCard(title, priority, dateVal, status, _editTarget.dataset.addedOn || today, subject, _editTarget.dataset.completedOn || doneOn);
@@ -1224,6 +1444,16 @@ function saveCrudTopic() {
   applyFilters();
   saveCards();
   closeCrudModal();
+
+  // ── Notification: add / complete / update ──────────────
+  if (!_editTarget) {
+    addNotification('add', title);
+  } else if (isNowCompleted && !wasCompletedBefore) {
+    addNotification('complete', title);
+  } else {
+    addNotification('update', title);
+  }
+
   showSuccessToast(_editTarget ? 'Topic updated!' : 'Topic added! 🎉');
 }
 
@@ -1234,11 +1464,13 @@ function openDeleteModal(card) {
 
 document.getElementById('delConfirmBtn').addEventListener('click', () => {
   if (_delTarget) {
+    const deletedTitle = _delTarget.dataset.title || _delTarget.querySelector('.tn')?.textContent || 'Untitled';
     _delTarget.remove();
     _delTarget = null;
     updateCounters();
     applyFilters();
     saveCards();
+    addNotification('delete', deletedTitle);
     showSuccessToast('Topic deleted.');
   }
   closeDeleteModal();
@@ -1342,6 +1574,8 @@ if (localStorage.getItem(LS_KEY) !== null) {
 updateCounters();
 applyFilters();
 updateDashboard();
+renderNotifications();
+renderRightPanelNotifications();
 
 // Start on Dashboard
 switchSection('dashboard');

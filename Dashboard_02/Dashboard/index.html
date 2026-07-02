@@ -81,10 +81,25 @@
           <i class="ti ti-moon" id="nightIcon"></i>
         </button>
 
-        <button class="notif">
-          <i class="ti ti-bell"></i>
-          <span class="nbadge" id="notifBadge">3</span>
-        </button>
+        <div class="notif-wrap" id="notifWrap">
+          <button class="notif" id="notifBtn" onclick="toggleNotifPanel(event)">
+            <i class="ti ti-bell"></i>
+            <span class="nbadge" id="notifBadge" style="display:none">0</span>
+          </button>
+          <div class="notif-panel" id="notifPanel">
+            <div class="notif-panel-head">
+              <span>Notifications</span>
+              <span class="notif-clear" id="notifClearBtn" onclick="clearAllNotifications()">Clear all</span>
+            </div>
+            <div class="notif-list" id="notifList">
+              <div class="notif-empty">
+                <i class="ti ti-bell-off"></i>
+                <div>No notifications yet</div>
+                <span>Add, complete, or delete a topic to see activity here</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div style="display:flex;align-items:center;gap:7px">
           <div class="avatar" id="avatarEl">SR</div>
@@ -360,24 +375,9 @@
           </div>
 
           <div class="rs">
-            <div class="rt">Notifications</div>
-            <div class="ts">
-              <div class="toast s">
-                <div class="tco"><i class="ti ti-circle-check"></i></div>
-                <div>
-                  <div class="tt">Keep it up!</div>
-                  <div class="tsub">Complete more topics today</div>
-                </div>
-                <i class="ti ti-x tcl"></i>
-              </div>
-              <div class="toast i">
-                <div class="tco"><i class="ti ti-info-circle"></i></div>
-                <div>
-                  <div class="tt">Tip: Set due dates</div>
-                  <div class="tsub">Track your upcoming sessions</div>
-                </div>
-                <i class="ti ti-x tcl"></i>
-              </div>
+            <div class="rt">Notifications <span class="va" onclick="clearAllNotifications()">Clear all</span></div>
+            <div class="ts" id="rsNotifList">
+              <!-- Filled dynamically from real add/delete/complete/update events -->
             </div>
           </div>
         </div><!-- /content-r -->
