@@ -133,140 +133,41 @@
           <!-- ─── DASHBOARD VIEW ─── -->
           <div id="dashboardView">
 
-            <!-- 6 STAT CARDS -->
-            <div class="stats">
-              <div class="sc">
-                <div class="si" style="background:var(--sage-l)"><i class="ti ti-books" style="color:var(--sage)"></i></div>
-                <div class="sl">Total Topics</div>
-                <div class="sv" id="stat-total">0</div>
-                <div class="sch up"><i class="ti ti-trending-up"></i> All time</div>
-                <div class="sbar"><div class="sbf" style="background:var(--sage)" id="stat-pct-bar"></div></div>
-              </div>
-
-              <div class="sc">
-                <div class="si" style="background:#E8F5EF"><i class="ti ti-circle-check" style="color:#2D7A56"></i></div>
-                <div class="sl">Completed</div>
-                <div class="sv" id="stat-completed" style="color:#2D7A56">0</div>
-                <div class="sch up"><i class="ti ti-trending-up"></i> Done</div>
-                <div class="sbar"><div class="sbf" id="stat-completed-bar" style="background:#2D7A56;width:0%"></div></div>
-              </div>
-
-              <div class="sc">
-                <div class="si" style="background:var(--sky-l)"><i class="ti ti-loader" style="color:var(--sky)"></i></div>
-                <div class="sl">In Progress</div>
-                <div class="sv" id="stat-inprog" style="color:var(--sky)">0</div>
-                <div class="sch"><i class="ti ti-activity"></i> Active</div>
-                <div class="sbar"><div class="sbf" id="stat-inprog-bar" style="background:var(--sky);width:0%"></div></div>
-              </div>
-
-              <div class="sc">
-                <div class="si" style="background:var(--clay-l)"><i class="ti ti-clock-pause" style="color:var(--clay)"></i></div>
-                <div class="sl">Pending</div>
-                <div class="sv" id="stat-pending" style="color:var(--clay)">0</div>
-                <div class="sch dn"><i class="ti ti-clock"></i> Waiting</div>
-                <div class="sbar"><div class="sbf" id="stat-pending-bar" style="background:var(--clay);width:0%"></div></div>
-              </div>
-
-              <div class="sc">
-                <div class="si" style="background:var(--lav-l)"><i class="ti ti-chart-pie" style="color:var(--lav)"></i></div>
-                <div class="sl">Completion</div>
-                <div class="sv" id="stat-pct" style="color:var(--lav)">0%</div>
-                <div class="sch up"><i class="ti ti-trending-up"></i> Progress</div>
-                <div class="sbar"><div class="sbf" id="stat-pct-fill" style="background:var(--lav);width:0%"></div></div>
-              </div>
-
-              <div class="sc">
-                <div class="si" style="background:var(--moss-l)"><i class="ti ti-calendar-plus" style="color:var(--moss)"></i></div>
-                <div class="sl">Added Today</div>
-                <div class="sv" id="stat-today" style="color:var(--moss)">0</div>
-                <div class="sch up"><i class="ti ti-sun"></i> Today</div>
-                <div class="sbar"><div class="sbf" id="stat-today-bar" style="background:var(--moss);width:100%"></div></div>
-              </div>
-            </div>
-
-            <!-- KANBAN HEADER -->
+            <!-- MY TASKS HEADER -->
             <div class="bh">
-              <div class="bt">📋 My Topics</div>
+              <div class="bt">📋 My Tasks</div>
               <div class="ba">
                 <button class="bf" id="filterBtn"><i class="ti ti-filter"></i> Filter</button>
                 <button class="badd" id="addTopicBtn"><i class="ti ti-plus"></i> Add Topic</button>
               </div>
             </div>
 
-            <!-- KANBAN BOARD -->
-            <div class="kanban">
-              <div class="col col-p">
-                <div class="ch">
-                  <div class="ctw">
-                    <div class="ct">📌 Pending</div>
-                    <div class="cc">0</div>
-                  </div>
-                  <i class="ti ti-dots cdots"></i>
-                </div>
-                <div class="tc">
-                  <div class="tn">Data Structures & Algorithms</div>
-                  <div class="tm2">
-                    <span class="pb ph">High</span>
-                    <span class="td2"><i class="ti ti-calendar"></i> TBD</span>
-                    <div class="tav">SR</div>
-                  </div>
-                </div>
-                <div class="tc">
-                  <div class="tn">Operating Systems</div>
-                  <div class="tm2">
-                    <span class="pb pm">Medium</span>
-                    <span class="td2"><i class="ti ti-calendar"></i> TBD</span>
-                    <div class="tav">SR</div>
-                  </div>
-                </div>
-                <button class="atb"><i class="ti ti-plus"></i> Add Topic</button>
-              </div>
-
-              <div class="col col-i">
-                <div class="ch">
-                  <div class="ctw">
-                    <div class="ct">⚡ In Progress</div>
-                    <div class="cc">0</div>
-                  </div>
-                  <i class="ti ti-dots cdots"></i>
-                </div>
-                <div class="tc">
-                  <div class="tn">Database Management</div>
-                  <div class="tm2">
-                    <span class="pb pm">Medium</span>
-                    <span class="td2"><i class="ti ti-calendar"></i> TBD</span>
-                    <div class="tav">SR</div>
-                  </div>
-                </div>
-                <button class="atb"><i class="ti ti-plus"></i> Add Topic</button>
-              </div>
-
-              <div class="col col-d">
-                <div class="ch">
-                  <div class="ctw">
-                    <div class="ct">✅ Completed</div>
-                    <div class="cc">0</div>
-                  </div>
-                  <i class="ti ti-dots cdots"></i>
-                </div>
-                <div class="tc is-done">
-                  <div class="tn">HTML & CSS Basics</div>
-                  <div class="tm2">
-                    <span class="pb pl">Low</span>
-                    <span class="td2"><i class="ti ti-calendar"></i> TBD</span>
-                    <div class="tav">SR</div>
-                  </div>
-                </div>
-                <button class="atb"><i class="ti ti-plus"></i> Add Topic</button>
-              </div>
+            <!-- STATUS TABS -->
+            <div class="tl-tabs" id="taskTabs">
+              <button class="tl-tab active" data-tab="all">All <span class="tl-tab-count" id="tlcAll">0</span></button>
+              <button class="tl-tab" data-tab="pending"><span class="tl-tab-dot" style="background:#C4875A"></span>Pending <span class="tl-tab-count" id="tlcPending">0</span></button>
+              <button class="tl-tab" data-tab="inprogress"><span class="tl-tab-dot" style="background:#5B8DB8"></span>In Progress <span class="tl-tab-count" id="tlcInprogress">0</span></button>
+              <button class="tl-tab" data-tab="completed"><span class="tl-tab-dot" style="background:#4A9B7F"></span>Completed <span class="tl-tab-count" id="tlcCompleted">0</span></button>
             </div>
 
-            <!-- BOTTOM: Chart + Activity -->
+            <!-- TASK LIST -->
+            <div class="task-list" id="taskListBody">
+              <!-- Task rows injected here by JS -->
+            </div>
+            <div class="no-tasks-msg" id="taskListEmpty">
+              <i class="ti ti-mood-empty"></i>No tasks found
+              <div style="margin-top:12px"><button class="empty-btn" style="margin:0 auto" onclick="openAddModal()"><i class="ti ti-plus"></i> Add Topic</button></div>
+            </div>
+
+            <!-- BOTTOM: Daily Quote + Activity -->
             <div class="bg2">
               <div class="bc">
-                <div class="bct">📈 Weekly Completions</div>
-                <div class="bcs">Topics completed per day this week (real-time)</div>
-                <div class="mch"><canvas id="mc"></canvas></div>
+                <div class="bct">💬 Daily Quote</div>
+                <div class="bcs">Refreshes every 2 minutes</div>
+                <div class="quote-content">
+                  <div class="quote-text" id="quoteText">Loading…</div>
+                  <div class="quote-author" id="quoteAuthor"></div>
+                </div>
               </div>
               <div class="bc">
                 <div class="bct">🕐 Recent Activity</div>
@@ -317,6 +218,16 @@
           </div>
 
           <div class="rs">
+            <div class="rt">Study Streak</div>
+            <div class="streak-box">
+              <div class="streak-flame"><i class="ti ti-flame"></i></div>
+              <div class="streak-days"><span id="streakDays">0</span></div>
+              <div class="streak-lbl">Day Streak</div>
+              <div class="streak-best">Best streak: <strong id="streakBest">0</strong> days</div>
+            </div>
+          </div>
+
+          <div class="rs">
             <div class="rt">By Priority</div>
             <div class="pcs">
               <div class="pi">
@@ -362,7 +273,7 @@
           </div>
 
           <div class="rs">
-            <div class="rt">Upcoming Sessions <span class="va">View all</span></div>
+            <div class="rt">Upcoming Sessions <span class="va" onclick="switchSection('schedule')">View all</span></div>
             <ul class="al" id="upcomingSessions">
               <li class="ui">
                 <div class="uico"><i class="ti ti-clock"></i></div>

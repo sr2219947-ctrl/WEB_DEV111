@@ -1,4 +1,3 @@
-
 // ── Auth Guard ───────────────────────────────────────────────────
 if (localStorage.getItem('isLoggedIn') !== 'true') {
   location.href = '../index.html';
@@ -392,19 +391,17 @@ function loadCards() {
   if (!raw) return;
   try {
     const cards = JSON.parse(raw);
-    document.querySelectorAll('.tc').forEach(c => c.remove());
+    const list = document.getElementById('taskListBody');
+    if (!list) return;
+    list.querySelectorAll('.tc').forEach(c => c.remove());
     cards.forEach(({ title, priority, status, date, subject, addedOn, completedOn }) => {
-      const col = document.querySelector(COL_MAP[status] || COL_MAP.pending);
-      if (!col) return;
-      const card = buildCard(title, priority, date, status, addedOn, subject, completedOn);
-      const atb = col.querySelector('.atb');
-      col.insertBefore(card, atb);
+      list.appendChild(buildCard(title, priority, date, status, addedOn, subject, completedOn));
     });
   } catch (e) { /* ignore */ }
 }
 
 /* ══════════════════════════════════════════════════════════
-   BUILD CARD
+   BUILD TASK ROW
 ══════════════════════════════════════════════════════════ */
 function buildCard(title, priority, dateVal, status, addedOn, subject, completedOn) {
   const isDone = status === 'completed';
@@ -419,6 +416,18 @@ function buildCard(title, priority, dateVal, status, addedOn, subject, completed
   card.dataset.completedOn = completedOn || (isDone ? new Date().toISOString().split('T')[0] : '');
 
   card.innerHTML = `
+    <div class="tc-check${isDone ? ' checked' : ''}" onclick="toggleTaskDone(this)" title="${isDone ? 'Mark as pending' : 'Mark as done'}">
+      <i class="ti ti-check"></i>
+    </div>
+    <div class="tc-main">
+      <div class="tn">${title}</div>
+      <div class="tc-meta">
+        <span class="tc-subject">${subject || 'General'}</span>
+        <span class="td2"><i class="ti ti-calendar"></i> ${fmtDate(dateVal)}</span>
+      </div>
+    </div>
+    <span class="tc-status-badge sts-${status}">${STATUS_LABEL[status] || status}</span>
+    <span class="pb ${PRIORITY_CLASS[priority] || 'pm'}">${priority}</span>
     <div class="tc-actions">
       <button class="tca-btn tca-edit" title="Edit" onclick="openEditModal(this.closest('.tc'))">
         <i class="ti ti-pencil"></i>
@@ -426,14 +435,28 @@ function buildCard(title, priority, dateVal, status, addedOn, subject, completed
       <button class="tca-btn tca-del" title="Delete" onclick="openDeleteModal(this.closest('.tc'))">
         <i class="ti ti-trash"></i>
       </button>
-    </div>
-    <div class="tn">${title}</div>
-    <div class="tm2">
-      <span class="pb ${PRIORITY_CLASS[priority] || 'pm'}">${priority}</span>
-      <span class="td2"><i class="ti ti-calendar"></i> ${fmtDate(dateVal)}</span>
-      <div class="tav">${getInitials()}</div>
     </div>`;
   return card;
+}
+
+function toggleTaskDone(el) {
+  const card = el.closest('.tc');
+  if (!card) return;
+  const wasDone = card.dataset.status === 'completed';
+  const newStatus = wasDone ? 'pending' : 'completed';
+  card.dataset.status = newStatus;
+  card.dataset.completedOn = newStatus === 'completed' ? new Date().toISOString().split('T')[0] : '';
+  card.classList.toggle('is-done', newStatus === 'completed');
+  el.classList.toggle('checked', newStatus === 'completed');
+  el.title = newStatus === 'completed' ? 'Mark as pending' : 'Mark as done';
+  const badge = card.querySelector('.tc-status-badge');
+  if (badge) { badge.className = 'tc-status-badge sts-' + newStatus; badge.textContent = STATUS_LABEL[newStatus]; }
+
+  updateCounters();
+  applyFilters();
+  saveCards();
+  addNotification(newStatus === 'completed' ? 'complete' : 'update', card.dataset.title);
+  showSuccessToast(newStatus === 'completed' ? 'Topic marked complete! 🎉' : 'Marked as pending.');
 }
 
 function getInitials() {
@@ -445,11 +468,15 @@ function getInitials() {
    COUNTERS
 ══════════════════════════════════════════════════════════ */
 function updateCounters() {
-  const cols = ['.col-p', '.col-i', '.col-d'];
-  document.querySelectorAll('.cc').forEach((cc, i) => {
-    const col = document.querySelector(cols[i]);
-    if (col && cc) cc.textContent = col.querySelectorAll('.tc').length;
-  });
+  const list = document.getElementById('taskListBody');
+  if (!list) return;
+  const cards = Array.from(list.querySelectorAll('.tc'));
+  const counts = { all: cards.length, pending: 0, inprogress: 0, completed: 0 };
+  cards.forEach(c => { if (counts[c.dataset.status] !== undefined) counts[c.dataset.status]++; });
+  setVal('tlcAll', counts.all);
+  setVal('tlcPending', counts.pending);
+  setVal('tlcInprogress', counts.inprogress);
+  setVal('tlcCompleted', counts.completed);
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -483,6 +510,10 @@ function updateDashboard() {
   setBar('stat-pending-bar', pct_pend);
   setBar('stat-pct-fill', pct);
   setBar('stat-today-bar', addedToday > 0 ? 100 : 0);
+
+  // ── Study Streak (right panel) ────────────────────────────
+  setVal('streakDays', calcStreak(cards));
+  setVal('streakBest', calcBestStreak(cards));
 
   // ── Today's Progress (right panel) ───────────────────────
   const dv = document.querySelector('.dv');
@@ -721,38 +752,61 @@ function updateFocusInsights(cards, total, completed, inprog, pending, pct) {
   // Streak calculation (consecutive days with completions)
   const streak = calcStreak(cards);
 
+  // Completed in the last 7 days (real count, distinct from the weekly chart below)
+  const weekCompletions = (() => {
+    const now = new Date(); now.setHours(0, 0, 0, 0);
+    return cards.filter(c => {
+      if (c.status !== 'completed') return false;
+      const dateStr = c.completedOn || c.addedOn;
+      if (!dateStr) return false;
+      const diff = Math.floor((now - new Date(dateStr + 'T00:00:00')) / (1000 * 60 * 60 * 24));
+      return diff >= 0 && diff < 7;
+    }).length;
+  })();
+
+  // Average days taken to finish a topic (addedOn -> completedOn)
+  const completionSpans = cards
+    .filter(c => c.status === 'completed' && c.addedOn && c.completedOn)
+    .map(c => Math.max(0, Math.round((new Date(c.completedOn + 'T00:00:00') - new Date(c.addedOn + 'T00:00:00')) / (1000 * 60 * 60 * 24))));
+  const avgDays = completionSpans.length ? (completionSpans.reduce((a, b) => a + b, 0) / completionSpans.length) : null;
+
+  // Subject with the most topics
+  const subjectCounts = {};
+  cards.forEach(c => { const s = c.subject || 'General'; subjectCounts[s] = (subjectCounts[s] || 0) + 1; });
+  const topSubject = Object.entries(subjectCounts).sort((a, b) => b[1] - a[1])[0];
+
   panel.innerHTML = `
-    <!-- MINI STAT GRID -->
+    <!-- MINI STAT GRID — unique focus insights, not a repeat of the Dashboard stat cards -->
     <div class="fi-grid">
       <div class="fi-card">
-        <div class="fi-icon" style="background:var(--sage-l)"><i class="ti ti-books" style="color:var(--sage)"></i></div>
-        <div class="fi-val">${total}</div>
-        <div class="fi-lbl">Total Topics</div>
-      </div>
-      <div class="fi-card">
-        <div class="fi-icon" style="background:#E8F5EF"><i class="ti ti-circle-check" style="color:#2D7A56"></i></div>
-        <div class="fi-val" style="color:#2D7A56">${completed}</div>
-        <div class="fi-lbl">Completed</div>
-      </div>
-      <div class="fi-card">
-        <div class="fi-icon" style="background:var(--sky-l)"><i class="ti ti-loader" style="color:var(--sky)"></i></div>
-        <div class="fi-val" style="color:var(--sky)">${inprog}</div>
-        <div class="fi-lbl">In Progress</div>
-      </div>
-      <div class="fi-card">
-        <div class="fi-icon" style="background:var(--clay-l)"><i class="ti ti-clock-pause" style="color:var(--clay)"></i></div>
-        <div class="fi-val" style="color:var(--clay)">${pending}</div>
-        <div class="fi-lbl">Pending</div>
-      </div>
-      <div class="fi-card">
-        <div class="fi-icon" style="background:#FFF3E0"><i class="ti ti-flame" style="color:#FF9800"></i></div>
-        <div class="fi-val" style="color:#FF9800">${streak}</div>
+        <div class="fi-icon" style="background:var(--orange-l)"><i class="ti ti-flame" style="color:var(--orange)"></i></div>
+        <div class="fi-val" style="color:var(--orange)">${streak}</div>
         <div class="fi-lbl">Day Streak 🔥</div>
       </div>
       <div class="fi-card">
-        <div class="fi-icon" style="background:#E8F5EF"><i class="ti ti-sun" style="color:#2D7A56"></i></div>
-        <div class="fi-val" style="color:#2D7A56">${doneToday}</div>
+        <div class="fi-icon" style="background:var(--green-l)"><i class="ti ti-sun" style="color:var(--green)"></i></div>
+        <div class="fi-val" style="color:var(--green)">${doneToday}</div>
         <div class="fi-lbl">Done Today</div>
+      </div>
+      <div class="fi-card">
+        <div class="fi-icon" style="background:var(--sky-l)"><i class="ti ti-calendar" style="color:var(--sky)"></i></div>
+        <div class="fi-val" style="color:var(--sky)">${weekCompletions}</div>
+        <div class="fi-lbl">Completed This Week</div>
+      </div>
+      <div class="fi-card">
+        <div class="fi-icon" style="background:var(--lav-l)"><i class="ti ti-hourglass" style="color:var(--lav)"></i></div>
+        <div class="fi-val" style="color:var(--lav)">${avgDays !== null ? avgDays.toFixed(1) : '—'}</div>
+        <div class="fi-lbl">Avg. Days to Complete</div>
+      </div>
+      <div class="fi-card">
+        <div class="fi-icon" style="background:var(--moss-l)"><i class="ti ti-books" style="color:var(--moss)"></i></div>
+        <div class="fi-val" style="font-size:16px;line-height:1.3;color:var(--moss)" title="${topSubject ? escapeHtml(topSubject[0]) : ''}">${topSubject ? escapeHtml(topSubject[0]) : '—'}</div>
+        <div class="fi-lbl">Most Active Subject${topSubject ? ` (${topSubject[1]})` : ''}</div>
+      </div>
+      <div class="fi-card">
+        <div class="fi-icon" style="background:var(--red-l)"><i class="ti ti-clock-x" style="color:var(--red)"></i></div>
+        <div class="fi-val" style="color:var(--red)">${overdue.length}</div>
+        <div class="fi-lbl">Overdue</div>
       </div>
     </div>
 
@@ -785,7 +839,7 @@ function updateFocusInsights(cards, total, completed, inprog, pending, pct) {
       <span style="color:var(--tm)">No high-priority topics pending — great work!</span>
     </div>`}
     ${overdue.length > 0 ? `
-    <div class="fi-alert" style="background:#FFF0F0;border-color:#FFCCCC;color:#C0392B">
+    <div class="fi-alert" style="background:var(--red-l);border-color:var(--red-bdr);color:var(--red)">
       <i class="ti ti-clock-x" style="color:#E24B4A"></i>
       <span><strong>${overdue.length} topic${overdue.length !== 1 ? 's' : ''}</strong> past due date — review now!</span>
     </div>` : ''}
@@ -833,6 +887,19 @@ function calcStreak(cards) {
     else if (i > 0) break;
   }
   return streak;
+}
+
+function calcBestStreak(cards) {
+  const completed = cards.filter(c => c.status === 'completed' && (c.completedOn || c.addedOn));
+  if (completed.length === 0) return 0;
+  const days = [...new Set(completed.map(c => c.completedOn || c.addedOn))].sort();
+  let best = 1, run = 1;
+  for (let i = 1; i < days.length; i++) {
+    const diff = Math.round((new Date(days[i] + 'T00:00:00') - new Date(days[i - 1] + 'T00:00:00')) / (1000 * 60 * 60 * 24));
+    run = diff === 1 ? run + 1 : 1;
+    if (run > best) best = run;
+  }
+  return best;
 }
 
 function updateFocusChart(cards) {
@@ -1172,17 +1239,17 @@ function quickComplete(pendingIdx) {
   const pend = cards.filter(c => c.status !== 'completed');
   if (!pend[pendingIdx]) return;
   const target = pend[pendingIdx];
-  // Find and update the actual card in DOM
+  // Find and update the actual row in the task list DOM
   const domCards = document.querySelectorAll('.tc');
   domCards.forEach(card => {
-    if (card.dataset.title === target.title && card.dataset.priority === target.priority) {
+    if (card.dataset.status !== 'completed' && card.dataset.title === target.title && card.dataset.priority === target.priority) {
       card.dataset.status = 'completed';
       card.dataset.completedOn = new Date().toISOString().split('T')[0];
-      const newCol = document.querySelector('.col-d');
-      if (newCol) {
-        card.classList.add('is-done');
-        newCol.insertBefore(card, newCol.querySelector('.atb'));
-      }
+      card.classList.add('is-done');
+      const chk = card.querySelector('.tc-check');
+      if (chk) { chk.classList.add('checked'); chk.title = 'Mark as pending'; }
+      const badge = card.querySelector('.tc-status-badge');
+      if (badge) { badge.className = 'tc-status-badge sts-completed'; badge.textContent = STATUS_LABEL.completed; }
     }
   });
   updateCounters();
@@ -1237,7 +1304,7 @@ function exportData() {
    FILTER SYSTEM
 ══════════════════════════════════════════════════════════ */
 let _filterPriority = 'All';
-let _filterStatus = 'All';
+let _activeTab = 'all';
 let _sortMode = 'none';
 
 function buildFilterPanel() {
@@ -1251,13 +1318,9 @@ function buildFilterPanel() {
     <div class="fp-group" id="fpPriority">
       ${['All', 'High', 'Medium', 'Low'].map(p => `<button class="fp-btn${p === 'All' ? ' active' : ''}" data-priority="${p}">${p}</button>`).join('')}
     </div>
-    <div style="font-size:11px;font-weight:700;color:var(--tmut);text-transform:uppercase;letter-spacing:.07em;margin:12px 0 8px">Status</div>
-    <div class="fp-group" id="fpStatus">
-      ${['All', 'Pending', 'In Progress', 'Completed'].map(s => `<button class="fp-btn${s === 'All' ? ' active' : ''}" data-status="${s}">${s}</button>`).join('')}
-    </div>
     <div style="font-size:11px;font-weight:700;color:var(--tmut);text-transform:uppercase;letter-spacing:.07em;margin:12px 0 8px">Sort</div>
     <div class="fp-group" id="fpSort">
-      <button class="fp-btn active" data-sort="none">Default</button>
+      <button class="fp-btn active" data-sort="none">Newest</button>
       <button class="fp-btn" data-sort="name-asc">A → Z</button>
       <button class="fp-btn" data-sort="name-desc">Z → A</button>
       <button class="fp-btn" data-sort="priority">Priority</button>
@@ -1274,14 +1337,6 @@ function buildFilterPanel() {
       applyFilters();
     });
   });
-  panel.querySelectorAll('#fpStatus .fp-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      panel.querySelectorAll('#fpStatus .fp-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      _filterStatus = btn.dataset.status;
-      applyFilters();
-    });
-  });
   panel.querySelectorAll('#fpSort .fp-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       panel.querySelectorAll('#fpSort .fp-btn').forEach(b => b.classList.remove('active'));
@@ -1291,10 +1346,9 @@ function buildFilterPanel() {
     });
   });
   panel.querySelector('#fpClear').addEventListener('click', () => {
-    _filterPriority = 'All'; _filterStatus = 'All'; _sortMode = 'none';
+    _filterPriority = 'All'; _sortMode = 'none';
     panel.querySelectorAll('.fp-btn').forEach(b => b.classList.remove('active'));
     panel.querySelector('[data-priority="All"]').classList.add('active');
-    panel.querySelector('[data-status="All"]').classList.add('active');
     panel.querySelector('[data-sort="none"]').classList.add('active');
     applyFilters();
   });
@@ -1318,49 +1372,44 @@ function toggleFilterPanel() {
   }
 }
 
-function applyFilters() {
-  const searchVal = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
-  const statusColMap = { 'Pending': 'col-p', 'In Progress': 'col-i', 'Completed': 'col-d' };
-
-  ['.col-p', '.col-i', '.col-d'].forEach(colSel => {
-    const col = document.querySelector(colSel);
-    if (!col) return;
-
-    let colHidden = false;
-    if (_filterStatus !== 'All') {
-      const requiredCls = statusColMap[_filterStatus];
-      colHidden = !col.classList.contains(requiredCls);
-    }
-
-    let cards = Array.from(col.querySelectorAll('.tc'));
-    if (_sortMode === 'name-asc') cards.sort((a, b) => (a.dataset.title || '').localeCompare(b.dataset.title || ''));
-    if (_sortMode === 'name-desc') cards.sort((a, b) => (b.dataset.title || '').localeCompare(a.dataset.title || ''));
-    if (_sortMode === 'priority') cards.sort((a, b) => (PRIORITY_ORDER[a.dataset.priority] || 2) - (PRIORITY_ORDER[b.dataset.priority] || 2));
-
-    const atb = col.querySelector('.atb');
-    cards.forEach(card => col.insertBefore(card, atb));
-
-    let visibleCount = 0;
-    cards.forEach(card => {
-      const title = (card.dataset.title || card.querySelector('.tn')?.textContent || '').toLowerCase();
-      const priority = (card.dataset.priority || '').toLowerCase();
-      const matchSearch = !searchVal || title.includes(searchVal);
-      const matchPriority = _filterPriority === 'All' || priority === _filterPriority.toLowerCase();
-      const show = !colHidden && matchSearch && matchPriority;
-      card.style.display = show ? '' : 'none';
-      if (show) visibleCount++;
-    });
-
-    let msg = col.querySelector('.no-tasks-msg');
-    if (!msg) {
-      msg = document.createElement('div');
-      msg.className = 'no-tasks-msg';
-      msg.innerHTML = '<i class="ti ti-mood-empty"></i>No tasks found';
-      col.insertBefore(msg, atb);
-    }
-    msg.style.display = (visibleCount === 0 && !colHidden) ? 'block' : 'none';
-    col.style.display = colHidden ? 'none' : '';
+/* ── Status tabs (All / Pending / In Progress / Completed) ── */
+document.querySelectorAll('.tl-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tl-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    _activeTab = tab.dataset.tab;
+    applyFilters();
   });
+});
+
+function applyFilters() {
+  const list = document.getElementById('taskListBody');
+  if (!list) return;
+  const searchVal = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
+
+  let cards = Array.from(list.querySelectorAll('.tc'));
+  if (_sortMode === 'name-asc') cards.sort((a, b) => (a.dataset.title || '').localeCompare(b.dataset.title || ''));
+  if (_sortMode === 'name-desc') cards.sort((a, b) => (b.dataset.title || '').localeCompare(a.dataset.title || ''));
+  if (_sortMode === 'priority') cards.sort((a, b) => (PRIORITY_ORDER[a.dataset.priority] || 2) - (PRIORITY_ORDER[b.dataset.priority] || 2));
+  cards.forEach(card => list.appendChild(card));
+
+  let visibleCount = 0;
+  cards.forEach(card => {
+    const title = (card.dataset.title || '').toLowerCase();
+    const priority = (card.dataset.priority || '').toLowerCase();
+    const status = card.dataset.status;
+    const matchTab = _activeTab === 'all' || status === _activeTab;
+    const matchSearch = !searchVal || title.includes(searchVal);
+    const matchPriority = _filterPriority === 'All' || priority === _filterPriority.toLowerCase();
+    const show = matchTab && matchSearch && matchPriority;
+    card.style.display = show ? '' : 'none';
+    if (show) visibleCount++;
+  });
+
+  const emptyMsg = document.getElementById('taskListEmpty');
+  if (emptyMsg) emptyMsg.style.display = visibleCount === 0 ? 'flex' : 'none';
+
+  updateCounters();
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -1427,17 +1476,16 @@ function saveCrudTopic() {
 
   if (_editTarget) {
     const newCard = buildCard(title, priority, dateVal, status, _editTarget.dataset.addedOn || today, subject, _editTarget.dataset.completedOn || doneOn);
-    const oldCol = _editTarget.closest('.col');
-    const newCol = document.querySelector(COL_MAP[status]);
-    if (oldCol !== newCol) {
-      _editTarget.remove();
-      newCol.insertBefore(newCard, newCol.querySelector('.atb'));
-    } else {
-      oldCol.replaceChild(newCard, _editTarget);
-    }
+    _editTarget.replaceWith(newCard);
   } else {
-    const col = document.querySelector(COL_MAP[status]);
-    col.insertBefore(buildCard(title, priority, dateVal, status, today, subject, doneOn), col.querySelector('.atb'));
+    const list = document.getElementById('taskListBody');
+    if (list) {
+      const newCard = buildCard(title, priority, dateVal, status, today, subject, doneOn);
+      list.prepend(newCard);
+      newCard.classList.add('just-added');
+      newCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      setTimeout(() => newCard.classList.remove('just-added'), 1800);
+    }
   }
 
   updateCounters();
@@ -1502,17 +1550,6 @@ document.addEventListener('keydown', e => {
 const addTopicBtn = document.getElementById('addTopicBtn');
 if (addTopicBtn) addTopicBtn.addEventListener('click', openAddModal);
 
-document.querySelectorAll('.atb').forEach(btn => {
-  const col = btn.closest('.col');
-  btn.addEventListener('click', () => {
-    let status = 'pending';
-    if (col.classList.contains('col-i')) status = 'inprogress';
-    if (col.classList.contains('col-d')) status = 'completed';
-    openAddModal();
-    document.getElementById('crudStatus').value = status;
-  });
-});
-
 /* ══════════════════════════════════════════════════════════
    MOBILE BOTTOM NAV
 ══════════════════════════════════════════════════════════ */
@@ -1524,58 +1561,51 @@ function setMobNav(el) {
 }
 
 /* ══════════════════════════════════════════════════════════
-   STATIC CARD INITIALISATION
+   DAILY QUOTE — rotates every 2 minutes
 ══════════════════════════════════════════════════════════ */
-function initStaticCards() {
-  document.querySelectorAll('.tc').forEach(card => {
-    if (card.dataset.title) return;
-    const col = card.closest('.col');
-    if (!col) return;
-    let status = 'pending';
-    if (col.classList.contains('col-i')) status = 'inprogress';
-    if (col.classList.contains('col-d')) status = 'completed';
-    const badge = card.querySelector('.pb');
-    const priority = badge ? badge.textContent.trim() : 'Medium';
-    card.dataset.title = card.querySelector('.tn').textContent;
-    card.dataset.priority = priority;
-    card.dataset.status = status;
-    card.dataset.date = '';
-    card.dataset.subject = 'General';
-    card.dataset.addedOn = new Date().toISOString().split('T')[0];
-    card.dataset.completedOn = status === 'completed' ? new Date().toISOString().split('T')[0] : '';
-    if (!card.querySelector('.tc-actions')) {
-      const actions = document.createElement('div');
-      actions.className = 'tc-actions';
-      actions.innerHTML = `
-        <button class="tca-btn tca-edit" title="Edit" onclick="openEditModal(this.closest('.tc'))"><i class="ti ti-pencil"></i></button>
-        <button class="tca-btn tca-del" title="Delete" onclick="openDeleteModal(this.closest('.tc'))"><i class="ti ti-trash"></i></button>`;
-      card.prepend(actions);
-    }
-  });
+const STUDY_QUOTES = [
+  { text: "The expert in anything was once a beginner.", author: "Helen Hayes" },
+  { text: "Success is the sum of small efforts repeated day in and day out.", author: "Robert Collier" },
+  { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
+  { text: "The beautiful thing about learning is that no one can take it away from you.", author: "B.B. King" },
+  { text: "Well begun is half done.", author: "Aristotle" },
+  { text: "It always seems impossible until it's done.", author: "Nelson Mandela" },
+  { text: "Small daily improvements are the key to staggering long-term results.", author: "James Clear" },
+  { text: "Focus on being productive instead of busy.", author: "Tim Ferriss" },
+  { text: "You don't have to be great to start, but you have to start to be great.", author: "Zig Ziglar" },
+  { text: "Discipline is choosing between what you want now and what you want most.", author: "Abraham Lincoln" }
+];
+let _quoteIndex = Math.floor(Math.random() * STUDY_QUOTES.length);
+
+function renderQuote() {
+  const q = STUDY_QUOTES[_quoteIndex];
+  const textEl = document.getElementById('quoteText');
+  const authorEl = document.getElementById('quoteAuthor');
+  if (!textEl || !authorEl) return;
+  textEl.textContent = `"${q.text}"`;
+  authorEl.textContent = `— ${q.author}`;
+}
+
+function rotateQuote() {
+  _quoteIndex = (_quoteIndex + 1) % STUDY_QUOTES.length;
+  renderQuote();
 }
 
 /* ══════════════════════════════════════════════════════════
    INIT — user-isolated startup
-   • Returning user  → their own tasks load from LS_KEY.
-   • Brand-new user  → HTML demo cards are removed so they
-     start with a completely empty board. Their LS_KEY is
-     then seeded with [] so future loads stay clean too.
 ══════════════════════════════════════════════════════════ */
-if (localStorage.getItem(LS_KEY) !== null) {
-  // Returning user — restore exactly their own saved tasks
-  loadCards();
-} else {
-  // New user — wipe the static HTML seed cards entirely
-  document.querySelectorAll('.tc').forEach(c => c.remove());
-  // Persist the empty state under this user's own key
+if (localStorage.getItem(LS_KEY) === null) {
   localStorage.setItem(LS_KEY, JSON.stringify([]));
 }
+loadCards();
 
 updateCounters();
 applyFilters();
 updateDashboard();
 renderNotifications();
 renderRightPanelNotifications();
+renderQuote();
+setInterval(rotateQuote, 2 * 60 * 1000);
 
 // Start on Dashboard
 switchSection('dashboard');
